@@ -1,0 +1,39 @@
+<plex-title size="sm" titulo="Mis consultas">
+    <!--<plex-radio [(ngModel)]="modelo.radio" [data]="options" name="colores" type="horizontal"></plex-radio>-->
+    <plex-badge *mobile="false" type="info">27/01/2021</plex-badge>
+    <plex-button type="info" icon="filter" tooltip="mostrar filtros" class="ml-2" size="sm" (click)="mostrarFiltros()">
+    </plex-button>
+    <!--<plex-button type="warning" icon="hospital" tooltip="evaluar centro de salud" class="ml-2" size="sm">
+    </plex-button>-->
+    <plex-button *mobile="false" type="warning" label="evaluar profesional" class="ml-2 mr-3" size="sm"></plex-button>
+    <plex-button *mobile type="warning" icon="account-alert" tooltip="evaluar profesional" class="ml-2 mr-3" size="sm">
+    </plex-button>
+</plex-title>
+<plex-wrapper *ngIf="filtros">
+    <plex-select *mobile="false" grow="2" [(ngModel)]="modelo1.select" [data]="prestaciones"
+                 label-field="nombre + ' (' + continente + ')'" label="¿Por qué motivo fuiste al médico?">
+    </plex-select>
+    <plex-select grow="2" [(ngModel)]="modelo3.select" [data]="efectores" label-field="nombre + ' (' + continente + ')'"
+                 label="¿Dónde te atendiste?">
+    </plex-select>
+    <plex-select *mobile="false" grow="2" [(ngModel)]="modelo2.select" [data]="profesionales"
+                 label-field="nombre + ' (' + continente + ')'" label="¿Quién te atendió?">
+    </plex-select>
+
+    <plex-datetime label="¿Cuándo fuiste al médico?" [(ngModel)]="tModel.fechaHora" name="fechaHora" case="lowercase"
+                   required>
+    </plex-datetime>
+
+    <!--<plex-text label="Buscar paciente" [(ngModel)]="templateModel2.nombre" name="nombre">
+        </plex-text>-->
+</plex-wrapper>
+<plex-list height="50vh">
+    <plex-item *ngFor="let prestacion of prestaciones$ | async" (click)="selected(prestacion)">
+        <plex-label icon="{{ prestacion.icono }}" titulo="{{ prestacion.nombre }}" size="lg"
+                    subtitulo="Atendido por: {{ prestacion.profesional }}"></plex-label>
+        <plex-label *mobile="false" icon="hospital" titulo="{{ prestacion.organizacion }}"
+                    subtitulo="{{prestacion.servicio }} | {{ prestacion.sector }}"></plex-label>
+        <plex-badge type="info">{{ prestacion.fecha }}</plex-badge>
+        <plex-button type="info" size="sm" icon="eye"></plex-button>
+    </plex-item>
+</plex-list>

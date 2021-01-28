@@ -1,0 +1,7 @@
+<ng-container *ngIf="turno$ | async as turno">
+    <plex-detail>
+        <plex-label titulo="Dado por" subtitulo="{{ turno.emitidoPor }} a las {{ turno.fechaHoraDacion }} hs.">
+
+        </plex-label>
+    </plex-detail>
+</ng-container>

@@ -1,0 +1,98 @@
+<!--<plex-layout main="{{ sidebarValue }}" [aspect]="8" resizable="true">-->
+<plex-layout [aspect]="9" resizable="true">
+    <plex-layout-main type="invert">
+        <plex-title size="{{ isResponsive() ? 'md' : 'sm' }}"
+                    titulo="{{ isResponsive() ? 'bienvenido a tu portal de salud' : 'tu portal' }}" main>
+            <plex-button size="sm" [icon]="isResponsive() ? null : 'mail-outline'" class="ml-2" type="link">
+                info@andes.gob.ar
+            </plex-button>
+            <plex-button size="sm" [label]="isResponsive() ? 'www.andes.gob.ar' : null" class="ml-2" type="link">
+                <ng-container>
+                    <plex-icon name="web"></plex-icon>
+                </ng-container>
+            </plex-button>
+            <plex-button *mobile="false" size="sm" class="ml-2" type="warning" label="reportar error en mis datos"
+                         (click)="openModal(0)">
+            </plex-button>
+            <plex-button *mobile size="sm" class="ml-2" type="warning" icon="send" (click)="openModal(0)">
+            </plex-button>
+            <plex-button *mobile="false" size="sm" class="ml-2" type="danger" label="cerrar sesión"
+                         (click)="isResponsive()">
+            </plex-button>
+            <plex-button *mobile size="sm" class="ml-2" type="danger" icon="close" (click)="isResponsive()">
+            </plex-button>
+        </plex-title>
+
+        <!-- Reporte de errores -->
+        <plex-modal size="md" #modal [startOpen]="false" [allowEscClose]="true" [allowBackdropClose]="false">
+            <plex-icon name="alert-circle" type="warning"></plex-icon>
+            <plex-modal-title type="default">Reportando error en sus datos</plex-modal-title>
+            <plex-modal-subtitle center class="font-subtitle text-muted text-center">
+                Al completar los siguientes datos y aceptar, usted iniciará un proceso que será sometido a auditoría
+                para corroborar el error reportado.
+            </plex-modal-subtitle>
+            <main>
+                <section class="w-100 h-100">
+                    <plex-title titulo="Indique y describa el error" size="sm"></plex-title>
+                    <form #formulario="ngForm" (close)="notificarAccion(false)">
+                        <div>
+                            <plex-select placeholder="Seleccione un motivo" grow="2" [(ngModel)]="modelo2.select"
+                                         [data]="errores" label-field="nombre + ' (' + continente + ')'"
+                                         (change)="cambio()">
+                            </plex-select>
+                        </div>
+                        <div class="mt-4">
+                            <plex-text placeholder="Describa brevemente el error" multiline="true" name="multi"
+                                       [(ngModel)]="prueba" (change)="cambio()">
+                            </plex-text>
+                        </div>
+                    </form>
+                </section>
+            </main>
+
+            <plex-button modal left type="danger" (click)="closeModal(0, formulario.form)" [validateForm]="formulario">
+                CANCELAR
+            </plex-button>
+            <plex-button modal right type="success" (click)="closeModal(0, formulario.form)"
+                         [disabled]="motivoSelect()">
+                ACEPTAR
+            </plex-button>
+        </plex-modal>
+
+        <plex-grid cols="4" size="md">
+
+            <!-- Menu -->
+            <plex-grid *mobile="false" span="1" class="align-self-start mr-4" size="xs">
+                <ng-container *ngFor="let card of cards$ | async">
+                    <plex-card size="xs" align="center" type="{{ card.type }}"
+                               [routerLink]="[{ outlets: { listado: [card.path] } }]">
+                        <plex-label size="lg" direction="column" titulo="{{ card.titulo }}"
+                                    subtitulo="{{ card.subtitulo }} {{ card.fecha }}" icon="{{ card.icono }}">
+                        </plex-label>
+                    </plex-card>
+                </ng-container>
+            </plex-grid>
+
+            <!-- Listado -->
+            <section span="{{ isResponsive() ? '3' : '4' }}">
+                <plex-portal-paciente-main (eventoSidebar)="recibirSidebar($event)">
+                </plex-portal-paciente-main>
+            </section>
+        </plex-grid>
+
+        <!-- Menu mobile -->
+        <plex-grid *mobile cols="5" class="align-self-start mr-4" size="md">
+            <plex-button *ngFor="let card of cards$ | async" size="xs" icon="{{ card.icono }}" type="{{ card.type }}"
+                         [routerLink]="[{ outlets: { listado: [card.path] } }]">
+            </plex-button>
+        </plex-grid>
+
+    </plex-layout-main>
+    <plex-layout-sidebar>
+        <plex-title size="{{ isResponsive() ? 'md' : 'sm' }}"
+                    titulo="{{ isResponsive() ? 'detalle de esta consulta' : 'detalle de la consulta' }}">
+            <plex-button type="danger" icon="close" size="sm" (click)="contraerSidebar()"></plex-button>
+        </plex-title>
+        <router-outlet></router-outlet>
+    </plex-layout-sidebar>
+</plex-layout>

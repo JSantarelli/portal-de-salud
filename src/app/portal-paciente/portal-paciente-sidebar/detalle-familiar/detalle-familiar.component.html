@@ -1,0 +1,10 @@
+<ng-container *ngIf="familiar$ | async as familiar">
+    <plex-detail size="lg">
+        <img src="{{ familiar.foto }}" alt="">
+        <plex-badge type="success">{{ familiar.relacion }}</plex-badge>
+        <div title>{{ familiar.apellido }}, {{ familiar.nombre }} </div>
+        <div subtitle>{{ familiar.dni }} </div>
+        <plex-label titulo="Edad" subtitulo="{{ familiar.edad }}"></plex-label>
+        <plex-label titulo="Documento" subtitulo="{{ familiar.dni }}"></plex-label>
+    </plex-detail>
+</ng-container>

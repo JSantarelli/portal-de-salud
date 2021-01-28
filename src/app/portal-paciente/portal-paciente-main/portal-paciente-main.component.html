@@ -1,0 +1,26 @@
+<plex-grid size="md" type="full">
+    <ng-container *ngFor="let paciente of pacientes$ | async | slice:0:1">
+        <plex-detail class="disabled" size="{{ isResponsive() ? 'sm' : 'lg' }}">
+            <plex-badge></plex-badge>
+            <!--<img src="{{ paciente.foto }}" alt="">-->
+            <plex-icon name="paciente"></plex-icon>
+            <div title>{{ paciente.nombre }}<br>{{ paciente.apellido }}</div>
+            <div subtitle>{{ paciente.documento }}</div>
+            <plex-label *mobile="false" titulo="Numero de carpeta" subtitulo="{{ paciente.cuil }}"></plex-label>
+            <plex-label *mobile="false" titulo="Obra social" subtitulo="I.S.S.N"></plex-label>
+            <plex-label *mobile="false" titulo="Domicilio" subtitulo="{{ paciente.domicilio }}"></plex-label>
+            <plex-label *mobile="false" titulo="Teléfono" subtitulo="{{ paciente.contacto }}"></plex-label>
+            <!--<plex-label *ngFor="let registro of registros" titulo="{{ registro.dato }}"
+                        subtitulo="{{ registro.valor }}"></plex-label>-->
+        </plex-detail>
+        <plex-grid size="md" type="full" *mobile="false">
+            <plex-card *ngFor="let registro of registros | slice:0:3" align="center">
+                <plex-label titulo="{{ registro.dato }}" subtitulo="{{ registro.valor }}"></plex-label>
+                <plex-button type="info" size="sm" label="Historial {{ registro.dato }}"></plex-button>
+            </plex-card>
+        </plex-grid>
+    </ng-container>
+</plex-grid>
+
+<router-outlet name="listado"></router-outlet>
+<router-outlet name="turnos"></router-outlet>
