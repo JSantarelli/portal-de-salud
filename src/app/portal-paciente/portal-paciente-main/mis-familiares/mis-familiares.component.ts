@@ -40,7 +40,7 @@ export class MisFamiliaresComponent implements OnInit {
 
     selected(familiar) {
         this.selectedId = familiar.id;
-        //this.router.navigate(['portal-paciente', this.selectedId]);
+        this.router.navigate(['portal-paciente', { outlets: { detalleFamiliar: [this.selectedId] } }]);
     }
 }
 

@@ -17,7 +17,7 @@ export class MisTurnosComponent implements OnInit {
 
     sidebarValue = 9;
     @Output() eventoSidebar = new EventEmitter<number>();
-    filtros = false;
+    filtros = true;
 
     public duracion = '1 hs. 34 min.';
     public plex: Plex;
@@ -155,7 +155,7 @@ export class MisTurnosComponent implements OnInit {
     selected(turno) {
         this.enviarSidebar();
         this.selectedId = turno.id;
-        //this.router.navigate(['portal-paciente', this.selectedId]);
+        this.router.navigate(['portal-paciente', { outlets: { detalleTurno: [this.selectedId] } }]);
     }
 }
 

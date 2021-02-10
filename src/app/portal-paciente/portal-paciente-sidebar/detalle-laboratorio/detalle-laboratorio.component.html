@@ -1,13 +1,10 @@
 <ng-container *ngIf="laboratorio$ | async as laboratorio">
     <plex-detail>
-        <plex-icon name="laboratorio" type="danger"></plex-icon>
+        <plex-icon name="recipiente" type="danger"></plex-icon>
         <plex-badge type="info">{{ laboratorio.fecha }}</plex-badge>
         <plex-badge type="success">{{ laboratorio.id }}</plex-badge>
+        <plex-badge *ngIf="laboratorio.visibilidad === false" type="warning">retirar personalmente</plex-badge>
         <div title case="capitalize">{{ laboratorio.tipo }} </div>
         <div subtitle>{{ laboratorio.organizacion }}</div>
     </plex-detail>
-    <!--<section *ngFor="let dato of vacuna.datosPrestacion">
-        <plex-label size="md" titulo="Te atendiste en" subtitulo="{{ dato.organizacion }}"></plex-label>
-        <plex-label size="md" titulo="Te atendió" subtitulo="{{ dato.profesionales }}"></plex-label>
-    </section>-->
 </ng-container>

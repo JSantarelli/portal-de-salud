@@ -37,7 +37,7 @@ export class MisVacunasComponent implements OnInit {
 
     selected(vacuna) {
         this.selectedId = vacuna.id;
-        //this.router.navigate(['portal-paciente', this.selectedId]);
+        this.router.navigate(['portal-paciente', { outlets: { detalleVacuna: [this.selectedId] } }]);
     }
 }
 

@@ -1,4 +1,4 @@
-<plex-title size="sm" titulo="Mis turnos">
+<!--<plex-title size="sm" titulo="Mis turnos">
     <plex-badge type="info">27/01/2021</plex-badge>
     <plex-button type="info" icon="filter" tooltip="mostrar filtros" class="ml-2" size="sm" (click)="mostrarFiltros()">
     </plex-button>
@@ -22,7 +22,7 @@
                        case="lowercase" required>
         </plex-datetime>
     </plex-wrapper>
-</plex-title>
+</plex-title>-->
 <plex-list>
     <plex-item *ngFor="let turno of turnos$ | async" (click)="selected(turno)">
         <plex-label size="lg" icon="turno-bold" titulo="{{ turno.tipoPrestacion }}"

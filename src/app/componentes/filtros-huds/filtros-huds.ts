@@ -1,17 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { PrestacionService } from '../../../servicios/prestacion.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { EventEmitter, Output } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { Plex } from '@andes/plex';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+
+import { PrestacionService } from '../../servicios/prestacion.service';
+import { CardService } from '../../servicios/card.service';
+import { Card } from '../../modelos/card';
 
 @Component({
-    selector: 'app-mi-huds',
-    templateUrl: './mi-huds.component.html',
+    selector: 'filtros-huds',
+    templateUrl: './filtros-huds.html',
 })
-export class MiHudsComponent implements OnInit {
+export class FiltrosHudsComponent implements OnInit {
+
     searchTerm$ = new BehaviorSubject<string>('');
+
+    // switchea mensaje por listado
+    @Output() eventoValor = new EventEmitter<boolean>();
+    valor: boolean;
+    card$: Observable<Card>;
+    cards$: Observable<Card[]>;
 
     public selectedId;
     public prestacion$;
@@ -57,15 +67,24 @@ export class MiHudsComponent implements OnInit {
 
     constructor(
         private prestacionService: PrestacionService,
+        private cardService: CardService,
         private route: ActivatedRoute,
         private router: Router,
     ) { }
 
     ngOnInit(): void {
         this.prestacionService.valorActual.subscribe(valor => this.sidebarValue = valor)
+        //this.data.currentValor.subscribe(valor => this.valor = valor)
 
         // Servicios
         this.prestaciones$ = this.prestacionService.getPrestaciones();
+        this.cards$ = this.cardService.getCards();
+
+        //mostrar semantics
+        this.card$ = this.route.paramMap.pipe(
+            switchMap((params: ParamMap) =>
+                this.cardService.getCard(params.get('id')))
+        );
 
         //mostrar listado
         this.prestacion$ = this.route.paramMap.pipe(
@@ -178,15 +197,14 @@ export class MiHudsComponent implements OnInit {
         this.filtros = !this.filtros;
     }
 
-    nuevoValor() {
-        this.prestacionService.actualizarValor(8);
-    }
+    //enviarValor() {
+    //    this.eventoValor.emit(this.valor);
+    //    console.log(this.valor);
+    //}
 
-    selected(prestacion) {
-        this.selectedId = prestacion.id;
-        //this.router.navigate(['portal-paciente', this.selectedId]);
-        this.router.navigate(['portal-paciente', { outlets: { detalleHuds: [this.selectedId] } }]);
-        this.nuevoValor();
-    }
+    //showPacientes() {
+    //    this.data.currentValor.subscribe(valor => this.valor = valor)
+    //    this.data.changeMessage(false)
+    //}
 }
 

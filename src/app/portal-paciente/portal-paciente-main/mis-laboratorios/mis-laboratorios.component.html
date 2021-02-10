@@ -1,6 +1,3 @@
-<plex-title size="sm" titulo="Mis laboratorios">
-    <plex-button *mobile="false" size="sm" type="info" icon="impresora" class="mr-3"></plex-button>
-</plex-title>
 <plex-list>
     <plex-item *ngFor="let laboratorio of laboratorios$ | async" (click)="selected(laboratorio)">
         <plex-bool *ngIf="seleccionMultiple" type="checkbox"></plex-bool>

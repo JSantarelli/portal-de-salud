@@ -38,19 +38,9 @@ export class PortalPacienteMainComponent implements OnInit {
     // public prueba = '';
     public templateModel2: any;
     public modelo: any;
-
     public showModal = false;
-
-    foco = 'main';
     public prueba = '';
     public cambio = '';
-
-    registros = [
-        { dato: 'peso', valor: '62 kgs.', fecha: '11/03/2020' },
-        { dato: 'talla', valor: '173 cms.', fecha: '11/03/2020' },
-        { dato: 'T.A', valor: '96 / 124 mmHg.', fecha: '11/03/2020' },
-        { dato: 'grupo/factor', valor: 'A+', fecha: '11/03/2020' },
-    ]
 
     updateMaxHora() {
         this.tModel.minHora = moment().add(30, 'minutes').add(1, 'days');

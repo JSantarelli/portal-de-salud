@@ -91,4 +91,15 @@ export class PrestacionService {
             map((turnos: Turno[]) => turnos.find(turno => turno.id === +id))
         );
     }
+
+    // Limpio los ruteos auxiliares
+    resetOutlet() {
+        this.router.navigate(['portal-paciente', { outlets: { detalleHuds: null, detalleVacuna: null, detalleTurno: null, detalleFamiliar: null, detalleLaboratorio: null } }]);
+    }
+
+    goto(path: string[]) {
+        console.log(path);
+        this.router.navigate(path);
+    }
+
 }

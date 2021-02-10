@@ -1,0 +1,27 @@
+<plex-grid size="md" type="full">
+    <ng-container *ngFor="let paciente of pacientes$ | async | slice:0:1">
+        <plex-detail size="{{ isResponsive() ? 'sm' : 'md' }}">
+            <plex-badge></plex-badge>
+            <img src="{{ paciente.foto }}" alt="">
+            <!--<plex-icon name="paciente"></plex-icon>-->
+            <div title>{{ paciente.nombre }}<br>{{ paciente.apellido }}</div>
+            <div subtitle>{{ paciente.documento }}</div>
+            <plex-label *ngFor="let registro of registros" titulo="{{ registro.valor }}"
+                        subtitulo="{{ registro.dato }} {{ registro.fecha }}"></plex-label>
+            <!--<plex-label *mobile="false" titulo="Numero de carpeta" subtitulo="{{ paciente.cuil }}"></plex-label>
+            <plex-label *mobile="false" titulo="Obra social" subtitulo="I.S.S.N"></plex-label>
+            <plex-label *mobile="false" titulo="Domicilio" subtitulo="{{ paciente.domicilio }}"></plex-label>
+            <plex-label *mobile="false" titulo="Teléfono" subtitulo="{{ paciente.contacto }}"></plex-label>-->
+        </plex-detail>
+        <plex-grid size="xs" type="full" *mobile="false">
+            <plex-card size="sm" *ngFor="let alerta of alertas" align="start" type="{{ alerta.tipo }}"
+                       color="{{ alerta.color }}">
+                <plex-label direction="row" titulo="{{ alerta.dato }}"
+                            subtitulo="Último registro el día {{ alerta.fecha }}" icon="">
+                    <p class="" dato>{{ alerta.valor }}</p>
+                </plex-label>
+                <!--<plex-button type="info" size="sm" label="Ver {{ alerta.dato }}"></plex-button>-->
+            </plex-card>
+        </plex-grid>
+    </ng-container>
+</plex-grid>

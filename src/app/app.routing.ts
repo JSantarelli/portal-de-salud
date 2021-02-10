@@ -22,19 +22,19 @@ const appRoutes: Routes = [
 
         children: [
             { path: 'miHuds', component: MiHudsComponent, outlet: 'listado' },
-            { path: ':id', component: DetallePrestacionComponent },
+            { path: ':id', component: DetallePrestacionComponent, outlet: 'detalleHuds' },
 
             { path: 'misVacunas', component: MisVacunasComponent, outlet: 'listado' },
-            //{ path: ':id', component: DetalleVacunaComponent },
+            { path: ':id', component: DetalleVacunaComponent, outlet: 'detalleVacuna' },
 
             { path: 'misLaboratorios', component: MisLaboratoriosComponent, outlet: 'listado' },
-            //{ path: ':id', component: DetalleLaboratorioComponent },
+            { path: ':id', component: DetalleLaboratorioComponent, outlet: 'detalleLaboratorio' },
 
             { path: 'misTurnos', component: MisTurnosComponent, outlet: 'listado' },
-            //{ path: ':id', component: DetalleTurnoComponent },
+            { path: ':id', component: DetalleTurnoComponent, outlet: 'detalleTurno' },
 
             { path: 'misFamiliares', component: MisFamiliaresComponent, outlet: 'listado' },
-            //{ path: ':id', component: DetalleFamiliarComponent },
+            { path: ':id', component: DetalleFamiliarComponent, outlet: 'detalleFamiliar' },
         ]
     },
     { path: '', component: HomeComponent },

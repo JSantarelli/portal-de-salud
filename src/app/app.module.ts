@@ -15,6 +15,7 @@ import { PrestacionService } from './servicios/prestacion.service';
 import { PacienteService } from './servicios/paciente.service';
 import { AgendaService } from './servicios/agenda.service';
 //import { PacientePipe } from './pipes/pacientes.pipe'
+import { PrestacionPipe } from './pipes/prestaciones.pipe'
 
 // Components
 import { HomeComponent } from './home.component';
@@ -33,6 +34,8 @@ import { MisFamiliaresComponent } from './portal-paciente/portal-paciente-main/m
 import { MisVacunasComponent } from './portal-paciente/portal-paciente-main/mis-vacunas/mis-vacunas.component';
 import { MisLaboratoriosComponent } from './portal-paciente/portal-paciente-main/mis-laboratorios/mis-laboratorios.component';
 import { MisTurnosComponent } from './portal-paciente/portal-paciente-main/mis-turnos/mis-turnos.component';
+import { PacienteDetalleComponent } from './componentes/paciente-detalle/paciente-detalle'
+import { FiltrosHudsComponent } from './componentes/filtros-huds/filtros-huds';
 
 @NgModule({
     declarations: [
@@ -49,7 +52,10 @@ import { MisTurnosComponent } from './portal-paciente/portal-paciente-main/mis-t
         DetalleVacunaComponent,
         DetalleLaboratorioComponent,
         DetalleTurnoComponent,
-        DetalleFamiliarComponent
+        DetalleFamiliarComponent,
+        PacienteDetalleComponent,
+        FiltrosHudsComponent,
+        PrestacionPipe
     ],
     imports: [
         BrowserModule,

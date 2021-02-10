@@ -26,7 +26,7 @@ export class PortalPacienteComponent implements OnInit {
 
     @Output() motivoAccesoHuds = new EventEmitter<any>();
 
-
+    public invert = true;
     public contenido = '';
     public email = '';
     public motivoSelected = null;
@@ -101,6 +101,8 @@ export class PortalPacienteComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.modelo = { invert: false }
+
         // Paso valor del sidebar
         this.prestacionService.valorActual.subscribe(valor => this.sidebarValue = valor)
 
@@ -143,8 +145,15 @@ export class PortalPacienteComponent implements OnInit {
     public prueba = '';
     public cambio = '';
 
+    setInvert() {
+        this.invert = !this.invert;
+    }
+
     onChange() {
         this.plex.info('success', 'Este cartel se demoro un segundo en aparecer después de escribir.');
     }
 
+    resetOutlet() {
+        this.prestacionService.resetOutlet();
+    }
 }

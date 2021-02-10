@@ -13,6 +13,7 @@ export class MisLaboratoriosComponent implements OnInit {
     public selectedId;
     public laboratorio$;
     public laboratorios$;
+    filtros = true;
 
     sidebarValue = 12;
     @Output() eventoSidebar = new EventEmitter<number>();
@@ -40,6 +41,6 @@ export class MisLaboratoriosComponent implements OnInit {
 
     selected(laboratorio) {
         this.selectedId = laboratorio.id;
-        //this.router.navigate(['portal-paciente', this.selectedId]);
+        this.router.navigate(['portal-paciente', { outlets: { detalleLaboratorio: [this.selectedId] } }]);
     }
 }

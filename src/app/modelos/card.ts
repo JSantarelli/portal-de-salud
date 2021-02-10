@@ -1,12 +1,11 @@
 import { Prestacion } from "./prestacion";
 
 export class Card {
-    titulo: string;
-    subtitulo: string;
+    id: number;
+    nombre: string;
+    tipo: string;
     icono: string;
-    botones: [string, string];
-    type: string;
-    fecha: string;
+    color: string;
     path: string;
     outlet: string;
 }
