@@ -3,18 +3,18 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { PrestacionService } from '../../../servicios/prestacion.service';
-import { Prestacion } from '../../../modelos/prestacion';
+import { Huds } from 'src/app/modelos/huds';
 
 @Component({
-    selector: 'plex-detalle-huds',
+    selector: 'detalle-huds',
     templateUrl: './detalle-huds.component.html',
 })
-export class DetallePrestacionComponent implements OnInit {
+export class DetalleHudsComponent implements OnInit {
 
     public selectedId;
-    public prestaciones$;
-    public listadoPrestacion: Prestacion[];
-    prestacion$: Observable<Prestacion>;
+    public huds$;
+    public listadoHud: Huds[];
+    hud$: Observable<Huds>;
 
     constructor(
         private prestacionService: PrestacionService,
@@ -23,13 +23,13 @@ export class DetallePrestacionComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.prestaciones$ = this.prestacionService.getPrestaciones();
+        this.huds$ = this.prestacionService.getHuds();
         this.prestacionService.getPreviousUrl();
 
         //mostrar detalle de prestacion
-        this.prestacion$ = this.route.paramMap.pipe(
+        this.hud$ = this.route.paramMap.pipe(
             switchMap((params: ParamMap) =>
-                this.prestacionService.getPrestacion(params.get('id')))
+                this.prestacionService.getHud(params.get('id')))
         );
     }
 

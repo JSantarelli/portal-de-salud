@@ -31,17 +31,19 @@ export class PacienteDetalleComponent implements OnInit {
     ]
 
     alertas = [
-        { dato: 'problemas', valor: '7', fecha: '11/03/2021', tipo: 'danger', color: '', icono: 'trastorno' },
-        { dato: 'alergias', valor: '3', fecha: '17/07/2020', tipo: 'warning', color: '', icono: 'trastorno' },
-        { dato: 'medicamentos', valor: '5', fecha: '21/09/2020', tipo: 'custom', color: '#00cab6', icono: 'trastorno' },
+        { dato: 'problemas', valor: '7', subdato: 'hipertensión, diabetes y 5 más...', tipo: 'dark', color: '', icono: 'trastorno', path: 'misProblemas', semanticTag: 'trastorno' },
+        { dato: 'alergias', valor: '3', subdato: 'penicilina, carbamazepina y metmorfina', tipo: 'dark', color: '', icono: 'lupa-ojo', path: 'misProblemas', semanticTag: 'hallazgo' },
+        { dato: 'prescripciones', valor: '5', subdato: 'subutamol, enalapril y 3 más...', tipo: 'dark', color: '#00cab6', icono: 'pildoras', path: 'misPrescripciones', semanticTag: 'producto' },
+        { dato: 'laboratorios', valor: '1', subdato: 'Resultados del hemograma', tipo: 'dark', color: '#a0a0a0', icono: 'recipiente', path: 'misLaboratorios', semanticTag: 'laboratorio' },
+        { dato: 'vacunas', valor: '1', subdato: 'subutamol, enalapril y 3 más...', tipo: 'dark', color: '#92278e', icono: 'vacuna', path: 'misVacunas', semanticTag: 'procedimiento' },
     ]
 
     @Output() motivoAccesoHuds = new EventEmitter<any>();
 
     pacientes$: Observable<Paciente[]>
     paciente$: Observable<Paciente>
-    width = 0;
-
+    width: number;
+    datosSecundarios = true;
     selectedId: number;
     @Output() eventoSidebar = new EventEmitter<number>();
 
@@ -63,7 +65,11 @@ export class PacienteDetalleComponent implements OnInit {
 
     ngOnInit() {
         this.pacientes$ = this.pacienteService.getPacientes();
+    }
 
+    ocultarDatos() {
+        this.datosSecundarios = !this.datosSecundarios;
+        console.log(this.datosSecundarios);
     }
 
     onChange() {

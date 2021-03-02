@@ -14,17 +14,18 @@ export class MiHudsComponent implements OnInit {
     searchTerm$ = new BehaviorSubject<string>('');
 
     public selectedId;
-    public prestacion$;
-    public prestaciones$;
+    public hud$;
+    public huds$;
     sidebarValue: number;
     filtros = true;
+    verHuds = false;
 
     public duracion = '1 hs. 34 min.';
     public plex: Plex;
     public tModel: any;
     public optiones: any[];
     public options: any[];
-    public prestaciones: any[];
+    public huds: any[];
     public profesionales: any[];
     public efectores: any[];
     public modelo1 = { select: null };
@@ -56,21 +57,21 @@ export class MiHudsComponent implements OnInit {
     }
 
     constructor(
-        private prestacionService: PrestacionService,
+        private hudsService: PrestacionService,
         private route: ActivatedRoute,
         private router: Router,
     ) { }
 
     ngOnInit(): void {
-        this.prestacionService.valorActual.subscribe(valor => this.sidebarValue = valor)
+        this.hudsService.valorActual.subscribe(valor => this.sidebarValue = valor)
 
         // Servicios
-        this.prestaciones$ = this.prestacionService.getPrestaciones();
+        this.huds$ = this.hudsService.getHuds();
 
         //mostrar listado
-        this.prestacion$ = this.route.paramMap.pipe(
+        this.hud$ = this.route.paramMap.pipe(
             switchMap((params: ParamMap) =>
-                this.prestacionService.getPrestacion(params.get('id')))
+                this.hudsService.getHud(params.get('id')))
         );
 
         // plex-datetime
@@ -119,8 +120,8 @@ export class MiHudsComponent implements OnInit {
             continente: 'Neuquén',
         }];
 
-        // plex-select prestaciones
-        this.prestaciones = [{
+        // plex-select huds
+        this.huds = [{
             id: 1,
             nombre: 'Consulta general de medicina',
         },
@@ -178,12 +179,16 @@ export class MiHudsComponent implements OnInit {
         this.filtros = !this.filtros;
     }
 
-    nuevoValor() {
-        this.prestacionService.actualizarValor(8);
+    mostrarHuds() {
+        this.verHuds = !this.verHuds;
     }
 
-    selected(prestacion) {
-        this.selectedId = prestacion.id;
+    nuevoValor() {
+        this.hudsService.actualizarValor(8);
+    }
+
+    selected(hud) {
+        this.selectedId = hud.id;
         //this.router.navigate(['portal-paciente', this.selectedId]);
         this.router.navigate(['portal-paciente', { outlets: { detalleHuds: [this.selectedId] } }]);
         this.nuevoValor();

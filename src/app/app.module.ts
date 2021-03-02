@@ -24,18 +24,41 @@ import { AppComponent } from './app.component';
 // Portal de pacientes
 import { PortalPacienteComponent } from './portal-paciente/portal-paciente.component';
 import { PortalPacienteMainComponent } from './portal-paciente/portal-paciente-main/portal-paciente-main.component';
+
+// Listados
 import { MiHudsComponent } from './portal-paciente/portal-paciente-main/mi-huds/mi-huds.component';
-import { DetalleFamiliarComponent } from './portal-paciente/portal-paciente-sidebar/detalle-familiar/detalle-familiar.component';
-import { DetallePrestacionComponent } from './portal-paciente/portal-paciente-sidebar/detalle-huds/detalle-huds.component';
-import { DetalleLaboratorioComponent } from './portal-paciente/portal-paciente-sidebar/detalle-laboratorio/detalle-laboratorio.component';
-import { DetalleTurnoComponent } from './portal-paciente/portal-paciente-sidebar/detalle-turno/detalle-turno.component';
-import { DetalleVacunaComponent } from './portal-paciente/portal-paciente-sidebar/detalle-vacuna/detalle-vacuna.component';
 import { MisFamiliaresComponent } from './portal-paciente/portal-paciente-main/mis-familiares/mis-familiares.component';
 import { MisVacunasComponent } from './portal-paciente/portal-paciente-main/mis-vacunas/mis-vacunas.component';
 import { MisLaboratoriosComponent } from './portal-paciente/portal-paciente-main/mis-laboratorios/mis-laboratorios.component';
 import { MisTurnosComponent } from './portal-paciente/portal-paciente-main/mis-turnos/mis-turnos.component';
+import { MisProblemasComponent } from './portal-paciente/portal-paciente-main/mis-problemas/mis-problemas.component';
+import { MisPrescripcionesComponent } from './portal-paciente/portal-paciente-main/mis-prescripciones/mis-prescripciones.component';
+import { MiEquipoComponent } from './portal-paciente/portal-paciente-main/mi-equipo/mi-equipo.component';
+import { MisOrganizacionesComponent } from './portal-paciente/portal-paciente-main/mis-organizaciones/mis-organizaciones.component';
+import { MisConsultasComponent } from './portal-paciente/portal-paciente-main/mis-consultas/mis-consultas.component';
+import { MisMensajesComponent } from './portal-paciente/portal-paciente-main/mis-mensajes/mis-mensajes.component';
+import { MisDocumentosComponent } from './portal-paciente/portal-paciente-main/mis-documentos/mis-documentos.component';
+
+// Detalles
+import { DetalleFamiliarComponent } from './portal-paciente/portal-paciente-sidebar/detalle-familiar/detalle-familiar.component';
+import { DetalleHudsComponent } from './portal-paciente/portal-paciente-sidebar/detalle-huds/detalle-huds.component';
+import { DetalleLaboratorioComponent } from './portal-paciente/portal-paciente-sidebar/detalle-laboratorio/detalle-laboratorio.component';
+import { DetalleTurnoComponent } from './portal-paciente/portal-paciente-sidebar/detalle-turno/detalle-turno.component';
+import { DetalleVacunaComponent } from './portal-paciente/portal-paciente-sidebar/detalle-vacuna/detalle-vacuna.component';
+import { DetalleProblemaComponent } from './portal-paciente/portal-paciente-sidebar/detalle-problema/detalle-problema.component';
+import { DetallePrescripcionComponent } from './portal-paciente/portal-paciente-sidebar/detalle-prescripcion/detalle-prescripcion.component';
+import { DetalleProfesionalComponent } from './portal-paciente/portal-paciente-sidebar/detalle-profesional/detalle-profesional.component';
+import { DetalleMensajeComponent } from './portal-paciente/portal-paciente-sidebar/detalle-mensaje/detalle-mensaje.component';
+import { DetalleConsultaComponent } from './portal-paciente/portal-paciente-sidebar/detalle-consulta/detalle-consulta.component';
+import { DetalleOrganizacionComponent } from './portal-paciente/portal-paciente-sidebar/detalle-organizacion/detalle-organizacion.component';
+
+// Componentes
 import { PacienteDetalleComponent } from './componentes/paciente-detalle/paciente-detalle'
 import { FiltrosHudsComponent } from './componentes/filtros-huds/filtros-huds';
+import { MisSolicitudesComponent } from './portal-paciente/portal-paciente-main/mis-solicitudes/mis-solicitudes.component';
+import { DetalleSolicitudComponent } from './portal-paciente/portal-paciente-sidebar/detalle-solicitud/detalle-solicitud.component';
+
+
 
 @NgModule({
     declarations: [
@@ -48,11 +71,26 @@ import { FiltrosHudsComponent } from './componentes/filtros-huds/filtros-huds';
         MisVacunasComponent,
         MisTurnosComponent,
         MisFamiliaresComponent,
-        DetallePrestacionComponent,
+        MisProblemasComponent,
+        MisPrescripcionesComponent,
+        MisConsultasComponent,
+        MiEquipoComponent,
+        MisMensajesComponent,
+        MisOrganizacionesComponent,
+        MisDocumentosComponent,
+        MisSolicitudesComponent,
+        DetalleHudsComponent,
         DetalleVacunaComponent,
         DetalleLaboratorioComponent,
         DetalleTurnoComponent,
         DetalleFamiliarComponent,
+        DetalleProblemaComponent,
+        DetallePrescripcionComponent,
+        DetalleConsultaComponent,
+        DetalleProfesionalComponent,
+        DetalleMensajeComponent,
+        DetalleOrganizacionComponent,
+        DetalleSolicitudComponent,
         PacienteDetalleComponent,
         FiltrosHudsComponent,
         PrestacionPipe

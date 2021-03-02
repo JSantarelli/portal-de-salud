@@ -1,3 +1,5 @@
+import { Problema } from './../modelos/problema'
+
 // TODO: O un objeto enorme que contemple toda la HUDS o interfaces que segementen la HUDS
 export interface Prestacion {
     auditable: boolean;
@@ -15,61 +17,5 @@ export interface Prestacion {
     icono: string;
     color: string;
     noNominalizada?: boolean;
-    registros: [
-        {
-            evolucion: string;
-            valor: any;
-            esDiagnosticoPrincipal: boolean;
-            semanticTag: string;
-            icono: string;
-            color: string;
-            term: string;
-            fecha: string;
-            estado: boolean;
-        },
-        {
-            evolucion: string;
-            valor: any;
-            esDiagnosticoPrincipal: boolean;
-            semanticTag: string;
-            icono: string;
-            color: string;
-            term: string;
-            fecha: string;
-            estado: boolean;
-        },
-        {
-            evolucion: string;
-            valor: any;
-            esDiagnosticoPrincipal: boolean;
-            semanticTag: string;
-            icono: string;
-            color: string;
-            term: string;
-            fecha: string;
-            estado: boolean;
-        },
-        {
-            evolucion: string;
-            valor: any;
-            esDiagnosticoPrincipal: boolean;
-            semanticTag: string;
-            icono: string;
-            color: string;
-            term: string;
-            fecha: string;
-            estado: boolean;
-        },
-        {
-            evolucion: string;
-            valor: any;
-            esDiagnosticoPrincipal: boolean;
-            semanticTag: string;
-            icono: string;
-            color: string;
-            term: string;
-            fecha: string;
-            estado: boolean;
-        }
-    ],
+    registros: Problema[],
 }

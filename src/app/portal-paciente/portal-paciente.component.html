@@ -1,5 +1,5 @@
 <!--<plex-layout main="{{ sidebarValue }}" [aspect]="8" resizable="true">-->
-<plex-layout main="9" resizable="true">
+<plex-layout main="9">
     <plex-layout-main type="{{ invert === true ? 'invert' : null }}">
         <plex-title size="{{ isResponsive() ? 'md' : 'sm' }}"
                     titulo="{{ isResponsive() ? 'bienvenido a tu portal de salud' : 'tu portal' }}" main>
@@ -11,21 +11,20 @@
                     <plex-icon name="web"></plex-icon>
                 </ng-container>
             </plex-button>
-            <plex-button type="info" icon="auto-fix" size="sm" (click)="setInvert()"></plex-button>
-            <!--<plex-bool type="slide" [(ngModel)]="model.invert" label="Día/Noche" name=""></plex-bool>-->
-            <plex-button *mobile="false" size="sm" class="ml-2" type="warning" label="reportar error en mis datos"
-                         (click)="openModal(0)">
+            <plex-button type="info" icon="message-alert" size="sm" hint="tienes dos elementos sin leer" hintIcon="bell"
+                         hintType="warning" detach="top" [routerLink]="[{ outlets: { listado: ['misMensajes'] } }]">
             </plex-button>
-            <plex-button *mobile size="sm" class="ml-2" type="warning" icon="send" (click)="openModal(0)">
-            </plex-button>
+            <!--<plex-button *mobile="false" type="info" icon="auto-fix" size="sm" (click)="setInvert()"></plex-button>-->
+            <!--<plex-button *mobile size="sm" class="ml-2" type="warning" icon="send" >
+            </plex-button>-->
             <plex-button *mobile="false" size="sm" class="ml-2" type="danger" label="cerrar sesión"
-                         (click)="isResponsive()">
+                         (click)="openModal(0)">
             </plex-button>
             <plex-button *mobile size="sm" class="ml-2" type="danger" icon="close" (click)="isResponsive()">
             </plex-button>
         </plex-title>
 
-        <!-- Reporte de errores -->
+        <!-- MODAL: Reporte de errores -->
         <plex-modal size="md" #modal [startOpen]="false" [allowEscClose]="true" [allowBackdropClose]="false">
             <plex-icon name="alert-circle" type="warning"></plex-icon>
             <plex-modal-title type="default">Reportando error en sus datos</plex-modal-title>
@@ -60,14 +59,16 @@
                 ACEPTAR
             </plex-button>
         </plex-modal>
+        <!-- FIN MODAL -->
+
         <plex-grid cols="12" size="md">
 
-            <!-- Menu -->
+            <!-- Menu Lateral -->
             <plex-grid id="menu-vertical" *mobile="false" span="1" class="align-self-start mr-4 flex-column"
                        justify="start" size="xs">
                 <ng-container *ngFor="let card of cards$ | async">
-                    <plex-button icon="{{ card.icono }}" size="md" type="link"
-                                 [routerLink]="[{ outlets: { listado: [card.path] } }]">
+                    <plex-button icon="{{ card.icono }}" size="md" type="link" tooltip="{{ card.path }}" class="mb-2"
+                                 tooltipPosition="right" [routerLink]="[{ outlets: { listado: [card.path] } }]">
                     </plex-button>
                 </ng-container>
             </plex-grid>
@@ -89,16 +90,23 @@
     </plex-layout-main>
     <plex-layout-sidebar type="{{ invert === false ? 'invert' : null }}">
         <plex-title size="{{ isResponsive() ? 'md' : 'sm' }}"
-                    titulo="{{ isResponsive() ? 'detalle de esta consulta' : 'detalle de la consulta' }}">
-            <plex-button type="danger" icon="close" size="sm" (click)="contraerSidebar()"></plex-button>
+                    titulo="{{ isResponsive() ? 'DETALLE' : 'detalle de la consulta' }}">
             <plex-button type="warning" size="sm" (click)="resetOutlet()" icon="delete"></plex-button>
+            <plex-button type="danger" icon="close" size="sm" (click)="contraerSidebar()" class="ml-2"></plex-button>
             <!--<plex-button type="warning" (click)="goto([ 'portal-paciente' , 'null' ])" icon="close"></plex-button>-->
         </plex-title>
-        <!--<router-outlet></router-outlet>-->
+        <!--<router-outlet name="detalle"></router-outlet>-->
         <router-outlet name="detalleHuds"></router-outlet>
+        <router-outlet name="detallePrescripcion"></router-outlet>
         <router-outlet name="detalleVacuna"></router-outlet>
         <router-outlet name="detalleLaboratorio"></router-outlet>
         <router-outlet name="detalleTurno"></router-outlet>
         <router-outlet name="detalleFamiliar"></router-outlet>
+        <router-outlet name="detalleProblema"></router-outlet>
+        <router-outlet name="detalleConsulta"></router-outlet>
+        <router-outlet name="detalleProfesional"></router-outlet>
+        <router-outlet name="detalleMensaje"></router-outlet>
+        <router-outlet name="detalleOrganizacion"></router-outlet>
+        <router-outlet name="detalleSolicitud"></router-outlet>
     </plex-layout-sidebar>
 </plex-layout>

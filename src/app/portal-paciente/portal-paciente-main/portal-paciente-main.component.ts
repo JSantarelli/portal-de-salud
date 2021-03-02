@@ -23,6 +23,7 @@ export class PortalPacienteMainComponent implements OnInit {
     prestaciones$: Observable<Prestacion[]>;
     selectedId: string;
     width = 0;
+    filtros = true;
 
     public duracion = '1 hs. 34 min.';
     public plex: Plex;
@@ -65,7 +66,7 @@ export class PortalPacienteMainComponent implements OnInit {
         //Inicio servicios
         this.agendas$ = this.agendaService.getAgendas();
         this.pacientes$ = this.pacienteService.getPacientes();
-        this.prestaciones$ = this.prestacionService.getPrestaciones();
+        this.prestaciones$ = this.prestacionService.getConsultas();
 
         // plex-datetime
         this.tModel = {
@@ -123,13 +124,16 @@ export class PortalPacienteMainComponent implements OnInit {
 
     }
 
+    mostrarFiltros() {
+        this.filtros = !this.filtros;
+    }
+
     isResponsive() {
         this.width = this.el.nativeElement.clientWidth;
         if (this.width >= 980) {
             return true;
         }
         else false;
-        console.log(this.width);
     }
 
     enviarSidebar() {

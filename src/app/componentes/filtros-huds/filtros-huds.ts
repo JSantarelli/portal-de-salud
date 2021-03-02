@@ -77,7 +77,7 @@ export class FiltrosHudsComponent implements OnInit {
         //this.data.currentValor.subscribe(valor => this.valor = valor)
 
         // Servicios
-        this.prestaciones$ = this.prestacionService.getPrestaciones();
+        this.prestaciones$ = this.prestacionService.getConsultas();
         this.cards$ = this.cardService.getCards();
 
         //mostrar semantics
@@ -89,7 +89,7 @@ export class FiltrosHudsComponent implements OnInit {
         //mostrar listado
         this.prestacion$ = this.route.paramMap.pipe(
             switchMap((params: ParamMap) =>
-                this.prestacionService.getPrestacion(params.get('id')))
+                this.prestacionService.getConsulta(params.get('id')))
         );
 
         // plex-datetime
@@ -196,15 +196,5 @@ export class FiltrosHudsComponent implements OnInit {
     mostrarFiltros() {
         this.filtros = !this.filtros;
     }
-
-    //enviarValor() {
-    //    this.eventoValor.emit(this.valor);
-    //    console.log(this.valor);
-    //}
-
-    //showPacientes() {
-    //    this.data.currentValor.subscribe(valor => this.valor = valor)
-    //    this.data.changeMessage(false)
-    //}
 }
 

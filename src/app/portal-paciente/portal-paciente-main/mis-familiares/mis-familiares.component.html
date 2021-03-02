@@ -5,7 +5,7 @@
     <plex-button type="warning" label="delegar cuenta" tooltip="delegar cuenta" class="ml-2 mr-3" size="sm">
     </plex-button>
 </plex-title>
-<plex-grid size="md" type="auto">
+<plex-grid size="sm" type="full" cols="6">
     <plex-card type="default" *ngFor="let familiar of familiares$ | async" (click)="selected(familiar)">
         <img src="{{ familiar.foto }}" alt="">
         <plex-label size="lg" direction="column" titulo="{{ familiar.nombre }} {{ familiar.apellido }}"

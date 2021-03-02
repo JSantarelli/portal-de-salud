@@ -4,7 +4,8 @@ import { map } from 'rxjs/operators';
 import { Router, NavigationEnd } from '@angular/router';
 
 import { Prestacion } from '../modelos/prestacion';
-import { PRESTACIONES } from '../mock-data/mock-prestaciones';
+import { HUDS } from '../mock-data/mock-huds';
+import { PRESTACIONES } from '../mock-data/mock-consultas';
 import { Vacuna } from '../modelos/vacuna';
 import { VACUNAS } from '../mock-data/mock-vacunas';
 import { Turno } from '../modelos/turno';
@@ -13,6 +14,21 @@ import { Laboratorio } from '../modelos/laboratorio';
 import { LABORATORIOS } from '../mock-data/mock-laboratorios';
 import { Familiar } from '../modelos/familiar';
 import { FAMILIARES } from '../mock-data/mock-familiares';
+import { Prescripcion } from '../modelos/prescripcion';
+import { PRESCRIPCIONES } from '../mock-data/mock-prescripciones';
+import { Huds } from '../modelos/huds';
+import { Problema } from '../modelos/problema';
+import { PROBLEMAS } from '../mock-data/mock-problemas';
+import { Profesional } from '../modelos/profesional';
+import { PROFESIONALES } from '../mock-data/mock-equipo';
+import { MENSAJES } from '../mock-data/mock-mensajes';
+import { Mensaje } from '../modelos/mensaje';
+import { Organizacion } from '../modelos/organizacion';
+import { ORGANIZACIONES } from '../mock-data/mock-organizaciones';
+import { DOCUMENTOS } from '../mock-data/mock-documentos';
+import { Documento } from '../modelos/documento';
+import { SOLICITUDES } from '../mock-data/mock-solicitudes';
+import { Solicitud } from '../modelos/solicitud';
 
 @Injectable()
 
@@ -42,12 +58,22 @@ export class PrestacionService {
         this.valorInicial.next(sidebarValue)
     }
 
-    getPrestaciones(): Observable<Prestacion[]> {
+    getHuds(): Observable<Huds[]> {
+        return of(HUDS);
+    }
+
+    getHud(id: number | string) {
+        return this.getHuds().pipe(
+            map((prestaciones: Huds[]) => prestaciones.find(prestacion => prestacion.id === +id))
+        );
+    }
+
+    getConsultas(): Observable<Prestacion[]> {
         return of(PRESTACIONES);
     }
 
-    getPrestacion(id: number | string) {
-        return this.getPrestaciones().pipe(
+    getConsulta(id: number | string) {
+        return this.getConsultas().pipe(
             map((prestaciones: Prestacion[]) => prestaciones.find(prestacion => prestacion.id === +id))
         );
     }
@@ -92,9 +118,91 @@ export class PrestacionService {
         );
     }
 
+    getPrescripciones(): Observable<Prescripcion[]> {
+        return of(PRESCRIPCIONES);
+    }
+
+    getPrescripcion(id: number | string) {
+        return this.getPrescripciones().pipe(
+            map((prescripciones: Prescripcion[]) => prescripciones.find(prescripcion => prescripcion.id === +id))
+        );
+    }
+
+    getProblemas(): Observable<Problema[]> {
+        return of(PROBLEMAS);
+    }
+
+    getProblema(id: number | string) {
+        return this.getProblemas().pipe(
+            map((problemas: Problema[]) => problemas.find(problema => problema.id === +id))
+        );
+    }
+
+    getEquipo(): Observable<Profesional[]> {
+        return of(PROFESIONALES);
+    }
+
+    getProfesional(id: number | string) {
+        return this.getEquipo().pipe(
+            map((equipo: Profesional[]) => equipo.find(profesional => profesional.id === +id))
+        );
+    }
+
+    getMensajes(): Observable<Mensaje[]> {
+        return of(MENSAJES);
+    }
+
+    getMensaje(id: number | string) {
+        return this.getMensajes().pipe(
+            map((mensajes: Mensaje[]) => mensajes.find(mensaje => mensaje.id === +id))
+        );
+    }
+
+    getOrganizaciones(): Observable<Organizacion[]> {
+        return of(ORGANIZACIONES);
+    }
+
+    getOrganizacion(id: number | string) {
+        return this.getOrganizaciones().pipe(
+            map((organizaciones: Organizacion[]) => organizaciones.find(organizacion => organizacion.id === +id))
+        );
+    }
+
+    getDocumentos(): Observable<Documento[]> {
+        return of(DOCUMENTOS);
+    }
+
+    getDocumento(id: number | string) {
+        return this.getDocumentos().pipe(
+            map((documentos: Documento[]) => documentos.find(documento => documento.id === +id))
+        );
+    }
+
+    getSolicitudes(): Observable<Solicitud[]> {
+        return of(SOLICITUDES);
+    }
+
+    getSolicitud(id: number | string) {
+        return this.getSolicitudes().pipe(
+            map((solicitudes: Solicitud[]) => solicitudes.find(solicitud => solicitud.id === +id))
+        );
+    }
+
     // Limpio los ruteos auxiliares
     resetOutlet() {
-        this.router.navigate(['portal-paciente', { outlets: { detalleHuds: null, detalleVacuna: null, detalleTurno: null, detalleFamiliar: null, detalleLaboratorio: null } }]);
+        this.router.navigate(['portal-paciente', {
+            outlets: {
+                detalle: null,
+                detalleHuds: null,
+                detalleVacuna: null,
+                detalleTurno: null,
+                detalleFamiliar: null,
+                detalleLaboratorio: null,
+                detalleProblema: null,
+                detalleProfesional: null,
+                detalleMensaje: null,
+            }
+        }]);
     }
 
     goto(path: string[]) {

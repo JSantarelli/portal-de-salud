@@ -1,7 +1,7 @@
 <ng-container *ngIf="turno$ | async as turno">
     <plex-detail>
         <plex-icon name="turno-bold" type="info"></plex-icon>
-        <div title case="capitalize" title>{{ turno.fecha }} {{ turno.horaInicio }}</div>
+        <div title case="capitalize" title>{{ turno.fecha }} | {{ turno.horaInicio }}</div>
         <div subtitle>{{ turno.tipoPrestacion }}</div>
         <plex-badge type="info">{{ turno.fecha }}</plex-badge>
         <plex-badge type="{{turno.asistencia==='asististe' ? 'success' : 'warning' }}">{{ turno.asistencia }}
