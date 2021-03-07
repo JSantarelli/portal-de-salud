@@ -192,11 +192,12 @@ export class PrestacionService {
     resetOutlet() {
         this.router.navigate(['portal-paciente', {
             outlets: {
-                detalle: null,
+                //detalle: null,
                 detalleHuds: null,
                 detalleVacuna: null,
                 detalleTurno: null,
                 detalleFamiliar: null,
+                detallePrescripcion: null,
                 detalleLaboratorio: null,
                 detalleProblema: null,
                 detalleProfesional: null,

@@ -36,13 +36,15 @@ export class MisSolicitudesComponent implements OnInit {
     }
 
     nuevoValor() {
-        this.prestacionService.actualizarValor(8);
+        this.prestacionService.actualizarValor(9);
     }
 
     selected(solicitud) {
-        this.selectedId = solicitud.id;
-        //this.router.navigate(['portal-paciente', this.selectedId]);
-        this.router.navigate(['portal-paciente', { outlets: { detalleSolicitud: [this.selectedId] } }]);
         this.nuevoValor();
+        this.prestacionService.resetOutlet();
+        setTimeout(() => {
+            this.selectedId = solicitud.id;
+            this.router.navigate(['portal-paciente', { outlets: { detalleSolicitud: [this.selectedId] } }]);
+        }, 500);
     }
 }

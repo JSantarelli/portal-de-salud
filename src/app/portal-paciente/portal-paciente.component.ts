@@ -26,70 +26,12 @@ export class PortalPacienteComponent implements OnInit {
 
     @Output() motivoAccesoHuds = new EventEmitter<any>();
 
-    public invert = true;
-    public contenido = '';
-    public email = '';
-    public motivoSelected = null;
-    public errores: any[];
-    public modelo2 = {
-        select: null,
-        soloLectura: false,
-        selectMultiple: null
-    };
-
-
-    @ViewChildren('modal') modalRefs: QueryList<PlexModalComponent>;
-
-    openModal(index) {
-        this.modalRefs.find((x, i) => i === index).show();
-    }
-
-    closeModal(index, formulario?) {
-        this.modalRefs.find((x, i) => i === index).close();
-        if (formulario) {
-            formulario.reset();
-        }
-    }
-
-    motivoSelect() {
-        return this.motivoSelected === null;
-    }
-
-    notificarAccion(flag: boolean) {
-        if (flag) {
-            const item = this.errores.find((elem) => elem.id === this.motivoSelected);
-            this.motivoAccesoHuds.emit(item.label);
-        } else {
-            this.motivoAccesoHuds.emit(null);
-        }
-    }
-
-
     selectedId: number;
     @Output() eventoSidebar = new EventEmitter<number>();
     card$: Observable<Card>;
     sidebarValue: number;
     previousUrl: string;
     width = 0;
-
-    isResponsive() {
-        this.width = this.el.nativeElement.clientWidth;
-        if (this.width >= 980) {
-            return true;
-        }
-        else false;
-    }
-
-    recibirSidebar($event) {
-        this.sidebarValue = $event;
-        console.log(this.sidebarValue);
-    }
-
-    contraerSidebar() {
-        this.router.navigate(['portal-paciente']);
-        this.sidebarValue = 12;
-        console.log(this.prestacionService.getPreviousUrl());
-    }
 
     constructor(
         private cardService: CardService,
@@ -114,21 +56,6 @@ export class PortalPacienteComponent implements OnInit {
         );
 
         this.plex.navbarVisible = false;
-
-        // plex-select errores
-        this.errores = [{
-            id: 1,
-            nombre: 'Error en mis registros de salud',
-        },
-        {
-            id: 2,
-            nombre: 'Error en mis datos personales',
-        },
-        {
-            id: 3,
-            nombre: 'Otro error',
-        }
-        ];
     }
 
     // public prueba = '';
@@ -145,15 +72,27 @@ export class PortalPacienteComponent implements OnInit {
     public prueba = '';
     public cambio = '';
 
-    setInvert() {
-        this.invert = !this.invert;
-    }
-
     onChange() {
         this.plex.info('success', 'Este cartel se demoro un segundo en aparecer después de escribir.');
     }
 
-    resetOutlet() {
-        this.prestacionService.resetOutlet();
+    isResponsive() {
+        this.width = this.el.nativeElement.clientWidth;
+        if (this.width >= 980) {
+            return true;
+        }
+        else false;
+    }
+
+    recibirSidebar($event) {
+        this.sidebarValue = $event;
+        console.log(this.sidebarValue);
+    }
+
+    contraerSidebar() {
+        //this.router.navigate(['portal-paciente', this.previousUrl]);
+        this.router.navigate(['portal-paciente']);
+        this.sidebarValue = 12;
+        console.log(this.prestacionService.getPreviousUrl());
     }
 }

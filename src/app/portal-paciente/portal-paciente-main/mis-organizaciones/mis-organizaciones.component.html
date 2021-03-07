@@ -1,4 +1,4 @@
-<plex-grid size="md" type="full">
+<plex-grid size="lg" type="full">
     <plex-card *ngFor="let organizacion of organizaciones$ | async" (click)="selected(organizacion)">
         <img src="{{ organizacion.foto }}" alt="">
         <plex-label direction="column" size="md" type="info" titulo="{{ organizacion.nombre }}"

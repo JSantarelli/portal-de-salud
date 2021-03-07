@@ -33,14 +33,19 @@ export class MisDocumentosComponent implements OnInit {
         );
     }
 
-    enviarSidebar() {
-        this.eventoSidebar.emit(this.sidebarValue);
-        this.sidebarValue = 8;
+    nuevoValor() {
+        this.prestacionService.actualizarValor(12);
     }
 
-    selected(profesional) {
-        this.selectedId = profesional.id;
-        this.router.navigate(['portal-paciente', { outlets: { detalleDocumento: [this.selectedId] } }]);
+
+    selected(documento) {
+        this.nuevoValor();
+
+        this.prestacionService.resetOutlet();
+        setTimeout(() => {
+            this.selectedId = documento.id;
+            this.router.navigate(['portal-paciente', { outlets: { detalleDocumento: [this.selectedId] } }]);
+        }, 500);
     }
 }
 

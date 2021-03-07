@@ -1,8 +1,3 @@
-<plex-title size="sm" titulo="Mis documentos">
-    <plex-button type="success" icon="plus" tooltip="agregar miembro" class="ml-2" size="sm">
-    </plex-button>
-
-</plex-title>
 <plex-grid size="sm" type="full" cols="5">
     <plex-card type="default" *ngFor="let doc of documentos$ | async" (click)="selected(doc)">
         <img src="{{ doc.url }}" alt="">

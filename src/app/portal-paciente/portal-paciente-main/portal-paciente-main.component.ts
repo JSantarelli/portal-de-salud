@@ -135,8 +135,4 @@ export class PortalPacienteMainComponent implements OnInit {
         }
         else false;
     }
-
-    enviarSidebar() {
-        this.eventoSidebar.emit(this.sidebarValue);
-    }
 }

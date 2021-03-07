@@ -4,16 +4,14 @@
         <div title case="capitalize" title>{{ mensaje.titulo }}</div>
         <div subtitle>Enviado por: {{ mensaje.autor }} de {{ mensaje.organizacion }} el {{ mensaje.fecha }} a las {{
             mensaje.hora }}
-            <section justify="start" class="mt-2">
-                <plex-button size="sm" type="default" class="mr-2" icon="arrow-left"></plex-button>
-                <plex-button size="sm" type="default" class="mr-2" icon="share"></plex-button>
-                <plex-button size="sm" type="default" class="mr-2" icon="delete"></plex-button>
+            <section justify="start" class="mt-4">
+                <plex-button size="sm" type="success" class="mr-2" icon="arrow-left"></plex-button>
+                <plex-button size="sm" type="warning" class="mr-2" icon="share"></plex-button>
+                <plex-button size="sm" type="danger" class="mr-2" icon="delete"></plex-button>
             </section>
         </div>
         <plex-badge type="info">{{ mensaje.tipoPrestacion }}</plex-badge>
-        <plex-badge *ngIf="mensaje.prioridad > 5" type="danger">importante
-        </plex-badge>
-
+        <plex-badge *ngIf="mensaje.prioridad > 5" type="danger">importante</plex-badge>
     </plex-detail>
     <p>{{ mensaje.nota }}</p>
     <plex-title *ngIf="adjuntos" size="sm" titulo="adjuntos"></plex-title>

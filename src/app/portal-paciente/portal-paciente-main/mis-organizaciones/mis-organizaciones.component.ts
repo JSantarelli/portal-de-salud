@@ -33,15 +33,18 @@ export class MisOrganizacionesComponent implements OnInit {
         );
     }
 
-    enviarSidebar() {
-        this.eventoSidebar.emit(this.sidebarValue);
-        console.log(this.sidebarValue);
+    nuevoValor() {
+        this.prestacionService.actualizarValor(9);
     }
 
     selected(organizacion) {
-        this.enviarSidebar();
-        this.selectedId = organizacion.id;
-        this.router.navigate(['portal-paciente', { outlets: { detalleOrganizacion: [this.selectedId] } }]);
+        this.nuevoValor();
+
+        this.prestacionService.resetOutlet();
+        setTimeout(() => {
+            this.selectedId = organizacion.id;
+            this.router.navigate(['portal-paciente', { outlets: { detalleOrganizacion: [this.selectedId] } }]);
+        }, 500);
     }
 }
 

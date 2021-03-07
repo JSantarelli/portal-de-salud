@@ -47,12 +47,41 @@ export class PacienteDetalleComponent implements OnInit {
     selectedId: number;
     @Output() eventoSidebar = new EventEmitter<number>();
 
-    isResponsive() {
-        this.width = this.el.nativeElement.clientWidth;
-        if (this.width >= 980) {
-            return true;
+    public contenido = '';
+    public email = '';
+    public motivoSelected = null;
+    public errores: any[];
+    public modelo2 = {
+        select: null,
+        soloLectura: false,
+        selectMultiple: null
+    };
+
+
+    @ViewChildren('modal') modalRefs: QueryList<PlexModalComponent>;
+
+    openModal(index) {
+        this.modalRefs.find((x, i) => i === index).show();
+    }
+
+    closeModal(index, formulario?) {
+        this.modalRefs.find((x, i) => i === index).close();
+        if (formulario) {
+            formulario.reset();
         }
-        else false;
+    }
+
+    motivoSelect() {
+        return this.motivoSelected === null;
+    }
+
+    notificarAccion(flag: boolean) {
+        if (flag) {
+            const item = this.errores.find((elem) => elem.id === this.motivoSelected);
+            this.motivoAccesoHuds.emit(item.label);
+        } else {
+            this.motivoAccesoHuds.emit(null);
+        }
     }
 
     constructor(
@@ -65,6 +94,21 @@ export class PacienteDetalleComponent implements OnInit {
 
     ngOnInit() {
         this.pacientes$ = this.pacienteService.getPacientes();
+
+        // plex-select errores
+        this.errores = [{
+            id: 1,
+            nombre: 'Error en mis registros de salud',
+        },
+        {
+            id: 2,
+            nombre: 'Error en mis datos personales',
+        },
+        {
+            id: 3,
+            nombre: 'Otro error',
+        }
+        ];
     }
 
     ocultarDatos() {
@@ -72,8 +116,12 @@ export class PacienteDetalleComponent implements OnInit {
         console.log(this.datosSecundarios);
     }
 
-    onChange() {
-        this.plex.info('success', 'Este cartel se demoro un segundo en aparecer después de escribir.');
+    isResponsive() {
+        this.width = this.el.nativeElement.clientWidth;
+        if (this.width >= 980) {
+            return true;
+        }
+        else false;
     }
 
 }
