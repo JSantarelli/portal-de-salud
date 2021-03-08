@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { PlexModule } from '@andes/plex';
 import { Plex } from '@andes/plex';
-import * as $ from 'jquery';
 import { Router } from '@angular/router';
 
 // Pipe & Servicios
@@ -57,8 +56,9 @@ import { PacienteDetalleComponent } from './componentes/paciente-detalle/pacient
 import { FiltrosHudsComponent } from './componentes/filtros-huds/filtros-huds';
 import { MisSolicitudesComponent } from './portal-paciente/portal-paciente-main/mis-solicitudes/mis-solicitudes.component';
 import { DetalleSolicitudComponent } from './portal-paciente/portal-paciente-sidebar/detalle-solicitud/detalle-solicitud.component';
-
-
+import { ModalTemplateComponent } from './componentes/plex-modal-template/plex-modal-template';
+import { PortalPacienteSidebarComponent } from './portal-paciente/portal-paciente-sidebar/portal-paciente-sidebar.component';
+import { MapsComponent } from './utils/mapsComponent';
 
 @NgModule({
     declarations: [
@@ -93,7 +93,12 @@ import { DetalleSolicitudComponent } from './portal-paciente/portal-paciente-sid
         DetalleSolicitudComponent,
         PacienteDetalleComponent,
         FiltrosHudsComponent,
-        PrestacionPipe
+        ModalTemplateComponent,
+        PortalPacienteComponent,
+        PortalPacienteMainComponent,
+        PortalPacienteSidebarComponent,
+        PrestacionPipe,
+        MapsComponent
     ],
     imports: [
         BrowserModule,

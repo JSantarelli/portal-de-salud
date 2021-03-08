@@ -39,13 +39,13 @@ export class PacienteDetalleComponent implements OnInit {
     ]
 
     @Output() motivoAccesoHuds = new EventEmitter<any>();
+    @Output() eventoSidebar = new EventEmitter<number>();
 
     pacientes$: Observable<Paciente[]>
     paciente$: Observable<Paciente>
     width: number;
     datosSecundarios = true;
     selectedId: number;
-    @Output() eventoSidebar = new EventEmitter<number>();
 
     public contenido = '';
     public email = '';
@@ -118,10 +118,10 @@ export class PacienteDetalleComponent implements OnInit {
 
     isResponsive() {
         this.width = this.el.nativeElement.clientWidth;
-        if (this.width >= 980) {
+        if (this.width < 780) {
             return true;
         }
         else false;
+        this.datosSecundarios = false;
     }
-
 }

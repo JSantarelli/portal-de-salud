@@ -188,6 +188,7 @@ export class MiHudsComponent implements OnInit {
     }
 
     selected(hud) {
+        hud.selected = !hud.selected;
         this.nuevoValor();
         this.hudsService.resetOutlet();
         setTimeout(() => {

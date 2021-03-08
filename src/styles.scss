@@ -188,8 +188,12 @@ div[collapse] {
     background-color: $registro;
 }
 
-
 // Helpers
 .no-margin {
     margin: 0!important;
+}
+
+// Override
+plex-item section.item.custom-colors.selectable.selected {
+    background-color: #edf8fd!important;
 }
