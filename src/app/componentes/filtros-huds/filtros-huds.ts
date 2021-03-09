@@ -15,7 +15,7 @@ import { Card } from '../../modelos/card';
 })
 export class FiltrosHudsComponent implements OnInit {
 
-    searchTerm$ = new BehaviorSubject<string>('');
+    searchTerm = new BehaviorSubject<string>('');
 
     // switchea mensaje por listado
     @Output() eventoValor = new EventEmitter<boolean>();
@@ -48,8 +48,6 @@ export class FiltrosHudsComponent implements OnInit {
     public modelo: any;
 
     public showModal = false;
-    public prueba = '';
-    public cambio = '';
 
     @Output() eventoSidebar = new EventEmitter<number>();
 

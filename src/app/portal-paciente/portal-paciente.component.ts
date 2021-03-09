@@ -74,8 +74,6 @@ export class PortalPacienteComponent implements OnInit {
     cards$: Observable<Card[]>;
 
     foco = 'main';
-    public prueba = '';
-    public cambio = '';
 
     onChange() {
         this.plex.info('success', 'Este cartel se demoro un segundo en aparecer después de escribir.');

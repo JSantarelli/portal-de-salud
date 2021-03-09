@@ -66,7 +66,7 @@
         </plex-grid>
 
     </plex-layout-main>
-    <plex-layout-sidebar type="{{ invert === false ? 'invert' : null }}">
+    <plex-layout-sidebar>
         <plex-title size="{{ isResponsive() ? 'md' : 'sm' }}"
                     titulo="{{ isResponsive() ? 'DETALLE' : 'detalle de la consulta' }}">
             <plex-button type="danger" icon="close" size="sm" (click)="contraerSidebar()" class="ml-2"></plex-button>

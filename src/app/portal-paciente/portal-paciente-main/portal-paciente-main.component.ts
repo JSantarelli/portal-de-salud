@@ -43,8 +43,6 @@ export class PortalPacienteMainComponent implements OnInit {
     public templateModel2: any;
     public modelo: any;
     public showModal = false;
-    public prueba = '';
-    public cambio = '';
 
     updateMaxHora() {
         this.tModel.minHora = moment().add(30, 'minutes').add(1, 'days');

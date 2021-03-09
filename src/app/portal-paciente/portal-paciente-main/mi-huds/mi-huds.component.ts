@@ -39,8 +39,6 @@ export class MiHudsComponent implements OnInit {
     public modelo: any;
 
     public showModal = false;
-    public prueba = '';
-    public cambio = '';
 
     @Output() eventoSidebar = new EventEmitter<number>();
 

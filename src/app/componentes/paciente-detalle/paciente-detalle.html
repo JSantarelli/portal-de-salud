@@ -48,12 +48,12 @@
             <form #formulario="ngForm" (close)="notificarAccion(false)">
                 <div>
                     <plex-select placeholder="Seleccione un motivo" grow="2" [(ngModel)]="modelo2.select"
-                                 [data]="errores" label-field="nombre + ' (' + continente + ')'" (change)="cambio()">
+                                 [data]="errores" label-field="nombre + ' (' + continente + ')'">
                     </plex-select>
                 </div>
                 <div class="mt-4">
                     <plex-text placeholder="Describa brevemente el error" multiline="true" name="multi"
-                               [(ngModel)]="prueba" (change)="cambio()">
+                               [(ngModel)]="prueba">
                     </plex-text>
                 </div>
             </form>

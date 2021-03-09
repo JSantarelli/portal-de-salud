@@ -56,7 +56,8 @@ export class PacienteDetalleComponent implements OnInit {
         soloLectura: false,
         selectMultiple: null
     };
-
+    public prueba = '';
+    public cambio = '';
 
     @ViewChildren('modal') modalRefs: QueryList<PlexModalComponent>;
 
