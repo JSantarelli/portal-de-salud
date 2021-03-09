@@ -37,6 +37,10 @@ export class MisTurnosComponent implements OnInit {
         this.prestacionService.actualizarValor(9);
     }
 
+    cambiaFoco() {
+        this.prestacionService.actualizarFoco('sidebar');
+    }
+
     selected(turno) {
         this.nuevoValor();
         turno.selected = !turno.selected;

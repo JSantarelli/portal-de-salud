@@ -14,7 +14,6 @@ export class MisFamiliaresComponent implements OnInit {
     public familiar$;
     public familiares$;
 
-    sidebarValue = 12;
     @Output() eventoSidebar = new EventEmitter<number>();
 
     constructor(
@@ -35,6 +34,10 @@ export class MisFamiliaresComponent implements OnInit {
 
     nuevoValor() {
         this.prestacionService.actualizarValor(9);
+    }
+
+    cambiaFoco() {
+        this.prestacionService.actualizarFoco('sidebar');
     }
 
 

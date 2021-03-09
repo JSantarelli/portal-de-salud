@@ -1,5 +1,5 @@
-<!--<plex-layout main="{{ sidebarValue }}"  resizable="true">-->
-<plex-layout [aspect]="9">
+<plex-layout main="{{ sidebarValue }}" resizable="true" foco="{{ valorFoco }}">
+    <!--<plex-layout [aspect]="9">-->
     <plex-layout-main type="invert">
         <plex-title size="{{ isResponsive() ? 'sm' : 'md' }}"
                     titulo="{{ isResponsive() ? 'mi portal' : 'mi portal de salud' }}" main>
@@ -43,23 +43,24 @@
                 <plex-button *ngIf="valorMenu === 2" size="sm" type="link" icon="close" (click)="contraerMenu()">
                 </plex-button>
                 <ng-container *ngFor="let card of cards$ | async">
-                    <plex-label icon="{{ card.icono }}" size="md" class="mb-2 color-{{ card.semanticTag}}" titulo=""
-                                subtitulo="" [routerLink]="[{ outlets: { listado: [card.path] } }]"
-                                tooltip="{{ card.path }}" class="mb-2" tooltipPosition="right" (click)="expandirMenu()">
-                        <p *ngIf="valorMenu === 2">{{ card.nombre }}</p>
+                    <plex-label icon="{{ card.icono }}" size="md" direction="column"
+                                class="mb-2 color-{{ card.semanticTag}}" titulo="" subtitulo=""
+                                [routerLink]="[{ outlets: { listado: [card.path] } }]" tooltip="{{ card.path }}"
+                                tooltipPosition="right">
+                        <!--<p *ngIf="valorMenu === 2">{{ card.nombre }}</p>-->
                     </plex-label>
                 </ng-container>
             </plex-grid>
 
             <!-- Listado -->
-            <section span="{{ valorResultante }}">
-                <plex-portal-paciente-main (eventoSidebar)="recibirSidebar($event)">
+            <section span="{{isResponsive() ? '12' : '11'}}">
+                <plex-portal-paciente-main (eventoSidebar)="recibirSidebar($event)" (eventoFoco)="recibirFoco($event)">
                 </plex-portal-paciente-main>
             </section>
         </plex-grid>
 
         <!-- Menu mobile -->
-        <plex-grid *mobile cols="12" class="align-self-start mr-4" size="md">
+        <plex-grid *mobile cols=" 12" class="align-self-start mr-4" size="md">
             <plex-button *ngFor="let card of cards$ | async" size="xs" icon="{{ card.icono }}" type="{{ card.type }}"
                          [routerLink]="[{ outlets: { listado: [card.path] } }]">
             </plex-button>

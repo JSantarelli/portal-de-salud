@@ -11,7 +11,7 @@ import { BehaviorSubject } from 'rxjs';
     templateUrl: './mi-huds.component.html',
 })
 export class MiHudsComponent implements OnInit {
-    searchTerm$ = new BehaviorSubject<string>('');
+    searchTerm = new BehaviorSubject<string>('');
 
     public selectedId;
     public hud$;

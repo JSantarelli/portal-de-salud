@@ -37,6 +37,10 @@ export class MiEquipoComponent implements OnInit {
         this.prestacionService.actualizarValor(9);
     }
 
+    cambiaFoco() {
+        this.prestacionService.actualizarFoco('sidebar');
+    }
+
     selected(profesional) {
         this.nuevoValor();
         this.selectedId = profesional.id;

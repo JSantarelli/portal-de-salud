@@ -27,7 +27,6 @@ export class FiltrosHudsComponent implements OnInit {
     public selectedId;
     public prestacion$;
     public prestaciones$;
-    sidebarValue: number;
 
     public duracion = '1 hs. 34 min.';
     public plex: Plex;
@@ -46,10 +45,6 @@ export class FiltrosHudsComponent implements OnInit {
     public modelo3 = { select: null };
     public templateModel2: any;
     public modelo: any;
-
-    public showModal = false;
-
-    @Output() eventoSidebar = new EventEmitter<number>();
 
     updateMaxHora() {
         this.tModel.minHora = moment().add(30, 'minutes').add(1, 'days');
@@ -71,7 +66,6 @@ export class FiltrosHudsComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.prestacionService.valorActual.subscribe(valor => this.sidebarValue = valor)
 
         // Servicios
         this.prestaciones$ = this.prestacionService.getConsultas();

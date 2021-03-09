@@ -39,6 +39,10 @@ export class MisSolicitudesComponent implements OnInit {
         this.prestacionService.actualizarValor(9);
     }
 
+    cambiaFoco() {
+        this.prestacionService.actualizarFoco('sidebar');
+    }
+
     selected(solicitud) {
         this.nuevoValor();
         solicitud.selected = !solicitud.selected;

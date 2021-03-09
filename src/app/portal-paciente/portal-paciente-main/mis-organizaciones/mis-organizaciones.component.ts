@@ -37,6 +37,10 @@ export class MisOrganizacionesComponent implements OnInit {
         this.prestacionService.actualizarValor(9);
     }
 
+    cambiaFoco() {
+        this.prestacionService.actualizarFoco('sidebar');
+    }
+
     selected(organizacion) {
         this.nuevoValor();
         organizacion.selected = !organizacion.selected;
