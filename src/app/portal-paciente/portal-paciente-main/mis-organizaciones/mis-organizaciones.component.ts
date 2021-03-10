@@ -16,6 +16,7 @@ export class MisOrganizacionesComponent implements OnInit {
 
     sidebarValue = 9;
     @Output() eventoSidebar = new EventEmitter<number>();
+    @Output() eventoFoco = new EventEmitter<string>();
 
     constructor(
         private prestacionService: PrestacionService,
@@ -42,9 +43,10 @@ export class MisOrganizacionesComponent implements OnInit {
     }
 
     selected(organizacion) {
+        this.prestacionService.resetOutlet();
+        this.cambiaFoco();
         this.nuevoValor();
         organizacion.selected = !organizacion.selected;
-        this.prestacionService.resetOutlet();
         setTimeout(() => {
             this.selectedId = organizacion.id;
             this.router.navigate(['portal-paciente', { outlets: { detalleOrganizacion: [this.selectedId] } }]);

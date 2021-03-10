@@ -11,7 +11,10 @@ import { BehaviorSubject } from 'rxjs';
     templateUrl: './mi-huds.component.html',
 })
 export class MiHudsComponent implements OnInit {
-    searchTerm = new BehaviorSubject<string>('');
+    //searchTerm$ = new BehaviorSubject<string>(' ');
+    searchTerm = '';
+    @Output() eventoFoco = new EventEmitter<string>();
+    @Output() eventoSidebar = new EventEmitter<number>();
 
     public selectedId;
     public hud$;
@@ -40,8 +43,6 @@ export class MiHudsComponent implements OnInit {
 
     public showModal = false;
 
-    @Output() eventoSidebar = new EventEmitter<number>();
-
     updateMaxHora() {
         this.tModel.minHora = moment().add(30, 'minutes').add(1, 'days');
     }
@@ -55,6 +56,7 @@ export class MiHudsComponent implements OnInit {
     }
 
     constructor(
+        private prestacionService: PrestacionService,
         private hudsService: PrestacionService,
         private route: ActivatedRoute,
         private router: Router,
@@ -185,9 +187,14 @@ export class MiHudsComponent implements OnInit {
         this.hudsService.actualizarValor(9);
     }
 
+    cambiaFoco() {
+        this.prestacionService.actualizarFoco('sidebar');
+    }
+
     selected(hud) {
         hud.selected = !hud.selected;
         this.nuevoValor();
+        this.cambiaFoco();
         this.hudsService.resetOutlet();
         setTimeout(() => {
             this.selectedId = hud.id;

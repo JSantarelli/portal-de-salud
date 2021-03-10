@@ -16,6 +16,7 @@ export class MiEquipoComponent implements OnInit {
 
     sidebarValue = 12;
     @Output() eventoSidebar = new EventEmitter<number>();
+    @Output() eventoFoco = new EventEmitter<string>();
 
     constructor(
         private prestacionService: PrestacionService,
@@ -42,9 +43,10 @@ export class MiEquipoComponent implements OnInit {
     }
 
     selected(profesional) {
+        this.prestacionService.resetOutlet();
+        this.cambiaFoco();
         this.nuevoValor();
         this.selectedId = profesional.id;
-        this.prestacionService.resetOutlet();
         setTimeout(() => {
             profesional.selected = !profesional.selected;
             this.router.navigate(['portal-paciente', { outlets: { detalleProfesional: [this.selectedId] } }]);

@@ -51,9 +51,9 @@ export class MisConsultasComponent implements OnInit {
 
     selected(prestacion) {
         prestacion.selected = !prestacion.selected;
-        this.nuevoValor();
-        this.cambiaFoco();
         this.prestacionService.resetOutlet();
+        this.cambiaFoco();
+        this.nuevoValor();
         setTimeout(() => {
             this.selectedId = prestacion.id;
             this.router.navigate(['portal-paciente', { outlets: { detalleConsulta: [this.selectedId] } }]);

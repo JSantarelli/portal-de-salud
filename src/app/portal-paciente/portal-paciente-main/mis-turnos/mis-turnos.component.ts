@@ -16,6 +16,7 @@ export class MisTurnosComponent implements OnInit {
 
     sidebarValue = 9;
     @Output() eventoSidebar = new EventEmitter<number>();
+    @Output() eventoFoco = new EventEmitter<string>();
 
     constructor(
         private prestacionService: PrestacionService,
@@ -42,9 +43,10 @@ export class MisTurnosComponent implements OnInit {
     }
 
     selected(turno) {
-        this.nuevoValor();
         turno.selected = !turno.selected;
         this.prestacionService.resetOutlet();
+        this.cambiaFoco();
+        this.nuevoValor();
         setTimeout(() => {
             this.selectedId = turno.id;
             this.router.navigate(['portal-paciente', { outlets: { detalleTurno: [this.selectedId] } }]);

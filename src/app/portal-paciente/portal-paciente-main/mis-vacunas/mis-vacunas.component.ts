@@ -16,6 +16,7 @@ export class MisVacunasComponent implements OnInit {
 
     sidebarValue: number;
     @Output() eventoSidebar = new EventEmitter<number>();
+    @Output() eventoFoco = new EventEmitter<string>();
 
     constructor(
         private prestacionService: PrestacionService,
@@ -44,9 +45,10 @@ export class MisVacunasComponent implements OnInit {
     }
 
     selected(vacuna) {
-        this.nuevoValor();
         vacuna.selected = !vacuna.selected;
         this.prestacionService.resetOutlet();
+        this.cambiaFoco();
+        this.nuevoValor();
         setTimeout(() => {
             this.selectedId = vacuna.id;
             this.router.navigate(['portal-paciente', { outlets: { detalleVacuna: [this.selectedId] } }]);

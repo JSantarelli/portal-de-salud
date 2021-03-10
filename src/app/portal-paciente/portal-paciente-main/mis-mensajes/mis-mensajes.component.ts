@@ -17,7 +17,7 @@ export class MisMensajesComponent implements OnInit {
 
     sidebarValue = 9;
     @Output() eventoSidebar = new EventEmitter<number>();
-    filtros = true;
+    @Output() eventoFoco = new EventEmitter<string>(); filtros = true;
 
     constructor(
         private prestacionService: PrestacionService,
@@ -48,9 +48,10 @@ export class MisMensajesComponent implements OnInit {
     }
 
     selected(mensaje) {
-        this.nuevoValor();
         mensaje.selected = !mensaje.selected;
         this.prestacionService.resetOutlet();
+        this.cambiaFoco();
+        this.nuevoValor();
         setTimeout(() => {
             this.selectedId = mensaje.id;
             this.router.navigate(['portal-paciente', { outlets: { detalleMensaje: [this.selectedId] } }]);

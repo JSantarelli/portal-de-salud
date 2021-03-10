@@ -16,6 +16,7 @@ export class MisSolicitudesComponent implements OnInit {
 
 
     @Output() eventoSidebar = new EventEmitter<number>();
+    @Output() eventoFoco = new EventEmitter<string>();
 
     constructor(
         private prestacionService: PrestacionService,
@@ -44,9 +45,10 @@ export class MisSolicitudesComponent implements OnInit {
     }
 
     selected(solicitud) {
-        this.nuevoValor();
         solicitud.selected = !solicitud.selected;
         this.prestacionService.resetOutlet();
+        this.cambiaFoco();
+        this.nuevoValor();
         setTimeout(() => {
             this.selectedId = solicitud.id;
             this.router.navigate(['portal-paciente', { outlets: { detalleSolicitud: [this.selectedId] } }]);

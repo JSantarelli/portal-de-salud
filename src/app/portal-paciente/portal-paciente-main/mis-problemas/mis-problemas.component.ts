@@ -43,9 +43,10 @@ export class MisProblemasComponent implements OnInit {
     }
 
     selected(problema) {
-        this.nuevoValor();
         problema.selected = !problema.selected;
         this.prestacionService.resetOutlet();
+        this.cambiaFoco();
+        this.nuevoValor();
         setTimeout(() => {
             this.selectedId = problema.id;
             this.router.navigate(['portal-paciente', { outlets: { detalleProblema: [this.selectedId] } }]);

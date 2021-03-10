@@ -1,7 +1,7 @@
 <plex-wrapper>
     <plex-text label="busacador global de mi HUDS"
                placeholder="busque por diagnósticos, médicos, organizaciones, medicamentos, etc."
-               [(ngModel)]="searchTerm"></plex-text>
+               [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}"></plex-text>
     <plex-datetime *mobile="false" label="Desde" [skipBy]="'day'" [(ngModel)]="tModel.fechaHora" name="fechaHora"
                    case="lowercase" required>
     </plex-datetime>
@@ -24,6 +24,7 @@
         </plex-grid>
     </div>-->
 </plex-wrapper>
+
 <plex-list *ngIf="verHuds === true" height="60vh" size="md">
     <plex-item *ngFor="let hud of huds$ | async | hudsFilter: searchTerm" (click)="selected(hud)"
                [selected]="hud.selected">

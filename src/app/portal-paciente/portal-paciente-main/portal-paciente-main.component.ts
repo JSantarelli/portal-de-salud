@@ -21,7 +21,7 @@ export class PortalPacienteMainComponent implements OnInit {
     // Expande sidebar
     sidebarValue = 9;
     @Output() eventoSidebar = new EventEmitter<number>();
-
+    @Output() eventoFoco = new EventEmitter<string>();
     agendas$: Observable<Agenda[]>;
     pacientes$: Observable<Paciente[]>;
     prestaciones$: Observable<Prestacion[]>;

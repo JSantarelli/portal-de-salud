@@ -25,7 +25,6 @@ export class PortalPacienteComponent implements OnInit {
     @Output() motivoAccesoHuds = new EventEmitter<any>();
     @Output() eventoSidebar = new EventEmitter<number>();
     @Output() eventoFoco = new EventEmitter<string>();
-
     // Menu lateral
     valorMain = 11;
     valorMenu = 1;
@@ -92,7 +91,8 @@ export class PortalPacienteComponent implements OnInit {
         //this.router.navigate(['portal-paciente', this.previousUrl]);
         this.router.navigate(['portal-paciente']);
         this.sidebarValue = 12;
-        //console.log(this.prestacionService.getPreviousUrl());
+        this.valorFoco = 'main';
+        console.log(this.valorFoco);
     }
 
     isResponsive() {

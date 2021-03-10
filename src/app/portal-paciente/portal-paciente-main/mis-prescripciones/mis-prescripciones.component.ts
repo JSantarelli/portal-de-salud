@@ -17,6 +17,7 @@ export class MisPrescripcionesComponent implements OnInit {
 
     sidebarValue = 9;
     @Output() eventoSidebar = new EventEmitter<number>();
+    @Output() eventoFoco = new EventEmitter<string>();
 
     constructor(
         private prestacionService: PrestacionService,
@@ -43,8 +44,9 @@ export class MisPrescripcionesComponent implements OnInit {
     }
 
     selected(prescripcion) {
-        this.nuevoValor();
         this.prestacionService.resetOutlet();
+        this.cambiaFoco();
+        this.nuevoValor();
         setTimeout(() => {
             this.selectedId = prescripcion.id;
             this.router.navigate(['portal-paciente', { outlets: { detallePrescripcion: [this.selectedId] } }]);

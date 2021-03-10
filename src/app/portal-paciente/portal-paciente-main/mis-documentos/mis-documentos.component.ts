@@ -16,6 +16,7 @@ export class MisDocumentosComponent implements OnInit {
 
     sidebarValue = 12;
     @Output() eventoSidebar = new EventEmitter<number>();
+    @Output() eventoFoco = new EventEmitter<string>();
 
     constructor(
         private prestacionService: PrestacionService,
@@ -39,9 +40,8 @@ export class MisDocumentosComponent implements OnInit {
 
 
     selected(documento) {
-        this.nuevoValor();
-
         this.prestacionService.resetOutlet();
+        this.nuevoValor();
         setTimeout(() => {
             this.selectedId = documento.id;
             this.router.navigate(['portal-paciente', { outlets: { detalleDocumento: [this.selectedId] } }]);

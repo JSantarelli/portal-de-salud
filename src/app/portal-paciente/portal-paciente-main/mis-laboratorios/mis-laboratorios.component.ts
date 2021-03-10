@@ -15,6 +15,7 @@ export class MisLaboratoriosComponent implements OnInit {
     public laboratorios$;
 
     @Output() eventoSidebar = new EventEmitter<number>();
+    @Output() eventoFoco = new EventEmitter<string>();
 
     constructor(
         private prestacionService: PrestacionService,
@@ -41,8 +42,9 @@ export class MisLaboratoriosComponent implements OnInit {
     }
 
     selected(laboratorio) {
-        this.nuevoValor();
         this.prestacionService.resetOutlet();
+        this.cambiaFoco();
+        this.nuevoValor();
         setTimeout(() => {
             this.selectedId = laboratorio.id;
             this.router.navigate(['portal-paciente', { outlets: { detalleLaboratorio: [this.selectedId] } }]);

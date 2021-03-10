@@ -15,6 +15,7 @@ export class MisFamiliaresComponent implements OnInit {
     public familiares$;
 
     @Output() eventoSidebar = new EventEmitter<number>();
+    @Output() eventoFoco = new EventEmitter<string>();
 
     constructor(
         private prestacionService: PrestacionService,
@@ -43,6 +44,7 @@ export class MisFamiliaresComponent implements OnInit {
 
     selected(familiar) {
         this.nuevoValor();
+        this.cambiaFoco();
         familiar.selected = !familiar.selected;
         this.prestacionService.resetOutlet();
         setTimeout(() => {
