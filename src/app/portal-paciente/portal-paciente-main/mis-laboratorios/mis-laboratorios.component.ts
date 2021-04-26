@@ -13,20 +13,22 @@ export class MisLaboratoriosComponent implements OnInit {
     public selectedId;
     public laboratorio$;
     public laboratorios$;
+    filtros = true;
 
-    @Output() eventoSidebar = new EventEmitter<number>();
-    @Output() eventoFoco = new EventEmitter<string>();
+    mainValue = 12;
+    @Output() eventoMain = new EventEmitter<number>();
+    @Output() eventoSidebar = new EventEmitter<boolean>(); @Output() eventoFoco = new EventEmitter<string>();
 
     constructor(
         private prestacionService: PrestacionService,
         private route: ActivatedRoute,
-        private router: Router,) { }
+        private router: Router) { }
 
     ngOnInit(): void {
         // Servicios
         this.laboratorios$ = this.prestacionService.getLaboratorios();
 
-        //mostrar listado
+        // Mostrar listado
         this.laboratorio$ = this.route.paramMap.pipe(
             switchMap((params: ParamMap) =>
                 this.prestacionService.getLaboratorio(params.get('id')))
@@ -37,14 +39,20 @@ export class MisLaboratoriosComponent implements OnInit {
         this.prestacionService.actualizarValor(9);
     }
 
+    mostrarSidebar() {
+        this.prestacionService.actualizarSidebar(true);
+    }
+
     cambiaFoco() {
         this.prestacionService.actualizarFoco('sidebar');
     }
 
+
     selected(laboratorio) {
-        this.prestacionService.resetOutlet();
-        this.cambiaFoco();
         this.nuevoValor();
+        this.cambiaFoco();
+        this.mostrarSidebar();
+        this.prestacionService.resetOutlet();
         setTimeout(() => {
             this.selectedId = laboratorio.id;
             this.router.navigate(['portal-paciente', { outlets: { detalleLaboratorio: [this.selectedId] } }]);

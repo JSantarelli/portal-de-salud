@@ -15,20 +15,20 @@ export class MisPrescripcionesComponent implements OnInit {
     public prescripcion$;
     public prescripciones$;
 
-    sidebarValue = 9;
-    @Output() eventoSidebar = new EventEmitter<number>();
-    @Output() eventoFoco = new EventEmitter<string>();
+    mainValue = 9;
+    @Output() eventoMain = new EventEmitter<number>();
+    @Output() eventoSidebar = new EventEmitter<boolean>(); @Output() eventoFoco = new EventEmitter<string>();
 
     constructor(
         private prestacionService: PrestacionService,
         private route: ActivatedRoute,
-        private router: Router,) { }
+        private router: Router) { }
 
     ngOnInit(): void {
         // Servicios
         this.prescripciones$ = this.prestacionService.getPrescripciones();
 
-        //mostrar listado (prescripciones, historia, labs)
+        // Mostrar listado (prescripciones, historia, labs)
         this.prescripcion$ = this.route.paramMap.pipe(
             switchMap((params: ParamMap) =>
                 this.prestacionService.getPrescripcion(params.get('id')))
@@ -39,14 +39,19 @@ export class MisPrescripcionesComponent implements OnInit {
         this.prestacionService.actualizarValor(9);
     }
 
+    mostrarSidebar() {
+        this.prestacionService.actualizarSidebar(true);
+    }
+
     cambiaFoco() {
         this.prestacionService.actualizarFoco('sidebar');
     }
 
     selected(prescripcion) {
-        this.prestacionService.resetOutlet();
-        this.cambiaFoco();
         this.nuevoValor();
+        this.cambiaFoco();
+        this.mostrarSidebar();
+        this.prestacionService.resetOutlet();
         setTimeout(() => {
             this.selectedId = prescripcion.id;
             this.router.navigate(['portal-paciente', { outlets: { detallePrescripcion: [this.selectedId] } }]);

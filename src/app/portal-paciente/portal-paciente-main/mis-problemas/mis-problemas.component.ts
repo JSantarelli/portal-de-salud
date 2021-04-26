@@ -13,7 +13,7 @@ export class MisProblemasComponent implements OnInit {
     public selectedId;
     public problema$;
     public problemas$;
-    sidebarValue: number;
+    mainValue: number;
 
     constructor(
         private prestacionService: PrestacionService,
@@ -22,12 +22,12 @@ export class MisProblemasComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.prestacionService.valorActual.subscribe(valor => this.sidebarValue = valor)
+        this.prestacionService.valorActual.subscribe(valor => this.mainValue = valor);
 
         // Servicios
         this.problemas$ = this.prestacionService.getProblemas();
 
-        //mostrar listado
+        // Mostrar listado
         this.problema$ = this.route.paramMap.pipe(
             switchMap((params: ParamMap) =>
                 this.prestacionService.getProblema(params.get('id')))
@@ -38,15 +38,20 @@ export class MisProblemasComponent implements OnInit {
         this.prestacionService.actualizarValor(9);
     }
 
+    mostrarSidebar() {
+        this.prestacionService.actualizarSidebar(true);
+    }
+
     cambiaFoco() {
         this.prestacionService.actualizarFoco('sidebar');
     }
 
     selected(problema) {
+        this.nuevoValor();
+        this.cambiaFoco();
+        this.mostrarSidebar();
         problema.selected = !problema.selected;
         this.prestacionService.resetOutlet();
-        this.cambiaFoco();
-        this.nuevoValor();
         setTimeout(() => {
             this.selectedId = problema.id;
             this.router.navigate(['portal-paciente', { outlets: { detalleProblema: [this.selectedId] } }]);

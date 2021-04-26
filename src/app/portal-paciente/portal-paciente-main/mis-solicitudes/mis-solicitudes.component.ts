@@ -15,8 +15,8 @@ export class MisSolicitudesComponent implements OnInit {
     public solicitudes$;
 
 
-    @Output() eventoSidebar = new EventEmitter<number>();
-    @Output() eventoFoco = new EventEmitter<string>();
+    @Output() eventoMain = new EventEmitter<number>();
+    @Output() eventoSidebar = new EventEmitter<boolean>(); @Output() eventoFoco = new EventEmitter<string>();
 
     constructor(
         private prestacionService: PrestacionService,
@@ -29,7 +29,7 @@ export class MisSolicitudesComponent implements OnInit {
         // Servicios
         this.solicitudes$ = this.prestacionService.getSolicitudes();
 
-        //mostrar listado
+        // Mostrar listado
         this.solicitud$ = this.route.paramMap.pipe(
             switchMap((params: ParamMap) =>
                 this.prestacionService.getSolicitud(params.get('id')))
@@ -40,15 +40,20 @@ export class MisSolicitudesComponent implements OnInit {
         this.prestacionService.actualizarValor(9);
     }
 
+    mostrarSidebar() {
+        this.prestacionService.actualizarSidebar(true);
+    }
+
     cambiaFoco() {
         this.prestacionService.actualizarFoco('sidebar');
     }
 
     selected(solicitud) {
+        this.nuevoValor();
+        this.cambiaFoco();
+        this.mostrarSidebar();
         solicitud.selected = !solicitud.selected;
         this.prestacionService.resetOutlet();
-        this.cambiaFoco();
-        this.nuevoValor();
         setTimeout(() => {
             this.selectedId = solicitud.id;
             this.router.navigate(['portal-paciente', { outlets: { detalleSolicitud: [this.selectedId] } }]);

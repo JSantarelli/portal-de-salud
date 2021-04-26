@@ -14,20 +14,20 @@ export class MiEquipoComponent implements OnInit {
     public profesional$;
     public equipo$;
 
-    sidebarValue = 12;
-    @Output() eventoSidebar = new EventEmitter<number>();
+    @Output() eventoMain = new EventEmitter<number>();
+    @Output() eventoSidebar = new EventEmitter<boolean>();
     @Output() eventoFoco = new EventEmitter<string>();
 
     constructor(
         private prestacionService: PrestacionService,
         private route: ActivatedRoute,
-        private router: Router,) { }
+        private router: Router) { }
 
     ngOnInit(): void {
         // Servicios
         this.equipo$ = this.prestacionService.getEquipo();
 
-        //mostrar listado (profesionales, historia, labs)
+        // Mostrar listado (profesionales, historia, labs)
         this.profesional$ = this.route.paramMap.pipe(
             switchMap((params: ParamMap) =>
                 this.prestacionService.getProfesional(params.get('id')))
@@ -38,15 +38,20 @@ export class MiEquipoComponent implements OnInit {
         this.prestacionService.actualizarValor(9);
     }
 
+    mostrarSidebar() {
+        this.prestacionService.actualizarSidebar(true);
+    }
+
     cambiaFoco() {
         this.prestacionService.actualizarFoco('sidebar');
     }
 
     selected(profesional) {
-        this.prestacionService.resetOutlet();
-        this.cambiaFoco();
         this.nuevoValor();
+        this.cambiaFoco();
+        this.mostrarSidebar();
         this.selectedId = profesional.id;
+        this.prestacionService.resetOutlet();
         setTimeout(() => {
             profesional.selected = !profesional.selected;
             this.router.navigate(['portal-paciente', { outlets: { detalleProfesional: [this.selectedId] } }]);

@@ -15,20 +15,21 @@ export class MisMensajesComponent implements OnInit {
     public mensaje$;
     public mensajes$;
 
-    sidebarValue = 9;
-    @Output() eventoSidebar = new EventEmitter<number>();
-    @Output() eventoFoco = new EventEmitter<string>(); filtros = true;
+    mainValue = 9;
+    @Output() eventoMain = new EventEmitter<number>();
+    @Output() eventoSidebar = new EventEmitter<boolean>(); @Output() eventoFoco = new EventEmitter<string>();
+    filtros = true;
 
     constructor(
         private prestacionService: PrestacionService,
         private route: ActivatedRoute,
-        private router: Router,) { }
+        private router: Router) { }
 
     ngOnInit(): void {
         // Servicios
         this.mensajes$ = this.prestacionService.getMensajes();
 
-        //mostrar listado (mensajes, historia, labs)
+        // Mostrar listado (mensajes, historia, labs)
         this.mensaje$ = this.route.paramMap.pipe(
             switchMap((params: ParamMap) =>
                 this.prestacionService.getMensaje(params.get('id')))
@@ -43,15 +44,20 @@ export class MisMensajesComponent implements OnInit {
         this.prestacionService.actualizarValor(9);
     }
 
+    mostrarSidebar() {
+        this.prestacionService.actualizarSidebar(true);
+    }
+
     cambiaFoco() {
         this.prestacionService.actualizarFoco('sidebar');
     }
 
     selected(mensaje) {
+        this.nuevoValor();
+        this.cambiaFoco();
+        this.mostrarSidebar();
         mensaje.selected = !mensaje.selected;
         this.prestacionService.resetOutlet();
-        this.cambiaFoco();
-        this.nuevoValor();
         setTimeout(() => {
             this.selectedId = mensaje.id;
             this.router.navigate(['portal-paciente', { outlets: { detalleMensaje: [this.selectedId] } }]);

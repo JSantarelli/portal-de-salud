@@ -14,20 +14,20 @@ export class MisTurnosComponent implements OnInit {
     public turno$;
     public turnos$;
 
-    sidebarValue = 9;
-    @Output() eventoSidebar = new EventEmitter<number>();
-    @Output() eventoFoco = new EventEmitter<string>();
+    mainValue = 9;
+    @Output() eventoMain = new EventEmitter<number>();
+    @Output() eventoSidebar = new EventEmitter<boolean>(); @Output() eventoFoco = new EventEmitter<string>();
 
     constructor(
         private prestacionService: PrestacionService,
         private route: ActivatedRoute,
-        private router: Router,) { }
+        private router: Router) { }
 
     ngOnInit(): void {
         // Servicios
         this.turnos$ = this.prestacionService.getTurnos();
 
-        //mostrar listado (turnos, historia, labs)
+        // Mostrar listado (turnos, historia, labs)
         this.turno$ = this.route.paramMap.pipe(
             switchMap((params: ParamMap) =>
                 this.prestacionService.getTurno(params.get('id')))
@@ -38,15 +38,20 @@ export class MisTurnosComponent implements OnInit {
         this.prestacionService.actualizarValor(9);
     }
 
+    mostrarSidebar() {
+        this.prestacionService.actualizarSidebar(true);
+    }
+
     cambiaFoco() {
         this.prestacionService.actualizarFoco('sidebar');
     }
 
     selected(turno) {
+        this.nuevoValor();
+        this.cambiaFoco();
+        this.mostrarSidebar();
         turno.selected = !turno.selected;
         this.prestacionService.resetOutlet();
-        this.cambiaFoco();
-        this.nuevoValor();
         setTimeout(() => {
             this.selectedId = turno.id;
             this.router.navigate(['portal-paciente', { outlets: { detalleTurno: [this.selectedId] } }]);

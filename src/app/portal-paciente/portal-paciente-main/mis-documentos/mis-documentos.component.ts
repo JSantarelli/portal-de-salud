@@ -14,20 +14,20 @@ export class MisDocumentosComponent implements OnInit {
     public documento$;
     public documentos$;
 
-    sidebarValue = 12;
-    @Output() eventoSidebar = new EventEmitter<number>();
-    @Output() eventoFoco = new EventEmitter<string>();
+    mainValue = 12;
+    @Output() eventoMain = new EventEmitter<number>();
+    @Output() eventoSidebar = new EventEmitter<boolean>(); @Output() eventoFoco = new EventEmitter<string>();
 
     constructor(
         private prestacionService: PrestacionService,
         private route: ActivatedRoute,
-        private router: Router,) { }
+        private router: Router) { }
 
     ngOnInit(): void {
         // Servicios
         this.documentos$ = this.prestacionService.getDocumentos();
 
-        //mostrar listado (profesionales, historia, labs)
+        // Mostrar listado (profesionales, historia, labs)
         this.documento$ = this.route.paramMap.pipe(
             switchMap((params: ParamMap) =>
                 this.prestacionService.getDocumento(params.get('id')))
@@ -35,13 +35,22 @@ export class MisDocumentosComponent implements OnInit {
     }
 
     nuevoValor() {
-        this.prestacionService.actualizarValor(12);
+        this.prestacionService.actualizarValor(9);
     }
 
+    mostrarSidebar() {
+        this.prestacionService.actualizarSidebar(true);
+    }
+
+    cambiaFoco() {
+        this.prestacionService.actualizarFoco('sidebar');
+    }
 
     selected(documento) {
-        this.prestacionService.resetOutlet();
         this.nuevoValor();
+        this.cambiaFoco();
+        this.mostrarSidebar();
+        this.prestacionService.resetOutlet();
         setTimeout(() => {
             this.selectedId = documento.id;
             this.router.navigate(['portal-paciente', { outlets: { detalleDocumento: [this.selectedId] } }]);

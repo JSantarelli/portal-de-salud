@@ -35,7 +35,6 @@ import { Registro } from '../modelos/registro';
 @Injectable()
 
 export class PrestacionService {
-
     private previousUrl: string;
     private currentUrl: string;
 
@@ -45,8 +44,12 @@ export class PrestacionService {
     }
 
     // Modifica main ante evento
-    private valorInicial = new BehaviorSubject<number>(9);
+    private valorInicial = new BehaviorSubject<number>(12);
     valorActual = this.valorInicial.asObservable();
+
+    // Muestra/Oculta sidebar ante evento
+    private sidebarInicial = new BehaviorSubject<boolean>(false);
+    sidebarActual = this.sidebarInicial.asObservable();
 
     // Cambia foco ante evento
     private focoInicial = new BehaviorSubject<string>('main');
@@ -58,29 +61,32 @@ export class PrestacionService {
             if (event instanceof NavigationEnd) {
                 this.previousUrl = this.currentUrl;
                 this.currentUrl = event.url;
-            };
+            }
         });
     }
 
     // Navego a ultima URL
     goTo(path: string[]) {
-        console.log(path);
         this.router.navigate(path);
     }
 
-    actualizarValor(sidebarValue: number) {
-        this.valorInicial.next(sidebarValue)
+    actualizarValor(mainValue: number) {
+        this.valorInicial.next(mainValue);
+    }
+
+    actualizarSidebar(sidebarValue: boolean) {
+        this.sidebarInicial.next(sidebarValue);
     }
 
     actualizarFoco(valorFoco: string) {
-        this.focoInicial.next(valorFoco)
+        this.focoInicial.next(valorFoco);
     }
 
     // Limpio los ruteos auxiliares
     resetOutlet() {
         this.router.navigate(['portal-paciente', {
             outlets: {
-                //detalle: null,
+                // detalle: null,
                 detalleHuds: null,
                 detalleVacuna: null,
                 detalleTurno: null,
@@ -238,87 +244,87 @@ export class PrestacionService {
     registros: [
         {
             id: 123,
-            evolucion: "Tensión arterial dentro de los valores de referencia. T.A baja: 96, alta: 125 mmHg.",
-            valor: "96/125 mmHg",
+            evolucion: 'Tensión arterial dentro de los valores de referencia. T.A baja: 96, alta: 125 mmHg.',
+            valor: '96/125 mmHg',
             esDiagnosticoPrincipal: true,
-            semanticTag: "trastorno",
-            icono: "trastorno",
-            color: "danger",
-            term: "Hipertensión Arterial",
-            fecha: "27/01/2021",
+            semanticTag: 'trastorno',
+            icono: 'trastorno',
+            color: 'danger',
+            term: 'Hipertensión Arterial',
+            fecha: '27/01/2021',
             estado: true,
         },
         {
             id: 123,
-            evolucion: "El paciente se presenta con dolor agudo en la zona del abdomen",
-            valor: "37,5º",
+            evolucion: 'El paciente se presenta con dolor agudo en la zona del abdomen',
+            valor: '37,5º',
             esDiagnosticoPrincipal: true,
-            semanticTag: "trastorno",
-            icono: "trastorno",
-            color: "danger",
-            term: "lesión traumática del abdomen",
-            fecha: "27/01/2021",
+            semanticTag: 'trastorno',
+            icono: 'trastorno',
+            color: 'danger',
+            term: 'lesión traumática del abdomen',
+            fecha: '27/01/2021',
             estado: true,
         },
         {
             id: 123,
-            evolucion: "El paciente presenta signos y síntomas frecuentes de la alergia a la penicilina: urticaria, sarpullido y picazón",
-            valor: "125 mm",
+            evolucion: 'El paciente presenta signos y síntomas frecuentes de la alergia a la penicilina: urticaria, sarpullido y picazón',
+            valor: '125 mm',
             esDiagnosticoPrincipal: true,
-            semanticTag: "hallazgo",
-            icono: "lupa-ojo",
-            color: "warning",
-            term: "Alergia A Penicilina",
-            fecha: "11/09/2020",
+            semanticTag: 'hallazgo',
+            icono: 'lupa-ojo',
+            color: 'warning',
+            term: 'Alergia A Penicilina',
+            fecha: '11/09/2020',
             estado: false,
         },
         {
             id: 123,
-            evolucion: "Tensión arterial dentro de los valores de referencia",
-            valor: "96/125 mmHg",
+            evolucion: 'Tensión arterial dentro de los valores de referencia',
+            valor: '96/125 mmHg',
             esDiagnosticoPrincipal: true,
-            semanticTag: "elemento de registro",
-            icono: "documento-lapiz",
-            color: "success",
-            term: "documento adjunto",
-            fecha: "27/01/2021",
+            semanticTag: 'elemento de registro',
+            icono: 'documento-lapiz',
+            color: 'success',
+            term: 'documento adjunto',
+            fecha: '27/01/2021',
             estado: false,
         },
         {
             id: 123,
-            evolucion: "Temperatura de 37,5. T.A baja: 96, alta: 125 mmHg. Saturación: 96%. Peso: 75 Kg. Talla: 185 cms.",
-            valor: "96 kgs.",
+            evolucion: 'Temperatura de 37,5. T.A baja: 96, alta: 125 mmHg. Saturación: 96%. Peso: 75 Kg. Talla: 185 cms.',
+            valor: '96 kgs.',
             esDiagnosticoPrincipal: true,
-            semanticTag: "procedimiento",
-            icono: "termometro",
-            color: "info",
-            term: "Registro de signos vitales",
-            fecha: "27/01/2021",
+            semanticTag: 'procedimiento',
+            icono: 'termometro',
+            color: 'info',
+            term: 'Registro de signos vitales',
+            fecha: '27/01/2021',
             estado: true,
         },
         {
             id: 123,
-            evolucion: "paciente refiere disnea que se intensifica con el esfuerzo. Presencia de sibilancias autoescuchadas durante la noche. Tos, No presenta historia de alergias. Antecedentes familiar de Asma. Durante los ultimos dias presenta fiebre que no cede 38º. Mucosidad serosa",
-            valor: "38º",
+            evolucion: 'paciente refiere disnea que se intensifica con el esfuerzo. Presencia de sibilancias autoescuchadas durante la noche. Tos, No presenta historia de alergias. Antecedentes familiar de Asma. Durante los ultimos dias presenta fiebre que no cede 38º. Mucosidad serosa',
+            valor: '38º',
             esDiagnosticoPrincipal: true,
-            semanticTag: "hallazgo",
-            icono: "lupa-ojo",
-            color: "warning",
-            term: "Antecedente familiar de asma",
-            fecha: "17/11/2021",
+            semanticTag: 'hallazgo',
+            icono: 'lupa-ojo',
+            color: 'warning',
+            term: 'Antecedente familiar de asma',
+            fecha: '17/11/2021',
             estado: false,
         },
         {
             id: 123,
-            evolucion: "El paciente se encuentra apto para desarrollar actividad física.",
-            valor: "96 kgs.",
+            evolucion: 'El paciente se encuentra apto para desarrollar actividad física.',
+            valor: '96 kgs.',
             esDiagnosticoPrincipal: true,
-            semanticTag: "elemento de registro",
-            icono: "documento-lapiz",
-            color: "success",
-            term: "certificado médico",
-            fecha: "27/01/2021",
+            semanticTag: 'elemento de registro',
+            icono: 'documento-lapiz',
+            color: 'success',
+            term: 'certificado médico',
+            fecha: '27/01/2021',
             estado: false,
         },
-    ]
+    ];
 }

@@ -14,20 +14,20 @@ export class MisOrganizacionesComponent implements OnInit {
     public organizacion$;
     public organizaciones$;
 
-    sidebarValue = 9;
-    @Output() eventoSidebar = new EventEmitter<number>();
-    @Output() eventoFoco = new EventEmitter<string>();
+    mainValue = 9;
+    @Output() eventoMain = new EventEmitter<number>();
+    @Output() eventoSidebar = new EventEmitter<boolean>(); @Output() eventoFoco = new EventEmitter<string>();
 
     constructor(
         private prestacionService: PrestacionService,
         private route: ActivatedRoute,
-        private router: Router,) { }
+        private router: Router) { }
 
     ngOnInit(): void {
         // Servicios
         this.organizaciones$ = this.prestacionService.getOrganizaciones();
 
-        //mostrar listado (organizaciones, historia, labs)
+        // Mostrar listado (organizaciones, historia, labs)
         this.organizacion$ = this.route.paramMap.pipe(
             switchMap((params: ParamMap) =>
                 this.prestacionService.getOrganizacion(params.get('id')))
@@ -38,15 +38,20 @@ export class MisOrganizacionesComponent implements OnInit {
         this.prestacionService.actualizarValor(9);
     }
 
+    mostrarSidebar() {
+        this.prestacionService.actualizarSidebar(true);
+    }
+
     cambiaFoco() {
         this.prestacionService.actualizarFoco('sidebar');
     }
 
     selected(organizacion) {
-        this.prestacionService.resetOutlet();
-        this.cambiaFoco();
         this.nuevoValor();
+        this.cambiaFoco();
+        this.mostrarSidebar();
         organizacion.selected = !organizacion.selected;
+        this.prestacionService.resetOutlet();
         setTimeout(() => {
             this.selectedId = organizacion.id;
             this.router.navigate(['portal-paciente', { outlets: { detalleOrganizacion: [this.selectedId] } }]);

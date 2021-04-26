@@ -10,7 +10,7 @@ import { CardService } from '../../servicios/card.service';
 import { Card } from '../../modelos/card';
 
 @Component({
-    selector: 'filtros-huds',
+    selector: 'app-filtros-huds',
     templateUrl: './filtros-huds.html',
 })
 export class FiltrosHudsComponent implements OnInit {

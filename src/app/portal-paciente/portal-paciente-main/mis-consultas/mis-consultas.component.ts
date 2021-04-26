@@ -14,8 +14,8 @@ export class MisConsultasComponent implements OnInit {
     public prestacion$;
     public prestaciones$;
 
-    @Output() eventoSidebar = new EventEmitter<number>();
-    @Output() eventoFoco = new EventEmitter<string>();
+    @Output() eventoMain = new EventEmitter<number>();
+    @Output() eventoSidebar = new EventEmitter<boolean>(); @Output() eventoFoco = new EventEmitter<string>();
 
     constructor(
         private prestacionService: PrestacionService,
@@ -28,21 +28,19 @@ export class MisConsultasComponent implements OnInit {
         // Servicios
         this.prestaciones$ = this.prestacionService.getConsultas();
 
-        //mostrar listado
+        // Mostrar listado
         this.prestacion$ = this.route.paramMap.pipe(
             switchMap((params: ParamMap) =>
                 this.prestacionService.getConsulta(params.get('id')))
         );
     }
 
-    // Solo sirve para enviar a padre inmediato sino behaviourSubject
-    //enviarFoco() {
-    //    this.eventoFoco.emit(this.valorFoco)
-    //    console.log(this.valorFoco)
-    //}
-
     nuevoValor() {
         this.prestacionService.actualizarValor(9);
+    }
+
+    mostrarSidebar() {
+        this.prestacionService.actualizarSidebar(true);
     }
 
     cambiaFoco() {
@@ -51,9 +49,9 @@ export class MisConsultasComponent implements OnInit {
 
     selected(prestacion) {
         prestacion.selected = !prestacion.selected;
-        this.prestacionService.resetOutlet();
-        this.cambiaFoco();
         this.nuevoValor();
+        this.cambiaFoco();
+        this.prestacionService.resetOutlet();
         setTimeout(() => {
             this.selectedId = prestacion.id;
             this.router.navigate(['portal-paciente', { outlets: { detalleConsulta: [this.selectedId] } }]);

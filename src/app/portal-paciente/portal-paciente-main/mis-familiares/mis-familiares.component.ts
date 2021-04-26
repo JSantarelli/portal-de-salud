@@ -14,19 +14,20 @@ export class MisFamiliaresComponent implements OnInit {
     public familiar$;
     public familiares$;
 
-    @Output() eventoSidebar = new EventEmitter<number>();
-    @Output() eventoFoco = new EventEmitter<string>();
+    mainValue = 12;
+    @Output() eventoMain = new EventEmitter<number>();
+    @Output() eventoSidebar = new EventEmitter<boolean>(); @Output() eventoFoco = new EventEmitter<string>();
 
     constructor(
         private prestacionService: PrestacionService,
         private route: ActivatedRoute,
-        private router: Router,) { }
+        private router: Router) { }
 
     ngOnInit(): void {
         // Servicios
         this.familiares$ = this.prestacionService.getFamiliares();
 
-        //mostrar listado (familiares, historia, labs)
+        // Mostrar listado (familiares, historia, labs)
         this.familiar$ = this.route.paramMap.pipe(
             switchMap((params: ParamMap) =>
                 this.prestacionService.getFamiliar(params.get('id')))
@@ -37,6 +38,10 @@ export class MisFamiliaresComponent implements OnInit {
         this.prestacionService.actualizarValor(9);
     }
 
+    mostrarSidebar() {
+        this.prestacionService.actualizarSidebar(true);
+    }
+
     cambiaFoco() {
         this.prestacionService.actualizarFoco('sidebar');
     }
@@ -45,6 +50,7 @@ export class MisFamiliaresComponent implements OnInit {
     selected(familiar) {
         this.nuevoValor();
         this.cambiaFoco();
+        this.mostrarSidebar();
         familiar.selected = !familiar.selected;
         this.prestacionService.resetOutlet();
         setTimeout(() => {

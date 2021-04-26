@@ -14,7 +14,7 @@ import { PacienteService } from '../../servicios/paciente.service';
 import { PlexModalComponent } from '@andes/plex/src/lib/modal/modal.component';
 
 @Component({
-    selector: 'paciente-detalle',
+    selector: 'app-paciente-detalle',
     templateUrl: './paciente-detalle.html',
 })
 

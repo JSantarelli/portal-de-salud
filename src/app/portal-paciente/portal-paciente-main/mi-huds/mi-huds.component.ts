@@ -11,15 +11,12 @@ import { BehaviorSubject } from 'rxjs';
     templateUrl: './mi-huds.component.html',
 })
 export class MiHudsComponent implements OnInit {
-    //searchTerm$ = new BehaviorSubject<string>(' ');
-    searchTerm = '';
-    @Output() eventoFoco = new EventEmitter<string>();
-    @Output() eventoSidebar = new EventEmitter<number>();
+    searchTerm$ = new BehaviorSubject<string>('');
 
     public selectedId;
     public hud$;
     public huds$;
-    sidebarValue: number;
+    mainValue: number;
     filtros = true;
     verHuds = false;
 
@@ -43,6 +40,9 @@ export class MiHudsComponent implements OnInit {
 
     public showModal = false;
 
+    @Output() eventoMain = new EventEmitter<number>();
+    @Output() eventoSidebar = new EventEmitter<boolean>(); @Output() eventoFoco = new EventEmitter<string>();
+
     updateMaxHora() {
         this.tModel.minHora = moment().add(30, 'minutes').add(1, 'days');
     }
@@ -57,21 +57,20 @@ export class MiHudsComponent implements OnInit {
 
     constructor(
         private prestacionService: PrestacionService,
-        private hudsService: PrestacionService,
         private route: ActivatedRoute,
         private router: Router,
     ) { }
 
     ngOnInit(): void {
-        this.hudsService.valorActual.subscribe(valor => this.sidebarValue = valor)
+        this.prestacionService.valorActual.subscribe(valor => this.mainValue = valor);
 
         // Servicios
-        this.huds$ = this.hudsService.getHuds();
+        this.huds$ = this.prestacionService.getHuds();
 
-        //mostrar listado
+        // Mostrar listado
         this.hud$ = this.route.paramMap.pipe(
             switchMap((params: ParamMap) =>
-                this.hudsService.getHud(params.get('id')))
+                this.prestacionService.getHud(params.get('id')))
         );
 
         // plex-datetime
@@ -101,7 +100,7 @@ export class MiHudsComponent implements OnInit {
                 label: 'mías',
                 key: 2,
             },
-        ]
+        ];
 
         // plex-select efectores
         this.efectores = [{
@@ -184,7 +183,11 @@ export class MiHudsComponent implements OnInit {
     }
 
     nuevoValor() {
-        this.hudsService.actualizarValor(9);
+        this.prestacionService.actualizarValor(9);
+    }
+
+    mostrarSidebar() {
+        this.prestacionService.actualizarSidebar(true);
     }
 
     cambiaFoco() {
@@ -195,7 +198,8 @@ export class MiHudsComponent implements OnInit {
         hud.selected = !hud.selected;
         this.nuevoValor();
         this.cambiaFoco();
-        this.hudsService.resetOutlet();
+        this.mostrarSidebar();
+        this.prestacionService.resetOutlet();
         setTimeout(() => {
             this.selectedId = hud.id;
             this.router.navigate(['portal-paciente', { outlets: { detalleHuds: [this.selectedId] } }]);

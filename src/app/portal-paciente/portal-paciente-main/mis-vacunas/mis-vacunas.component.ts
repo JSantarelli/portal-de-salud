@@ -14,22 +14,22 @@ export class MisVacunasComponent implements OnInit {
     public vacuna$;
     public vacunas$;
 
-    sidebarValue: number;
-    @Output() eventoSidebar = new EventEmitter<number>();
-    @Output() eventoFoco = new EventEmitter<string>();
+    mainValue: number;
+    @Output() eventoMain = new EventEmitter<number>();
+    @Output() eventoSidebar = new EventEmitter<boolean>(); @Output() eventoFoco = new EventEmitter<string>();
 
     constructor(
         private prestacionService: PrestacionService,
         private route: ActivatedRoute,
-        private router: Router,) { }
+        private router: Router) { }
 
     ngOnInit(): void {
-        this.prestacionService.valorActual.subscribe(valor => this.sidebarValue = valor)
+        this.prestacionService.valorActual.subscribe(valor => this.mainValue = valor);
 
         // Servicios
         this.vacunas$ = this.prestacionService.getVacunas();
 
-        //mostrar listado (vacunas, historia, labs)
+        // Mostrar listado (vacunas, historia, labs)
         this.vacuna$ = this.route.paramMap.pipe(
             switchMap((params: ParamMap) =>
                 this.prestacionService.getVacuna(params.get('id')))
@@ -40,15 +40,20 @@ export class MisVacunasComponent implements OnInit {
         this.prestacionService.actualizarValor(9);
     }
 
+    mostrarSidebar() {
+        this.prestacionService.actualizarSidebar(true);
+    }
+
     cambiaFoco() {
         this.prestacionService.actualizarFoco('sidebar');
     }
 
     selected(vacuna) {
+        this.nuevoValor();
+        this.cambiaFoco();
+        this.mostrarSidebar();
         vacuna.selected = !vacuna.selected;
         this.prestacionService.resetOutlet();
-        this.cambiaFoco();
-        this.nuevoValor();
         setTimeout(() => {
             this.selectedId = vacuna.id;
             this.router.navigate(['portal-paciente', { outlets: { detalleVacuna: [this.selectedId] } }]);
