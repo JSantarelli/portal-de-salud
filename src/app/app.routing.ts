@@ -17,6 +17,7 @@ import { MisMensajesComponent } from './portal-paciente/portal-paciente-main/mis
 import { MisOrganizacionesComponent } from './portal-paciente/portal-paciente-main/mis-organizaciones/mis-organizaciones.component';
 import { MisDocumentosComponent } from './portal-paciente/portal-paciente-main/mis-documentos/mis-documentos.component';
 import { MisSolicitudesComponent } from './portal-paciente/portal-paciente-main/mis-solicitudes/mis-solicitudes.component';
+import { MisDatosComponent } from './portal-paciente/portal-paciente-main/mis-datos/mis-datos.component';
 
 import { DetalleVacunaComponent } from './portal-paciente/portal-paciente-sidebar/detalle-vacuna/detalle-vacuna.component';
 import { DetalleLaboratorioComponent } from './portal-paciente/portal-paciente-sidebar/detalle-laboratorio/detalle-laboratorio.component';
@@ -74,6 +75,8 @@ const appRoutes: Routes = [
             { path: ':id', component: DetalleSolicitudComponent, outlet: 'detalleSolicitud' },
 
             { path: 'misDocumentos', component: MisDocumentosComponent, outlet: 'listado' },
+
+            { path: 'misDatos', component: MisDatosComponent, outlet: 'listado' },
         ]
     },
     { path: '', component: HomeComponent },

@@ -114,7 +114,11 @@ export class PacienteDetalleComponent implements OnInit {
 
     ocultarDatos() {
         this.datosSecundarios = !this.datosSecundarios;
-        console.log(this.datosSecundarios);
+    }
+
+    editarDatos() {
+        this.router.navigate(['portal-paciente', { outlets: { listado: 'misDatos' } }]);
+
     }
 
     isResponsive() {

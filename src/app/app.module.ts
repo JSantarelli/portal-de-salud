@@ -37,6 +37,7 @@ import { MisOrganizacionesComponent } from './portal-paciente/portal-paciente-ma
 import { MisConsultasComponent } from './portal-paciente/portal-paciente-main/mis-consultas/mis-consultas.component';
 import { MisMensajesComponent } from './portal-paciente/portal-paciente-main/mis-mensajes/mis-mensajes.component';
 import { MisDocumentosComponent } from './portal-paciente/portal-paciente-main/mis-documentos/mis-documentos.component';
+import { MisDatosComponent } from './portal-paciente/portal-paciente-main/mis-datos/mis-datos.component';
 
 // Detalles
 import { DetalleFamiliarComponent } from './portal-paciente/portal-paciente-sidebar/detalle-familiar/detalle-familiar.component';
@@ -79,6 +80,7 @@ import { MapsComponent } from './utils/mapsComponent';
         MisOrganizacionesComponent,
         MisDocumentosComponent,
         MisSolicitudesComponent,
+        MisDatosComponent,
         DetalleHudsComponent,
         DetalleVacunaComponent,
         DetalleLaboratorioComponent,
