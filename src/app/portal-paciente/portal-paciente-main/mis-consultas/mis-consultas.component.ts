@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { PrestacionService } from '../../../servicios/prestacion.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { EventEmitter, Output } from '@angular/core';
@@ -11,6 +11,7 @@ import { switchMap } from 'rxjs/operators';
 export class MisConsultasComponent implements OnInit {
 
     public selectedId;
+    public width: number;
     public prestacion$;
     public prestaciones$;
 
@@ -21,6 +22,7 @@ export class MisConsultasComponent implements OnInit {
         private prestacionService: PrestacionService,
         private route: ActivatedRoute,
         private router: Router,
+        private el: ElementRef,
     ) { }
 
     ngOnInit(): void {
@@ -35,26 +37,21 @@ export class MisConsultasComponent implements OnInit {
         );
     }
 
-    nuevoValor() {
-        this.prestacionService.actualizarValor(9);
+    gotTo(id?) {
+        if (id) {
+            this.router.navigate([id], { relativeTo: this.route });
+        } else {
+            this.router.navigate(['misPrestaciones']);
+        }
     }
 
-    mostrarSidebar() {
-        this.prestacionService.actualizarSidebar(true);
-    }
-
-    cambiaFoco() {
-        this.prestacionService.actualizarFoco('sidebar');
+    isResponsive() {
+        this.width = this.el.nativeElement.clientWidth;
+        return this.width >= 980;
     }
 
     selected(prestacion) {
-        prestacion.selected = !prestacion.selected;
-        this.nuevoValor();
-        this.cambiaFoco();
-        this.prestacionService.resetOutlet();
-        setTimeout(() => {
-            this.selectedId = prestacion.id;
-            this.router.navigate(['portal-paciente', { outlets: { detalleConsulta: [this.selectedId] } }]);
-        }, 500);
+        this.selectedId = prestacion.id;
+        this.router.navigate(['misPrestaciones', prestacion.id]);
     }
 }

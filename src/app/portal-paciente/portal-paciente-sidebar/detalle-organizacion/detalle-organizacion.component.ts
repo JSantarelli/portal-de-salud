@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -12,6 +12,7 @@ import { Organizacion } from '../../../modelos/organizacion';
 export class DetalleOrganizacionComponent implements OnInit {
 
     public selectedId;
+    public width: number;
     public organizaciones$;
     public registros$;
     public prestaciones$;

@@ -8,7 +8,7 @@ import { PacienteService } from 'src/app/servicios/paciente.service';
 })
 export class MisDatosComponent implements OnInit {
     width: number;
-
+    public edicionContacto = false;
     public paciente$;
     public pacientes$;
     public tModel: any;
@@ -143,14 +143,17 @@ export class MisDatosComponent implements OnInit {
         this.plex.info('success', 'Este cartel se demoro un segundo en aparecer después de escribir.');
     }
 
-    isResponsive() {
-        this.width = this.el.nativeElement.clientWidth;
-        if (this.width < 1024) {
-            return true;
-        }
-        else false;
-        console.log(this.isResponsive());
-    }
+    //isResponsive() {
+    //    this.width = this.el.nativeElement.clientWidth;
+    //    if (this.width < 1024) {
+    //        return true;
+    //    }
+    //    else false;
+    //    console.log(this.isResponsive());
+    //}
 
+    editarContacto() {
+        this.edicionContacto = !this.edicionContacto;
+    }
 }
 

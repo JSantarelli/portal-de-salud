@@ -3,10 +3,6 @@
  * Faltan algunas tareas de refactor más.
  **/
 
-plex-grid[size="md"] {
-    grid-gap: 0!important;
-}
-
 $problema: #f1930d; // deprecated
 $trastorno: #ff4a1a;
 $hallazgo: #f4a03b;
@@ -71,6 +67,7 @@ div[collapse] {
 #menu-vertical {
     overflow-y: scroll;
     height: 100vh;
+    max-width: 100px;
 }
 
 // TODO: Hacer mixins

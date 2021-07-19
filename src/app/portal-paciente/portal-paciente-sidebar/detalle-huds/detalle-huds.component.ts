@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -12,6 +12,7 @@ import { Huds } from '../../../modelos/huds';
 export class DetalleHudsComponent implements OnInit {
 
     public selectedId;
+    public width: number;
     public huds$;
     public listadoHud: Huds[];
     hud$: Observable<Huds>;
@@ -20,6 +21,7 @@ export class DetalleHudsComponent implements OnInit {
         private prestacionService: PrestacionService,
         private route: ActivatedRoute,
         private router: Router,
+        private el: ElementRef,
     ) { }
 
     ngOnInit() {

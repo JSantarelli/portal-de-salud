@@ -1,16 +1,13 @@
-import { Component, OnInit, ElementRef, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { Component, OnInit, ElementRef } from '@angular/core';
 
 // rxjs
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 // Servicios y modelo
 import { Agenda } from '../modelos/agenda';
 import { Paciente } from '../modelos/paciente';
 import { Plex } from '@andes/plex';
 import { EventEmitter, Output } from '@angular/core';
-import { CardService } from '../servicios/card.service';
 import { Card } from '../modelos/card';
 import { PrestacionService } from '../servicios/prestacion.service';
 
@@ -33,7 +30,6 @@ export class PortalPacienteComponent implements OnInit {
     valorResultante = this.valorMain - this.valorMenu;
 
     selectedId: number;
-    card$: Observable<Card>;
     mainValue: number;
     sidebarValue: boolean;
     valorFoco: string = 'main';
@@ -44,10 +40,7 @@ export class PortalPacienteComponent implements OnInit {
     public i;
 
     constructor(
-        private cardService: CardService,
         private plex: Plex,
-        private route: ActivatedRoute,
-        private router: Router,
         private prestacionService: PrestacionService,
         private el: ElementRef,
     ) { }
@@ -69,15 +62,6 @@ export class PortalPacienteComponent implements OnInit {
 
         // Paso valor del foco
         this.prestacionService.focoActual.subscribe(valor => this.valorFoco = valor)
-
-        this.cards$ = this.cardService.getCards();
-        // Mostrar detalle de prestacion
-        this.card$ = this.route.paramMap.pipe(
-            switchMap((params: ParamMap) =>
-                this.cardService.getCard(params.get('id')))
-        );
-
-        this.plex.navbarVisible = false;
     }
 
     // public prueba = '';
@@ -100,8 +84,10 @@ export class PortalPacienteComponent implements OnInit {
 
     recibirSidebar($event) {
         this.sidebarValue = $event;
-        console.log(this.sidebarValue)
+    }
 
+    recibirFoco($event) {
+        this.valorFoco = $event;
     }
 
     // fuerza not-focused (que solo funciona en responsive)

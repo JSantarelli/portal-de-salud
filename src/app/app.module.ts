@@ -60,6 +60,9 @@ import { DetalleSolicitudComponent } from './portal-paciente/portal-paciente-sid
 import { ModalTemplateComponent } from './componentes/plex-modal-template/plex-modal-template';
 import { PortalPacienteSidebarComponent } from './portal-paciente/portal-paciente-sidebar/portal-paciente-sidebar.component';
 import { MapsComponent } from './utils/mapsComponent';
+import { PDPMenuComponent } from './componentes/portal-menu/portal-menu.component';
+import { PDPTituloComponent } from './componentes/portal-titulo/portal-titulo.component';
+import { PlexVisualizadorService } from '@andes/plex';
 
 @NgModule({
     declarations: [
@@ -99,6 +102,8 @@ import { MapsComponent } from './utils/mapsComponent';
         PortalPacienteComponent,
         PortalPacienteMainComponent,
         PortalPacienteSidebarComponent,
+        PDPTituloComponent,
+        PDPMenuComponent,
         PrestacionPipe,
         MapsComponent
     ],
@@ -113,6 +118,7 @@ import { MapsComponent } from './utils/mapsComponent';
     ],
     providers: [
         Plex,
+        PlexVisualizadorService,
         appRoutingProviders,
         FormGroupDirective,
         CardService,

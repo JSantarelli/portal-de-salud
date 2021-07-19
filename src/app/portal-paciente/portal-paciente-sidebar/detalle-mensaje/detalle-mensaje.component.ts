@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -12,6 +12,7 @@ import { Mensaje } from '../../../modelos/mensaje';
 export class DetalleMensajeComponent implements OnInit {
 
     public selectedId;
+    public width: number;
     public mensajes$;
     public prestaciones$;
     mensaje$: Observable<Mensaje>;

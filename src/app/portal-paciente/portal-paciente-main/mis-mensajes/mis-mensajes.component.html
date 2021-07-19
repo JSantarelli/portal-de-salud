@@ -1,16 +1,32 @@
-<plex-list height="60vh">
-    <plex-item *ngFor="let mensaje of mensajes$ | async" (click)="selected(mensaje)" [selected]="mensaje.selected">
-        <plex-label size="lg" icon="mail" type="info" titulo="{{ mensaje.titulo }}"
-                    subtitulo="{{ mensaje.nota | slice:0:35 }}...">
-        </plex-label>
-        <plex-label *mobile="false" icon="medico" case="lowercase" size="md"
-                    titulo="De: {{ mensaje.autor }} | {{ mensaje.remitente }}" subtitulo="{{ mensaje.efector }}">
-        </plex-label>
+<plex-layout [aspect]="9">
+    <plex-layout-main type="invert">
+        <pdp-titulo></pdp-titulo>
+        <pdp-menu>
+            <plex-title size="sm" titulo="Mis mensajes"></plex-title>
+            <plex-list>
+                <plex-item *ngFor="let mensaje of mensajes$ | async" (click)="selected(mensaje)"
+                           [selected]="mensaje.selected">
+                    <plex-label size="lg" icon="mail" type="info" titulo="{{ mensaje.titulo }}"
+                                subtitulo="{{ mensaje.nota | slice:0:35 }}...">
+                    </plex-label>
+                    <plex-label *mobile="false" icon="medico" case="lowercase" size="md"
+                                titulo="De: {{ mensaje.autor }} | {{ mensaje.remitente }}"
+                                subtitulo="{{ mensaje.efector }}">
+                    </plex-label>
 
-        <plex-badge type="success">
-            <plex-icon *ngIf="mensaje.adjuntos.length > 0" name="documento"></plex-icon>
-        </plex-badge>
-        <plex-badge type="info">{{ mensaje.fecha }} | {{ mensaje.hora }} hs.</plex-badge>
-        <plex-button type="info" icon="eye" size="sm" (click)="selected(mensaje)"></plex-button>
-    </plex-item>
-</plex-list>
+                    <plex-badge type="success">
+                        <plex-icon *ngIf="mensaje.adjuntos.length > 0" name="documento"></plex-icon>
+                    </plex-badge>
+                    <plex-badge type="info">{{ mensaje.fecha }} | {{ mensaje.hora }} hs.</plex-badge>
+                    <plex-button type="info" icon="eye" size="sm" (click)="selected(mensaje)"></plex-button>
+                </plex-item>
+            </plex-list>
+        </pdp-menu>
+    </plex-layout-main>
+    <plex-layout-sidebar>
+        <plex-title size="{{ isResponsive() ? 'sm' : 'md' }}" titulo="Detalle mensaje">
+            <plex-button type="danger" icon="close" size="sm" (click)="gotTo()"></plex-button>
+        </plex-title>
+        <router-outlet></router-outlet>
+    </plex-layout-sidebar>
+</plex-layout>

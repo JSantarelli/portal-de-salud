@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -13,6 +13,7 @@ import { Familiar } from '../../../modelos/familiar';
 export class DetalleFamiliarComponent implements OnInit {
 
     public selectedId;
+    public width: number;
     public familiares$;
     public prestaciones$;
     public listadoPrestacion: Prestacion[];
@@ -25,6 +26,7 @@ export class DetalleFamiliarComponent implements OnInit {
         private prestacionService: PrestacionService,
         private route: ActivatedRoute,
         private router: Router,
+        private el: ElementRef,
     ) { }
 
     ngOnInit() {

@@ -24,32 +24,30 @@ import { DetalleConsultaComponent } from './portal-paciente/portal-paciente-side
 
 const appRoutes: Routes = [
     {
-        path: 'portal-paciente', component: PortalPacienteComponent,
+        path: ' ', component: MiHudsComponent,
 
         children: [
-            { path: 'miHuds', component: MiHudsComponent, outlet: 'listado' },
-            { path: ':id', component: DetalleHudsComponent, outlet: 'detalleHuds' },
+            { path: ':id', component: DetalleHudsComponent, },
+            { path: 'misVacunas', component: MisVacunasComponent, },
+            { path: ':id', component: DetalleVacunaComponent, },
 
-            { path: 'misVacunas', component: MisVacunasComponent, outlet: 'listado' },
-            { path: ':id', component: DetalleVacunaComponent, outlet: 'detalleVacuna' },
+            { path: 'misLaboratorios', component: MisLaboratoriosComponent, },
+            { path: ':id', component: DetalleLaboratorioComponent, },
 
-            { path: 'misLaboratorios', component: MisLaboratoriosComponent, outlet: 'listado' },
-            { path: ':id', component: DetalleLaboratorioComponent, outlet: 'detalleLaboratorio' },
+            { path: 'misTurnos', component: MisTurnosComponent, },
+            { path: ':id', component: DetalleTurnoComponent, },
 
-            { path: 'misTurnos', component: MisTurnosComponent, outlet: 'listado' },
-            { path: ':id', component: DetalleTurnoComponent, outlet: 'detalleTurno' },
+            { path: 'misFamiliares', component: MisFamiliaresComponent, },
+            { path: ':id', component: DetalleFamiliarComponent, },
 
-            { path: 'misFamiliares', component: MisFamiliaresComponent, outlet: 'listado' },
-            { path: ':id', component: DetalleFamiliarComponent, outlet: 'detalleFamiliar' },
+            { path: 'misProblemas', component: MisProblemasComponent, },
+            { path: ':id', component: DetalleProblemaComponent, },
 
-            { path: 'misProblemas', component: MisProblemasComponent, outlet: 'listado' },
-            { path: ':id', component: DetalleProblemaComponent, outlet: 'detalleProblema' },
+            { path: 'misPrescripciones', component: MisPrescripcionesComponent, },
+            { path: ':id', component: DetallePrescripcionComponent, },
 
-            { path: 'misPrescripciones', component: MisPrescripcionesComponent, outlet: 'listado' },
-            { path: ':id', component: DetallePrescripcionComponent, outlet: 'detallePrescripcion' },
-
-            { path: 'misConsultas', component: MisConsultasComponent, outlet: 'listado' },
-            { path: ':id', component: DetalleConsultaComponent, outlet: 'detalleConsulta' },
+            { path: 'misConsultas', component: MisConsultasComponent, },
+            { path: ':id', component: DetalleConsultaComponent, },
         ]
     },
     { path: '', component: HomeComponent },

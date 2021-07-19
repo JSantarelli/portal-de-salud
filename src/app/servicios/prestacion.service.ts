@@ -83,22 +83,22 @@ export class PrestacionService {
     }
 
     // Limpio los ruteos auxiliares
-    resetOutlet() {
-        this.router.navigate(['portal-paciente', {
-            outlets: {
-                // detalle: null,
-                detalleHuds: null,
-                detalleVacuna: null,
-                detalleTurno: null,
-                detalleFamiliar: null,
-                detallePrescripcion: null,
-                detalleLaboratorio: null,
-                detalleProblema: null,
-                detalleProfesional: null,
-                detalleMensaje: null,
-            }
-        }]);
-    }
+    //resetOutlet() {
+    //    this.router.navigate([ 'portal-paciente', {
+    //        outlets: {
+    //            // detalle: null,
+    //            detalleHuds: null,
+    //            detalleVacuna: null,
+    //            detalleTurno: null,
+    //            detalleFamiliar: null,
+    //            detallePrescripcion: null,
+    //            detalleLaboratorio: null,
+    //            detalleProblema: null,
+    //            detalleProfesional: null,
+    //            detalleMensaje: null,
+    //        }
+    //    }]);
+    //}
 
     // Modelos y mock-data
     getHuds(): Observable<Huds[]> {

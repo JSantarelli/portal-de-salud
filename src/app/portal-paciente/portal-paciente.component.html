@@ -1,88 +1,14 @@
-<plex-layout main="{{ mainValue }}" foco="{{ valorFoco }}">
+<!--<plex-layout main="{{ mainValue }}" foco="{{ valorFoco }}">
     <plex-layout-main type="invert">
-        <plex-title size="{{ isResponsive() ? 'sm' : 'md' }}"
-                    titulo="{{ isResponsive() ? 'mi portal' : 'mi portal de salud' }}" main>
-            <plex-button *mobile="false" size="sm" icon="mail-outline" label="info@andes.gob.ar" class="ml-2"
-                         type="link">
-            </plex-button>
-            <plex-button *mobile="false" size="sm" icon="web" label="www.andes.gob.ar" class="ml-2" type="link">
-            </plex-button>
-
-            <!-- Alertas mobile -->
-            <ng-container *ngFor="let card of cards$ | async | slice:4:8">
-                <plex-icon *mobile name="{{ card.icono }}"
-                           class="px-2 py-1 color-{{ card.semanticTag }} border-{{ card.semanticTag }}" size="sm"
-                           hint="2da dosis pendiente" hintIcon="bell" hintType="warning" detach="top"
-                           [routerLink]="[{ outlets: { listado: [card.path] } }]">
-                </plex-icon>
-            </ng-container>
-
-            <plex-button *mobile="false" size="sm" class="ml-2" type="danger" label="cerrar sesión" routerLink="/">
-            </plex-button>
-
-            <!-- Menu hamburguesa -->
-            <plex-help *ngIf="isResponsive()" size="sm" class="ml-2" type="info" icon="menu">
-                <div info id="menuHelp">
-                    <plex-grid size="xs">
-                        <ng-container *ngFor="let card of cards$ | async">
-                            <plex-label icon="{{ card.icono }}" size="md" class="mb-2 color-{{ card.semanticTag}}"
-                                        titulo="{{ card.nombre }}" subtitulo=""
-                                        [routerLink]="[{ outlets: { listado: [card.path] } }]" (click)="cerrarHelp()">
-                            </plex-label>
-                        </ng-container>
-                    </plex-grid>
-                    <plex-label size="block" class="ml-2" type="danger" icon="logout" titulo="cerrar sesión"
-                                routerLink="/">
-                    </plex-label>
-                </div>
-            </plex-help>
-        </plex-title>
-
-        <plex-grid cols="12" size="md" class="mr-2">
-            <!-- Menu Lateral -->
-            <plex-grid id="menu-vertical" *ngIf="!isResponsive()" span="{{ valorMenu }}"
-                       class="d-flex align-self-start mr-2 flex-column" size="xs">
-                <ng-container *ngFor="let card of cards$ | async">
-                    <plex-label icon="{{ card.icono }}" size="md" direction="column"
-                                class="mb-2 color-{{ card.semanticTag}}" titulo="" subtitulo=""
-                                [routerLink]="[{ outlets: { listado: [card.path] } }]" tooltip="{{ card.path }}"
-                                class="mb-2" tooltipPosition="right">
-                    </plex-label>
-                </ng-container>
-            </plex-grid>
-
-            <!-- Listado -->
-            <section span="{{ isResponsive() ? '12' : '11' }}">
-                <app-portal-paciente-main (eventoMain)="recibirMain($event)" (eventoSidebar)="recibirSidebar($event)"
-                                          (eventoFoco)="recibirFoco($event)">
-                </app-portal-paciente-main>
-            </section>
-        </plex-grid>
-
-        <!-- Menu mobile -->
-        <plex-grid *mobile cols="12" class="align-self-start mr-4" size="md">
-            <plex-button *ngFor="let card of cards$ | async" size="xs" icon="{{ card.icono }}" type="{{ card.type }}"
-                         [routerLink]="[{ outlets: { listado: [card.path] } }]">
-            </plex-button>
-        </plex-grid>
+        <pdp-titulo></pdp-titulo>
 
     </plex-layout-main>
+
+
     <plex-layout-sidebar *ngIf="sidebarValue">
         <plex-title size=" {{ isResponsive() ? 'md' : 'sm' }}" titulo="{{ isResponsive() ? 'detalle' : 'detalles' }}">
             <plex-button type="danger" icon="close" size="sm" (click)="contraerSidebar()" class="ml-2"></plex-button>
         </plex-title>
-        <!--<router-outlet name="detalle"></router-outlet>-->
-        <router-outlet name="detalleHuds"></router-outlet>
-        <router-outlet name="detallePrescripcion"></router-outlet>
-        <router-outlet name="detalleVacuna"></router-outlet>
-        <router-outlet name="detalleLaboratorio"></router-outlet>
-        <router-outlet name="detalleTurno"></router-outlet>
-        <router-outlet name="detalleFamiliar"></router-outlet>
-        <router-outlet name="detalleProblema"></router-outlet>
-        <router-outlet name="detalleConsulta"></router-outlet>
-        <router-outlet name="detalleProfesional"></router-outlet>
-        <router-outlet name="detalleMensaje"></router-outlet>
-        <router-outlet name="detalleOrganizacion"></router-outlet>
-        <router-outlet name="detalleSolicitud"></router-outlet>
+        <router-outlet></router-outlet>
     </plex-layout-sidebar>
-</plex-layout>
+</plex-layout>-->

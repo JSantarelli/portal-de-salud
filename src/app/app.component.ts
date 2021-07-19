@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Plex } from '@andes/plex';
 
 @Component({
     selector: 'app',
@@ -6,10 +7,15 @@ import { Component } from '@angular/core';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    title = 'plextathon';
+    title = 'portal del paciente';
 
-    constructor() {
+    constructor(
+        private plex: Plex,
+    ) {
+    }
 
+    ngOnInit() {
+        this.plex.navbarVisible = false;
     }
 }
 

@@ -1,6 +1,6 @@
-<plex-grid size="md" type="full">
+<plex-grid size="md" type="full" class="mb-4">
     <ng-container *ngFor="let paciente of pacientes$ | async | slice:1:2">
-        <plex-detail size="{{ isResponsive() ? 'sm' : 'md' }}" [ngClass]="isResponsive() ? 'no-margin' : 'no-margin'">
+        <plex-detail size="{{ isResponsive() ? 'sm' : 'md' }}" [ngClass]="isResponsive() ? 'no-margin' : ''">
             <plex-badge></plex-badge>
             <img src="{{ paciente.foto }}" alt="">
             <div title>{{ paciente.nombre }}<br>{{ paciente.apellido }}</div>
@@ -22,14 +22,12 @@
         </plex-detail>
 
         <!-- Alertas -->
-        <plex-grid size="sm" type="full" *mobile="false">
-            <plex-card class="border-{{ alerta.semanticTag }}" size="md" *ngFor="let alerta of alertas" align="center"
-                       type="default" color="{{ alerta.color }}" (click)="alerta.selected = !alerta.selected"
-                       [selected]="alerta.selected" [routerLink]="[{ outlets: { listado: [alerta.path] } }]">
-                <plex-label direction="column" titulo="{{ alerta.dato }}" class="color-{{ alerta.semanticTag }}"
-                            subtitulo="" icon="">
-                    <p class="" dato>{{ alerta.valor }}</p>
-                </plex-label>
+        <plex-grid type="auto" size="md" *mobile="false" responsive>
+            <plex-card *ngFor="let alerta of alertas" type="custom" mode="filled" color="{{ alerta.color }}"
+                       (click)="alerta.selected = !alerta.selected" [selected]="alerta.selected" selectable="true"
+                       [routerLink]="[ '/', alerta.path ]">
+                <plex-label direction="column" case="capitalize" titulo="{{ alerta.valor }}"
+                            subtitulo="{{ alerta.dato }}" icon="{{ alerta.icono }}"></plex-label>
             </plex-card>
         </plex-grid>
 
@@ -50,8 +48,9 @@
             <plex-title titulo="Indique y describa el error" size="sm"></plex-title>
             <form #formulario="ngForm" (close)="notificarAccion(false)">
                 <div>
-                    <plex-select placeholder="Seleccione un motivo" grow="2" [(ngModel)]="modelo2.select"
-                                 [data]="errores" label-field="nombre + ' (' + continente + ')'">
+                    <plex-select [ngModelOptions]="{standalone: true}" placeholder="Seleccione un motivo" grow="2"
+                                 [(ngModel)]="modelo2.select" [data]="errores"
+                                 label-field="nombre + ' (' + continente + ')'">
                     </plex-select>
                 </div>
                 <div class="mt-4">

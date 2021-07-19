@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { PrestacionService } from '../../../servicios/prestacion.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { EventEmitter, Output } from '@angular/core';
@@ -12,6 +12,7 @@ import { Plex } from '@andes/plex';
 export class MisMensajesComponent implements OnInit {
 
     public selectedId;
+    public width: number;
     public mensaje$;
     public mensajes$;
 
@@ -23,7 +24,9 @@ export class MisMensajesComponent implements OnInit {
     constructor(
         private prestacionService: PrestacionService,
         private route: ActivatedRoute,
-        private router: Router) { }
+        private router: Router,
+        private el: ElementRef
+    ) { }
 
     ngOnInit(): void {
         // Servicios
@@ -52,16 +55,23 @@ export class MisMensajesComponent implements OnInit {
         this.prestacionService.actualizarFoco('sidebar');
     }
 
+
+    gotTo(id?) {
+        if (id) {
+            this.router.navigate([id], { relativeTo: this.route });
+        } else {
+            this.router.navigate(['misMensajes']);
+        }
+    }
+
+    isResponsive() {
+        this.width = this.el.nativeElement.clientWidth;
+        return this.width >= 980;
+    }
+
     selected(mensaje) {
-        this.nuevoValor();
-        this.cambiaFoco();
-        this.mostrarSidebar();
         mensaje.selected = !mensaje.selected;
-        this.prestacionService.resetOutlet();
-        setTimeout(() => {
-            this.selectedId = mensaje.id;
-            this.router.navigate(['portal-paciente', { outlets: { detalleMensaje: [this.selectedId] } }]);
-        }, 500);
+        this.router.navigate(['misMensajes', mensaje.id]);
     }
 }
 

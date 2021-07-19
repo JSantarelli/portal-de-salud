@@ -1,14 +1,31 @@
-<plex-list height="60vh">
-    <plex-item *ngFor="let turno of turnos$ | async" (click)="selected(turno)" [selected]="turno.selected">
-        <plex-label size="lg" icon="turno-bold" titulo="{{ turno.tipoPrestacion }}"
-                    subtitulo="{{ turno.horaInicio }} hs.">
-        </plex-label>
-        <plex-label *mobile="false" icon="hospital" size="md" titulo="{{ turno.efector }}"
-                    subtitulo="Te atendió: {{ turno.profesional }}">
-        </plex-label>
+<plex-layout [aspect]="9">
+    <plex-layout-main type="invert">
+        <pdp-titulo></pdp-titulo>
+        <pdp-menu>
+            <plex-title size="sm" titulo="mis turnos">
+                <plex-button type="info" size="sm" class="mr-2">historial de turnos</plex-button>
+                <plex-button type="success" size="sm">tomar turno</plex-button>
+            </plex-title>
+            <plex-list>
+                <plex-item *ngFor="let turno of turnos$ | async" (click)="selected(turno)" [selected]="turno.selected">
+                    <plex-label size="lg" icon="turno-bold" titulo="{{ turno.tipoPrestacion }}"
+                                subtitulo="{{ turno.horaInicio }} hs.">
+                    </plex-label>
+                    <plex-label *mobile="false" icon="hospital" size="md" titulo="{{ turno.efector }}"
+                                subtitulo="Te atendió: {{ turno.profesional }}">
+                    </plex-label>
 
-        <plex-badge type="{{ turno.estado ? 'success' : 'warning'}}">{{ turno.asistencia }}</plex-badge>
-        <plex-badge type="info">{{ turno.fecha }}</plex-badge>
-        <plex-button type="info" icon="eye" size="sm" (click)="selected(turno)"></plex-button>
-    </plex-item>
-</plex-list>
+                    <plex-badge type="{{ turno.estado ? 'success' : 'warning'}}">{{ turno.asistencia }}</plex-badge>
+                    <plex-badge type="info">{{ turno.fecha }}</plex-badge>
+                    <plex-button type="info" icon="eye" size="sm" (click)="selected(turno)"></plex-button>
+                </plex-item>
+            </plex-list>
+        </pdp-menu>
+    </plex-layout-main>
+    <plex-layout-sidebar>
+        <plex-title size="{{ isResponsive() ? 'sm' : 'md' }}" titulo="Detalle turno">
+            <plex-button type="danger" icon="close" size="sm" (click)="gotTo()"></plex-button>
+        </plex-title>
+        <router-outlet></router-outlet>
+    </plex-layout-sidebar>
+</plex-layout>

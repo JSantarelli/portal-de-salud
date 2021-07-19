@@ -1,0 +1,26 @@
+<plex-wrapper>
+    <!-- Menu Lateral-->
+    <plex-grid id="menu-vertical" *mobile="false" class="d-flex align-self-start mr-2 flex-column" size="xs">
+        <ng-container *ngFor="let card of cards$ | async">
+            <plex-label icon="{{ card.icono }}" size="md" direction="column" class="mb-2 color-{{ card.semanticTag}}"
+                        titulo="" subtitulo="" [routerLink]="['/', card.path]" tooltip="{{ card.path }}" class="mb-2"
+                        tooltipPosition="right">
+            </plex-label>
+        </ng-container>
+    </plex-grid>
+
+    <plex-grid class="mr-2 align-self-start">
+        <!-- Listado -->
+        <section>
+            <app-paciente-detalle></app-paciente-detalle>
+            <ng-content></ng-content>
+        </section>
+
+        <!-- Menu mobile -->
+        <plex-grid *mobile cols="12" class="align-self-start mr-4" size="md">
+            <plex-button *ngFor="let card of cards$ | async" size="xs" icon="{{ card.icono }}" type="{{ card.type }}"
+                         [routerLink]="['/', card.path]">
+            </plex-button>
+        </plex-grid>
+    </plex-grid>
+</plex-wrapper>

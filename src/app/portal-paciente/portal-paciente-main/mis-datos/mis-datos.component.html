@@ -1,114 +1,121 @@
-<ng-container *ngFor="let paciente of pacientes$ | async | slice:1:2">
-    <plex-title size="sm" titulo="Mis datos básicos">
-        <plex-badge type="{{ paciente.estado === 'validado' ? 'success' : 'warning' }}">{{ paciente.estado }}
-        </plex-badge>
-        <plex-button type="success" label="guardar datos" size="sm" class="ml-2"></plex-button>
-    </plex-title>
-    <plex-grid type="full" size="md">
-        <plex-label case="capitalize-first" direction="row" size="md" icon="account" titulo="nombre"
-                    subtitulo="{{ paciente.nombre }}">
-        </plex-label>
-        <plex-label case="capitalize-first" direction="row" size="md" icon="account" titulo="apellido"
-                    subtitulo="{{ paciente.apellido }}">
-        </plex-label>
-        <plex-label case="capitalize-first" direction="row" size="md" icon="credencial-paciente" titulo="documento"
-                    subtitulo="{{ paciente.documento }}">
-        </plex-label>
-        <plex-label case="capitalize-first" direction="row" size="md" icon="calendar-today" titulo="fecha de nacimiento"
-                    subtitulo="{{ paciente.fechaNacimiento }}">
-        </plex-label>
-        <plex-label case="capitalize-first" direction="row" size="md" icon="masculino" titulo="sexo"
-                    subtitulo="{{ paciente.sexo }}">
-        </plex-label>
-        <plex-label case="capitalize-first" direction="row" size="md" icon="home" titulo="domicilio legal"
-                    subtitulo="{{ paciente.domicilio }}">
-        </plex-label>
-    </plex-grid>
-
-    <plex-grid size="lg" type="full">
-        <!-- Datos de contacto -->
-        <section>
-            <plex-title size="sm" titulo="Mis datos de contacto">
-            </plex-title>
-            <plex-grid size="md" type="full">
-                <plex-label case="capitalize-first" direction="row" size="md" icon="telefono" titulo="fijo"
-                            subtitulo="{{ paciente.fechaNacimiento }}">
-                </plex-label>
-                <plex-label case="capitalize-first" direction="row" size="md" icon="celular" titulo="celular"
-                            subtitulo="{{ paciente.contacto }}">
-                </plex-label>
-                <plex-label case="capitalize-first" direction="row" size="md" icon="mail" titulo="email"
-                            subtitulo="mvalenzuela.ernesto@gmail.com">
-                </plex-label>
-            </plex-grid>
-
-            <plex-wrapper>
-                <plex-select grow="full" [(ngModel)]="modelo1.select" [data]="tipoComunicacion" name=""
-                             [required]="true" label="Tipo de contacto" [readonly]="">
-                </plex-select>
-                <plex-phone grow="2" *ngIf="modelo1.select.nombre === 'teléfono fijo'" label="Número de teléfono fijo"
-                            [(ngModel)]="templateModel2.nombre" placeholder="Ej: 2990000000" name="" [required]=""
-                            [readonly]="">
-                </plex-phone>
-                <plex-phone grow="2" *ngIf="modelo1.select.nombre === 'teléfono celular'"
-                            label="Número de teléfono celular" [(ngModel)]="templateModel2.nombre"
-                            placeholder="Ej: 2990000000" name="" [required]="" [readonly]="">
-                </plex-phone>
-                <plex-text grow="2" *ngIf="modelo1.select.nombre === 'email'" email label="Dirección"
-                           [(ngModel)]="templateModel2.nombre" placeholder="Ej: ejemplo@email.com" [required]="" name=""
-                           [readonly]="">
-                </plex-text>
-                <plex-button size="md" title="Agregar contacto" titlePosition="left" type="info" icon="plus"
-                             name="agregarContacto" [disabled]="">
-                </plex-button>
-            </plex-wrapper>
-            <!--<plex-title size="sm" titulo="activar app mobile"></plex-title>
-            <plex-grid size="lg" type="full">
-                <plex-grid size="md" cols="4" type="auto" span="2">
-                    <plex-text span="3" class="mr-1" email name="email" [(ngModel)]="templateModel2.nombre"
-                               placeholder="maria@gmail.com" [readonly]="">
-                    </plex-text>
-                    <plex-button justify="end" span="1" icon="pencil" size="md" label="" type="warning"
-                                 name="editarUsuario" title="Editar correo">
-                    </plex-button>
+<plex-layout [aspect]="9">
+    <plex-layout-main type="invert">
+        <pdp-titulo></pdp-titulo>
+        <pdp-menu>
+            <ng-container *ngFor="let paciente of pacientes$ | async | slice:1:2">
+                <plex-title size="sm" titulo="Mis datos básicos">
+                    <plex-badge type="{{ paciente.estado === 'validado' ? 'success' : 'warning' }}">{{ paciente.estado
+                        }}
+                    </plex-badge>
+                    <plex-button type="success" label="guardar datos" size="sm" class="ml-2"></plex-button>
+                </plex-title>
+                <plex-grid type="full" size="md">
+                    <plex-label case="capitalize-first" direction="row" size="md" icon="account" titulo="nombre"
+                                subtitulo="{{ paciente.nombre }}">
+                    </plex-label>
+                    <plex-label case="capitalize-first" direction="row" size="md" icon="account" titulo="apellido"
+                                subtitulo="{{ paciente.apellido }}">
+                    </plex-label>
+                    <plex-label case="capitalize-first" direction="row" size="md" icon="credencial-paciente"
+                                titulo="documento" subtitulo="{{ paciente.documento }}">
+                    </plex-label>
+                    <plex-label case="capitalize-first" direction="row" size="md" icon="calendar-today"
+                                titulo="fecha de nacimiento" subtitulo="{{ paciente.fechaNacimiento }}">
+                    </plex-label>
+                    <plex-label case="capitalize-first" direction="row" size="md" icon="masculino" titulo="sexo"
+                                subtitulo="{{ paciente.sexo }}">
+                    </plex-label>
+                    <plex-label case="capitalize-first" direction="row" size="md" icon="home" titulo="domicilio legal"
+                                subtitulo="{{ paciente.domicilio }}">
+                    </plex-label>
                 </plex-grid>
-                <plex-button class="mt-2" justify="end" size="block" label="activar app" type="info" name="activarApp"
-                             title="Activar app mobile">
-                </plex-button>
-            </plex-grid>-->
+                <plex-grid size="lg" type="full">
+                    <!-- Datos de contacto -->
+                    <section>
+                        <plex-title size="sm" titulo="Mis datos de contacto">
+                            <plex-button type="success" icon="plus" size="sm" (click)="editarContacto()"></plex-button>
 
-        </section>
-        <section class="ml-4" ngClass="{{ isResponsive() ? 'ml-1' : 'ml-4'}}">
-            <plex-title size="sm" titulo="mi domicilio real">
-                <plex-bool type="slide" label="Vivo en neuquén capital"></plex-bool>
+                        </plex-title>
+                        <plex-list *ngIf="!edicionContacto">
+                            <plex-item>
+                                <plex-label case="capitalize-first" direction="row" size="md" icon="celular"
+                                            titulo="celular" subtitulo="{{ paciente.contacto }}">
+                                </plex-label>
+                                <plex-button type="warning" icon="pencil" size="sm" (click)="editarContacto()">
+                                </plex-button>
+                                <plex-button type="danger" icon="delete" size="sm" (click)="editarContacto()">
+                                </plex-button>
+                            </plex-item>
+                            <plex-item>
+                                <plex-label case="capitalize-first" direction="row" size="md" icon="mail" titulo="email"
+                                            subtitulo="mvalenzuela.ernesto@gmail.com">
+                                </plex-label>
+                                <plex-button type="warning" icon="pencil" size="sm" (click)="editarContacto()">
+                                </plex-button>
+                                <plex-button type="danger" icon="delete" size="sm" (click)="editarContacto()">
+                                </plex-button>
+                            </plex-item>
+                        </plex-list>
+                        <plex-wrapper *ngIf="edicionContacto">
+                            <plex-select grow="full" [(ngModel)]="modelo1.select" [data]="tipoComunicacion" name=""
+                                         [required]="true" label="Tipo de contacto" [readonly]="">
+                            </plex-select>
+                            <plex-phone grow="2" *ngIf="modelo1.select.nombre === 'teléfono fijo'"
+                                        label="Número de teléfono fijo" [(ngModel)]="templateModel2.nombre"
+                                        placeholder="Ej: 2990000000" name="" [required]="" [readonly]="">
+                            </plex-phone>
+                            <plex-phone grow="2" *ngIf="modelo1.select.nombre === 'teléfono celular'"
+                                        label="Número de teléfono celular" [(ngModel)]="templateModel2.nombre"
+                                        placeholder="Ej: 2990000000" name="" [required]="" [readonly]="">
+                            </plex-phone>
+                            <plex-text grow="2" *ngIf="modelo1.select.nombre === 'email'" email label="Dirección"
+                                       [(ngModel)]="templateModel2.nombre" placeholder="Ej: ejemplo@email.com"
+                                       [required]="" name="" [readonly]="">
+                            </plex-text>
+                            <plex-button size="md" title="Agregar contacto" titlePosition="left" type="danger"
+                                         icon="close" name="agregarContacto" (click)="editarContacto()">
+                            </plex-button>
+                            <plex-button size="md" title="Agregar contacto" titlePosition="left" class="ml-2"
+                                         type="success" icon="check" name="agregarContacto" (click)="editarContacto()">
+                            </plex-button>
+                        </plex-wrapper>
 
-            </plex-title>
-            <plex-grid size="md" type="full">
+                    </section>
+                    <!--<section ngClass="{{ isResponsive() ? 'ml-1' : 'ml-4'}}">-->
+                    <section>
+                        <plex-title size="sm" titulo="mi domicilio real">
+                            <plex-bool type="slide" label="Vivo en neuquén capital"></plex-bool>
 
-                <plex-label case="capitalize-first" direction="row" size="md" icon="home" titulo="domicilio real"
-                            subtitulo="{{ paciente.domicilio }}">
-                </plex-label>
-            </plex-grid>
-            <plex-wrapper>
-                <plex-select grow="2" [(ngModel)]="modelo2.select" [data]="provincias" name="" label="Provincia"
-                             [readonly]="">
-                </plex-select>
-                <plex-select grow="2" [(ngModel)]="modelo2.select" [data]="localidades" name="" label="Localidad"
-                             [readonly]="">
-                </plex-select>
-                <plex-select grow="2" [(ngModel)]="templateModel2.select" [data]="barrios" name="" label="Barrio"
-                             [readonly]="">
-                </plex-select>
-                <label grow="full" for="dirección" class="mb-1">dirección</label>
-                <div grow="full" justify>
-                    <plex-text email [(ngModel)]="templateModel2.nombre" placeholder="" name="" [readonly]="">
-                    </plex-text>
-                    <plex-button size="md" title="marcar dirección" titlePosition="left" type="info" icon="marcador"
-                                 name="agregarContacto" [disabled]="">
-                    </plex-button>
-                </div>
-            </plex-wrapper>
+                        </plex-title>
+                        <plex-grid size="md" type="full">
 
-        </section>
-    </plex-grid>
-</ng-container>
+                            <plex-label case="capitalize-first" direction="row" size="md" icon="home"
+                                        titulo="domicilio real" subtitulo="{{ paciente.domicilio }}">
+                            </plex-label>
+                        </plex-grid>
+                        <plex-wrapper>
+                            <plex-select grow="2" [(ngModel)]="modelo2.select" [data]="provincias" name=""
+                                         label="Provincia" [readonly]="">
+                            </plex-select>
+                            <plex-select grow="2" [(ngModel)]="modelo2.select" [data]="localidades" name=""
+                                         label="Localidad" [readonly]="">
+                            </plex-select>
+                            <plex-select grow="2" [(ngModel)]="templateModel2.select" [data]="barrios" name=""
+                                         label="Barrio" [readonly]="">
+                            </plex-select>
+                            <label grow="full" for="dirección" class="mb-1">dirección</label>
+                            <div grow="full" justify>
+                                <plex-text email [(ngModel)]="templateModel2.nombre" placeholder="" name=""
+                                           [readonly]="">
+                                </plex-text>
+                                <plex-button size="md" title="marcar dirección" titlePosition="left" type="info"
+                                             icon="marcador" name="agregarContacto" [disabled]="">
+                                </plex-button>
+                            </div>
+                        </plex-wrapper>
+
+                    </section>
+                </plex-grid>
+            </ng-container>
+        </pdp-menu>
+    </plex-layout-main>

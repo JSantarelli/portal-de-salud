@@ -1,14 +1,28 @@
-<plex-list height="50vh">
-    <plex-item *ngFor="let solicitud of solicitudes$ | async" (click)="selected(solicitud)"
-               [selected]="solicitud.selected">
-        <plex-label icon="arrow-up" titulo="Desde" size="lg"
-                    subtitulo="{{ solicitud.organizacionOrigen }} Profesional de origen: {{ solicitud.profesionalOrigen }} | Prestación: {{ solicitud.prestacionOrigen }}">
-        </plex-label>
-        <plex-label icon="arrow-down" titulo="Hasta" size="lg"
-                    subtitulo="{{ solicitud.organizacion }} Profesional: {{ solicitud.profesional }} | Prestación: {{ solicitud.prestacion }}">
-        </plex-label>
-        <plex-badge type="warning">{{ solicitud.estado }}</plex-badge>
-        <plex-badge type="info">{{ solicitud.fecha }}</plex-badge>
-        <plex-button type="info" size="sm" icon="eye"></plex-button>
-    </plex-item>
-</plex-list>
+<plex-layout [aspect]="9">
+    <plex-layout-main type="invert">
+        <pdp-titulo></pdp-titulo>
+        <pdp-menu>
+            <plex-title size="sm" titulo="mis solicitudes"></plex-title>
+            <plex-list height="50vh">
+                <plex-item *ngFor="let solicitud of solicitudes$ | async" (click)="selected(solicitud)"
+                           [selected]="solicitud.selected">
+                    <plex-label icon="arrow-up" titulo="Desde" size="lg"
+                                subtitulo="{{ solicitud.organizacionOrigen }} Profesional de origen: {{ solicitud.profesionalOrigen }} | Prestación: {{ solicitud.prestacionOrigen }}">
+                    </plex-label>
+                    <plex-label icon="arrow-down" titulo="Hasta" size="lg"
+                                subtitulo="{{ solicitud.organizacion }} Profesional: {{ solicitud.profesional }} | Prestación: {{ solicitud.prestacion }}">
+                    </plex-label>
+                    <plex-badge type="warning">{{ solicitud.estado }}</plex-badge>
+                    <plex-badge type="info">{{ solicitud.fecha }}</plex-badge>
+                    <plex-button type="info" size="sm" icon="eye"></plex-button>
+                </plex-item>
+            </plex-list>
+        </pdp-menu>
+    </plex-layout-main>
+    <plex-layout-sidebar>
+        <plex-title size="{{ isResponsive() ? 'sm' : 'md' }}" titulo="Detalle solicitud">
+            <plex-button type="danger" icon="close" size="sm" (click)="gotTo()"></plex-button>
+        </plex-title>
+        <router-outlet></router-outlet>
+    </plex-layout-sidebar>
+</plex-layout>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -12,6 +12,7 @@ import { Laboratorio } from '../../../modelos/laboratorio';
 export class DetalleLaboratorioComponent implements OnInit {
 
     public selectedId;
+    public width: number;
     public laboratorios$;
     public listadoLaboratorio: Laboratorio[];
     laboratorio$: Observable<Laboratorio>;
@@ -21,6 +22,7 @@ export class DetalleLaboratorioComponent implements OnInit {
         private laboratorioService: PrestacionService,
         private route: ActivatedRoute,
         private router: Router,
+        private el: ElementRef,
     ) { }
 
     ngOnInit() {

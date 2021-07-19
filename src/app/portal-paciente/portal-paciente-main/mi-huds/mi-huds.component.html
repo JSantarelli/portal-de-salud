@@ -1,22 +1,36 @@
-<plex-list *ngIf="verHuds === true" height="60vh" size="md">
-    <plex-item *ngFor="let hud of huds$ | async | hudsFilter: searchTerm" (click)="selected(hud)"
-               [selected]="hud.selected">
-        <plex-label type="{{ hud.color }}" icon="{{ hud.icono }}" titulo="{{ hud.tituloPrincipal }}" size="lg"
-                    subtitulo="{{ hud.subtituloPrincipal }}"></plex-label>
-        <plex-label *mobile="false" titulo="{{ hud.tituloSecundario }}" size="md"
-                    subtitulo="{{ hud.subtituloSecundario }}">
-        </plex-label>
-        <plex-badge type="warning">{{ hud.badgePrincipal }}</plex-badge>
-        <plex-badge type="success">{{ hud.badgeSecundario }}</plex-badge>
-        <plex-badge type="info">{{ hud.fecha }}</plex-badge>
-        <plex-button type="info" size="sm" icon="eye"></plex-button>
-    </plex-item>
-</plex-list>
+<plex-layout [aspect]="9">
+    <plex-layout-main type="invert">
+        <pdp-titulo></pdp-titulo>
+        <pdp-menu>
+            <plex-title size="sm" titulo="mi historia única de salud"></plex-title>
+            <plex-list *ngIf="verHuds === true" size="md">
+                <plex-item *ngFor="let hud of huds$ | async | hudsFilter: searchTerm" (click)="selected(hud)"
+                           [selected]="hud.selected">
+                    <plex-label type="{{ hud.color }}" icon="{{ hud.icono }}" titulo="{{ hud.tituloPrincipal }}"
+                                size="lg" subtitulo="{{ hud.subtituloPrincipal }}"></plex-label>
+                    <plex-label *mobile="false" titulo="{{ hud.tituloSecundario }}" size="md"
+                                subtitulo="{{ hud.subtituloSecundario }}">
+                    </plex-label>
+                    <plex-badge type="warning">{{ hud.badgePrincipal }}</plex-badge>
+                    <plex-badge type="success">{{ hud.badgeSecundario }}</plex-badge>
+                    <plex-badge type="info">{{ hud.fecha }}</plex-badge>
+                    <plex-button type="info" size="sm" icon="eye"></plex-button>
+                </plex-item>
+            </plex-list>
 
-<section *ngIf="verHuds === false" class="d-flex flex-column mt-4 h-50" aligned="center" justify="center">
-    <plex-label size="xl" case="capitalize-first" direction="column" titulo="Mi portal de salud" subtitulo="Aquí podrás navegar tu Historia Unificada de Salud
+            <section *ngIf="verHuds === false" class="d-flex flex-column mt-4 h-50" aligned="center" justify="center">
+                <plex-label size="xl" case="capitalize-first" direction="column" titulo="Mi portal de salud" subtitulo="Aquí podrás navegar tu Historia Unificada de Salud
     y comunicarte con organizaciones y con tu equipo de salud" icon="paciente"></plex-label>
-    <plex-button type="info" class="mt-4" size="md" label="Navegar mi historia de salud" (click)="mostrarHuds()"
-                 routerLink="miHuds">
-    </plex-button>
-</section>
+                <plex-button type="info" class="mt-4" size="md" label="Navegar mi historia de salud"
+                             (click)="mostrarHuds()">
+                </plex-button>
+            </section>
+        </pdp-menu>
+    </plex-layout-main>
+    <plex-layout-sidebar>
+        <plex-title size="{{ isResponsive() ? 'sm' : 'md' }}" titulo="Detalle registro">
+            <plex-button type="danger" icon="close" size="sm" (click)="gotTo()"></plex-button>
+        </plex-title>
+        <router-outlet></router-outlet>
+    </plex-layout-sidebar>
+</plex-layout>

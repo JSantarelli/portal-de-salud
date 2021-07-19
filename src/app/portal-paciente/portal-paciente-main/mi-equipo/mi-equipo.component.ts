@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { PrestacionService } from '../../../servicios/prestacion.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { EventEmitter, Output } from '@angular/core';
@@ -11,6 +11,7 @@ import { switchMap } from 'rxjs/operators';
 export class MiEquipoComponent implements OnInit {
 
     public selectedId;
+    public width: number;
     public profesional$;
     public equipo$;
 
@@ -21,7 +22,9 @@ export class MiEquipoComponent implements OnInit {
     constructor(
         private prestacionService: PrestacionService,
         private route: ActivatedRoute,
-        private router: Router) { }
+        private router: Router,
+        private el: ElementRef
+    ) { }
 
     ngOnInit(): void {
         // Servicios
@@ -46,16 +49,23 @@ export class MiEquipoComponent implements OnInit {
         this.prestacionService.actualizarFoco('sidebar');
     }
 
+
+    gotTo(id?) {
+        if (id) {
+            this.router.navigate([id], { relativeTo: this.route });
+        } else {
+            this.router.navigate(['miEquipo']);
+        }
+    }
+
+    isResponsive() {
+        this.width = this.el.nativeElement.clientWidth;
+        return this.width >= 980;
+    }
+
     selected(profesional) {
-        this.nuevoValor();
-        this.cambiaFoco();
-        this.mostrarSidebar();
         this.selectedId = profesional.id;
-        this.prestacionService.resetOutlet();
-        setTimeout(() => {
-            profesional.selected = !profesional.selected;
-            this.router.navigate(['portal-paciente', { outlets: { detalleProfesional: [this.selectedId] } }]);
-        }, 500);
+        this.router.navigate(['miEquipo', profesional.id]);
     }
 }
 

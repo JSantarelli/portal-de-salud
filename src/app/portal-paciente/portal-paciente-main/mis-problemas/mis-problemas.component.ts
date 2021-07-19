@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { PrestacionService } from '../../../servicios/prestacion.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
@@ -11,6 +11,7 @@ import { switchMap } from 'rxjs/operators';
 export class MisProblemasComponent implements OnInit {
 
     public selectedId;
+    public width: number;
     public problema$;
     public problemas$;
     mainValue: number;
@@ -19,6 +20,7 @@ export class MisProblemasComponent implements OnInit {
         private prestacionService: PrestacionService,
         private route: ActivatedRoute,
         private router: Router,
+        private el: ElementRef,
     ) { }
 
     ngOnInit(): void {
@@ -46,15 +48,27 @@ export class MisProblemasComponent implements OnInit {
         this.prestacionService.actualizarFoco('sidebar');
     }
 
+
+    gotTo(id?) {
+        if (id) {
+            this.router.navigate([id], { relativeTo: this.route });
+        } else {
+            this.router.navigate(['misProblemas']);
+        }
+    }
+
+    isResponsive() {
+        this.width = this.el.nativeElement.clientWidth;
+        return this.width >= 980;
+    }
+
     selected(problema) {
-        this.nuevoValor();
-        this.cambiaFoco();
-        this.mostrarSidebar();
+
         problema.selected = !problema.selected;
-        this.prestacionService.resetOutlet();
+        //this.prestacionService.resetOutlet();
         setTimeout(() => {
             this.selectedId = problema.id;
-            this.router.navigate(['portal-paciente', { outlets: { detalleProblema: [this.selectedId] } }]);
+            this.router.navigate(['misProblemas', this.selectedId]);
         }, 500);
     }
 }

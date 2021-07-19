@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { PrestacionService } from '../../../servicios/prestacion.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { EventEmitter, Output } from '@angular/core';
@@ -11,6 +11,7 @@ import { switchMap } from 'rxjs/operators';
 export class MisFamiliaresComponent implements OnInit {
 
     public selectedId;
+    public width: number;
     public familiar$;
     public familiares$;
 
@@ -21,7 +22,9 @@ export class MisFamiliaresComponent implements OnInit {
     constructor(
         private prestacionService: PrestacionService,
         private route: ActivatedRoute,
-        private router: Router) { }
+        private router: Router,
+        private el: ElementRef
+    ) { }
 
     ngOnInit(): void {
         // Servicios
@@ -46,17 +49,22 @@ export class MisFamiliaresComponent implements OnInit {
         this.prestacionService.actualizarFoco('sidebar');
     }
 
+    gotTo(id?) {
+        if (id) {
+            this.router.navigate([id], { relativeTo: this.route });
+        } else {
+            this.router.navigate(['misFamiliares']);
+        }
+    }
+
+    isResponsive() {
+        this.width = this.el.nativeElement.clientWidth;
+        return this.width >= 980;
+    }
 
     selected(familiar) {
-        this.nuevoValor();
-        this.cambiaFoco();
-        this.mostrarSidebar();
         familiar.selected = !familiar.selected;
-        this.prestacionService.resetOutlet();
-        setTimeout(() => {
-            this.selectedId = familiar.id;
-            this.router.navigate(['portal-paciente', { outlets: { detalleFamiliar: [this.selectedId] } }]);
-        }, 500);
+        this.router.navigate(['misFamiliares', familiar.id]);
     }
 }
 

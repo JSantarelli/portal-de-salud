@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { PrestacionService } from '../../../servicios/prestacion.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { EventEmitter, Output } from '@angular/core';
@@ -14,8 +14,10 @@ export class MiHudsComponent implements OnInit {
     searchTerm$ = new BehaviorSubject<string>('');
 
     public selectedId;
+    public width: number;
     public hud$;
     public huds$;
+
     mainValue: number;
     filtros = true;
     verHuds = false;
@@ -59,6 +61,7 @@ export class MiHudsComponent implements OnInit {
         private prestacionService: PrestacionService,
         private route: ActivatedRoute,
         private router: Router,
+        private el: ElementRef,
     ) { }
 
     ngOnInit(): void {
@@ -194,16 +197,24 @@ export class MiHudsComponent implements OnInit {
         this.prestacionService.actualizarFoco('sidebar');
     }
 
+
+    gotTo(id?) {
+        if (id) {
+            this.router.navigate([id], { relativeTo: this.route });
+        } else {
+            this.router.navigate(['miHuds']);
+        }
+    }
+
+    isResponsive() {
+        this.width = this.el.nativeElement.clientWidth;
+        return this.width >= 980;
+    }
+
     selected(hud) {
         hud.selected = !hud.selected;
-        this.nuevoValor();
-        this.cambiaFoco();
-        this.mostrarSidebar();
-        this.prestacionService.resetOutlet();
-        setTimeout(() => {
-            this.selectedId = hud.id;
-            this.router.navigate(['portal-paciente', { outlets: { detalleHuds: [this.selectedId] } }]);
-        }, 500);
+        this.selectedId = hud.id;
+        this.router.navigate(['miHuds', this.selectedId]);
     }
 }
 

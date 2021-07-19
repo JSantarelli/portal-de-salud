@@ -1,18 +1,34 @@
-<plex-list height="60vh">
-    <plex-item *ngFor="let prescripcion of prescripciones$ | async" (click)="selected(prescripcion)">
-        <plex-label size="lg" icon="pildoras" class="color-producto" titulo="{{ prescripcion.nombre }}"
-                    subtitulo="{{ prescripcion.formaFarmaceutica }} | {{ prescripcion.indicacion.administracion }} | {{ prescripcion.indicacion.dosis }}">
-        </plex-label>
-        <plex-label *mobile="false" size="md" titulo="indicacion"
-                    subtitulo="{{ prescripcion.indicacion.administracion }} | {{ prescripcion.indicacion.dosis }}">
-        </plex-label>
+<plex-layout [aspect]="9">
+    <plex-layout-main type="invert">
+        <pdp-titulo></pdp-titulo>
+        <pdp-menu>
+            <plex-title size="sm" titulo="mis prescripciones"></plex-title>
+            <plex-list>
+                <plex-item *ngFor="let prescripcion of prescripciones$ | async" (click)="selected(prescripcion)">
+                    <plex-label size="lg" icon="pildoras" class="color-producto" titulo="{{ prescripcion.nombre }}"
+                                subtitulo="{{ prescripcion.formaFarmaceutica }} | {{ prescripcion.indicacion.administracion }} | {{ prescripcion.indicacion.dosis }}">
+                    </plex-label>
+                    <plex-label *mobile="false" size="md" titulo="indicacion"
+                                subtitulo="{{ prescripcion.indicacion.administracion }} | {{ prescripcion.indicacion.dosis }}">
+                    </plex-label>
 
-        <plex-label *mobile="false" size="md" titulo="Vigencia" subtitulo="{{ prescripcion.indicacion.vigencia }}">
-        </plex-label>
+                    <plex-label *mobile="false" size="md" titulo="Vigencia"
+                                subtitulo="{{ prescripcion.indicacion.vigencia }}">
+                    </plex-label>
 
-        <plex-badge type="{{ prescripcion.activo ? 'success' : 'warning'}}">{{ prescripcion.activo ? 'activo' :
-            'inactivo'}}</plex-badge>
-        <plex-badge type="info">{{ prescripcion.fechaIndicacion }}</plex-badge>
-        <plex-button type="info" icon="eye" size="sm" (click)="selected(prescripcion)"></plex-button>
-    </plex-item>
-</plex-list>
+                    <plex-badge type="{{ prescripcion.activo ? 'success' : 'warning'}}">{{ prescripcion.activo ?
+                        'activo' :
+                        'inactivo'}}</plex-badge>
+                    <plex-badge type="info">{{ prescripcion.fechaIndicacion }}</plex-badge>
+                    <plex-button type="info" icon="eye" size="sm" (click)="selected(prescripcion)"></plex-button>
+                </plex-item>
+            </plex-list>
+        </pdp-menu>
+    </plex-layout-main>
+    <plex-layout-sidebar>
+        <plex-title size="{{ isResponsive() ? 'sm' : 'md' }}" titulo="Detalle prescripcion">
+            <plex-button type="danger" icon="close" size="sm" (click)="gotTo()"></plex-button>
+        </plex-title>
+        <router-outlet></router-outlet>
+    </plex-layout-sidebar>
+</plex-layout>

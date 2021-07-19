@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -13,6 +13,7 @@ import { Vacuna } from '../../../modelos/vacuna';
 export class DetalleVacunaComponent implements OnInit {
 
     public selectedId;
+    public width: number;
     public vacunas$;
     public prestaciones$;
     public listadoPrestacion: Prestacion[];
@@ -25,6 +26,7 @@ export class DetalleVacunaComponent implements OnInit {
         private prestacionService: PrestacionService,
         private route: ActivatedRoute,
         private router: Router,
+        private el: ElementRef,
     ) { }
 
     ngOnInit() {

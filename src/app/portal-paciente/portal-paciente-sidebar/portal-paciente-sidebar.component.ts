@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AgendaService } from '../../servicios/agenda.service';
@@ -22,6 +22,7 @@ export class PortalPacienteSidebarComponent implements OnInit {
         private agendaService: AgendaService,
         private route: ActivatedRoute,
         private router: Router,
+        private el: ElementRef,
     ) { }
 
     ngOnInit() {

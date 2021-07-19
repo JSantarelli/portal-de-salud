@@ -13,16 +13,17 @@
     </plex-detail>
 
     <!-- Listado -->
-    <plex-list height="60vh">
+    <plex-list>
         <plex-heading>
             <b label></b>
             <b label></b>
             <b label></b>
             <b label></b>
         </plex-heading>
-
         <plex-accordion *ngFor="let registro of prestacion.registros">
             <plex-panel>
+                <plex-options [items]="items">
+                </plex-options>
                 <section plex-accordion-title justify>
                     <div class="w-50">
                         <plex-label icon="{{ registro.icono }}" type="{{ registro.color }}" case="capitalize" size="lg"

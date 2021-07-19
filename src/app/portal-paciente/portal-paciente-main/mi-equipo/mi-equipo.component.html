@@ -1,21 +1,42 @@
-<plex-title size="sm" titulo="Mi equipo de salud">
-    <plex-button type="success" icon="account-plus" tooltip="agregar miembro" class="ml-2" size="sm">
-    </plex-button>
-    <plex-button type="warning" label="evaluar profesional" tooltip="evaluar" class="ml-2 mr-3" size="sm">
-    </plex-button>
-</plex-title>
-<plex-grid size="sm" type="full" cols="5">
-    <plex-card type="default" *ngFor="let profesional of equipo$ | async" (click)="selected(profesional)"
-               [selected]="profesional.selected">
-        <img src="{{ profesional.foto }}" alt="">
-        <plex-label size="md" direction="column" titulo="{{ profesional.nombre }} {{ profesional.apellido }}"
-                    subtitulo="{{ profesional.rol }}">
-        </plex-label>
-        <p *ngFor="let esp of especialidad">{{ esp.nombre }}</p>
-        <plex-badge *ngFor=" let matricula of profesional.matriculas" type="info">MAT. NRO {{ matricula.numero }}
-        </plex-badge>
-        <plex-button type="info" size="sm" icon="mail"></plex-button>
-        <plex-button type="warning" size="sm" icon="star"></plex-button>
-        <plex-button type="danger" size="sm" icon="account-off"></plex-button>
-    </plex-card>
-</plex-grid>
+<plex-layout [aspect]="9" resizable="true">
+    <plex-layout-main type="invert">
+        <pdp-titulo></pdp-titulo>
+        <pdp-menu>
+            <plex-title size="sm" titulo="Mi equipo de salud">
+                <plex-button type="success" icon="account-plus" tooltip="agregar miembro" class="ml-2" size="sm">
+                </plex-button>
+                <plex-button type="warning" label="evaluar profesional" tooltip="evaluar" class="ml-2" size="sm">
+                </plex-button>
+            </plex-title>
+            <plex-grid type="auto" size="sm" colsSm="2" colsMd="3" colsLg="4" responsive>
+                <plex-card type="dark" selectable="true" mode="filled" *ngFor="let profesional of equipo$ | async"
+                           (click)="selected(profesional)" [selected]="profesional.selected">
+
+                    <plex-detail size="xs" direction="column">
+                        <img src="{{ profesional.foto }}" alt="">
+                        <plex-badge *ngFor=" let matricula of profesional.matriculas" type="info">MAT. NRO {{
+                            matricula.numero }}
+                        </plex-badge>
+                        <div title>
+                            {{ profesional.nombre }} {{ profesional.apellido }}
+                        </div>
+                        <div subtitle>
+                            {{ profesional.rol }}<br>
+                            <p *ngFor="let esp of especialidad">{{ esp.nombre }}</p>
+                            <plex-button type="info" size="sm" icon="mail"></plex-button>
+                            <plex-button type="warning" size="sm" icon="star"></plex-button>
+                            <plex-button type="danger" size="sm" icon="account-off"></plex-button>
+                        </div>
+                    </plex-detail>
+
+                </plex-card>
+            </plex-grid>
+        </pdp-menu>
+    </plex-layout-main>
+    <plex-layout-sidebar>
+        <plex-title size="{{ isResponsive() ? 'sm' : 'md' }}" titulo="Miembro del equipo de salud">
+            <plex-button type="danger" icon="close" size="sm" (click)="gotTo()"></plex-button>
+        </plex-title>
+        <router-outlet></router-outlet>
+    </plex-layout-sidebar>
+</plex-layout>

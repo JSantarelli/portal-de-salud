@@ -1,17 +1,49 @@
-<ng-container *ngIf="turno$ | async as turno">
-    <plex-detail>
-        <plex-icon name="turno-bold" type="info"></plex-icon>
-        <div title case="capitalize" title>{{ turno.fecha }} | {{ turno.horaInicio }}</div>
-        <div subtitle>{{ turno.tipoPrestacion }}</div>
-        <plex-badge type="info">{{ turno.fecha }}</plex-badge>
-        <plex-badge type="{{turno.asistencia==='asististe' ? 'success' : 'warning' }}">{{ turno.asistencia }}
-        </plex-badge>
+<ng-container *ngIf="turnoConfirmado === false">
+    <ng-container *ngIf="turno$ | async as turno">
+        <plex-detail>
+            <plex-icon name="turno-bold" type="info"></plex-icon>
+            <div title case="capitalize" title>{{ turno.fecha }} | {{ turno.horaInicio }}</div>
+            <div subtitle>{{ turno.tipoPrestacion }}</div>
+            <plex-badge type="info">{{ turno.fecha }}</plex-badge>
+            <plex-badge type="{{turno.asistencia==='asististe' ? 'success' : 'warning' }}">{{ turno.asistencia }}
+            </plex-badge>
+            <plex-label titulo="Lugar" subtitulo="{{ turno.efector }}"></plex-label>
+            <plex-label titulo="Fecha de emisión" subtitulo="{{ turno.fechaHoraDacion }}"></plex-label>
+            <plex-label type="warning" titulo="Hora de asistencia" subtitulo="{{ turno.horaAsistencia }}"> </plex-label>
+            <plex-label titulo="Equipo de Salud" subtitulo="{{ turno.profesional }}"> </plex-label>
+        </plex-detail>
+        <plex-title size="sm" titulo="nota"></plex-title>
+        <p>{{ turno.nota }} {{ turno.motivoSuspension }}</p>
+    </ng-container>
+    <plex-button type="success" label="confirmar turno" size="block" (click)="confirmarTurno()"></plex-button>
+</ng-container>
 
-        <plex-label titulo="Lugar" subtitulo="{{ turno.efector }}"></plex-label>
-        <plex-label titulo="Fecha de emisión" subtitulo="{{ turno.fechaHoraDacion }}"></plex-label>
-        <plex-label type="warning" titulo="Hora de asistencia" subtitulo="{{ turno.horaAsistencia }}"> </plex-label>
-        <plex-label titulo="Equipo de Salud" subtitulo="{{ turno.profesional }}"> </plex-label>
-    </plex-detail>
-    <plex-title size="sm" titulo="nota"></plex-title>
-    <p>{{ turno.nota }} {{ turno.motivoSuspension }}</p>
+<ng-container *ngIf="turnoConfirmado === true">
+    <ng-container *ngIf="turno$ | async as turno">
+        <section class="d-flex flex-column mt-4 h-25" aligned="center" justify="center">
+            <plex-label type="success" size="xl" case="capitalize-first" direction="column" titulo="Turno asignado
+        exitosamente!" subtitulo="Corrobora los datos de tu turno" icon="check"></plex-label>
+        </section>
+        <plex-title size="sm" titulo="los datos de tu turno"></plex-title>
+        <plex-grid cols="2" class="h-25 mb-4 mr-2">
+            <plex-detail direction="column" size="sm">
+                <img src="{{ turno.paciente.foto }}" alt="">
+                <div title case="capitalize" title>{{ turno.fecha }} | {{ turno.horaInicio }}</div>
+                <div subtitle>{{ turno.tipoPrestacion }}</div>
+            </plex-detail>
+
+            <plex-detail direction="column" size="md">
+                <plex-icon size="md" name="turno-bold" type="info"></plex-icon>
+                <div title case="capitalize" title>{{ turno.tipoPrestacion }}</div>
+            </plex-detail>
+        </plex-grid>
+        <span class="my-4"></span>
+        <plex-grid type="full" size="lg" class="h-25 mr-2">
+            <plex-label icon="star" titulo="Lugar" subtitulo="{{ turno.efector }}"></plex-label>
+            <plex-label icon="star" titulo="Fecha de emisión" subtitulo="{{ turno.fechaHoraDacion }}"></plex-label>
+            <plex-label icon="star" type="warning" titulo="Hora de asistencia" subtitulo="{{ turno.horaAsistencia }}">
+            </plex-label>
+            <plex-label icon="star" titulo="Equipo de Salud" subtitulo="{{ turno.profesional }}"> </plex-label>
+        </plex-grid>
+    </ng-container>
 </ng-container>

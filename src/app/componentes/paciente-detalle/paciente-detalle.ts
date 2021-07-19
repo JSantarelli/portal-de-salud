@@ -1,14 +1,11 @@
 import { Component, OnInit, ElementRef, ViewChildren, QueryList } from '@angular/core';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { Router } from '@angular/router';
 
 // rxjs
 import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 
 // Servicios y modelo
-import { Agenda } from '../../modelos/agenda';
 import { Paciente } from '../../modelos/paciente';
-import { Plex } from '@andes/plex';
 import { EventEmitter, Output } from '@angular/core';
 import { PacienteService } from '../../servicios/paciente.service';
 import { PlexModalComponent } from '@andes/plex/src/lib/modal/modal.component';
@@ -31,8 +28,8 @@ export class PacienteDetalleComponent implements OnInit {
     ]
 
     alertas = [
-        { dato: 'problemas', valor: '7', subdato: 'hipertensión, diabetes y 5 más...', tipo: 'dark', color: '', icono: 'trastorno', path: 'misProblemas', semanticTag: 'trastorno' },
-        { dato: 'alergias', valor: '3', subdato: 'penicilina, carbamazepina y metmorfina', tipo: 'dark', color: '', icono: 'lupa-ojo', path: 'misProblemas', semanticTag: 'hallazgo' },
+        { dato: 'problemas', valor: '7', subdato: 'hipertensión, diabetes y 5 más...', tipo: 'dark', color: '#ff4a1a', icono: 'trastorno', path: 'misProblemas', semanticTag: 'trastorno' },
+        { dato: 'alergias', valor: '3', subdato: 'penicilina, carbamazepina y metmorfina', tipo: 'dark', color: '#f4a03b', icono: 'lupa-ojo', path: 'misProblemas', semanticTag: 'hallazgo' },
         { dato: 'prescripciones', valor: '5', subdato: 'subutamol, enalapril y 3 más...', tipo: 'dark', color: '#00cab6', icono: 'pildoras', path: 'misPrescripciones', semanticTag: 'producto' },
         { dato: 'laboratorios', valor: '1', subdato: 'Resultados del hemograma', tipo: 'dark', color: '#a0a0a0', icono: 'recipiente', path: 'misLaboratorios', semanticTag: 'laboratorio' },
         { dato: 'vacunas', valor: '1', subdato: 'subutamol, enalapril y 3 más...', tipo: 'dark', color: '#92278e', icono: 'vacuna', path: 'misVacunas', semanticTag: 'procedimiento' },
@@ -86,11 +83,9 @@ export class PacienteDetalleComponent implements OnInit {
     }
 
     constructor(
-        private plex: Plex,
-        private route: ActivatedRoute,
         private router: Router,
-        private pacienteService: PacienteService,
         private el: ElementRef,
+        private pacienteService: PacienteService
     ) { }
 
     ngOnInit() {
@@ -117,8 +112,7 @@ export class PacienteDetalleComponent implements OnInit {
     }
 
     editarDatos() {
-        this.router.navigate(['portal-paciente', { outlets: { listado: 'misDatos' } }]);
-
+        this.router.navigate(['misDatos']);
     }
 
     isResponsive() {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { EventEmitter, Output, Input } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
@@ -25,6 +25,7 @@ export class FiltrosHudsComponent implements OnInit {
     cards$: Observable<Card[]>;
 
     public selectedId;
+    public width: number;
     public prestacion$;
     public prestaciones$;
 
@@ -63,6 +64,7 @@ export class FiltrosHudsComponent implements OnInit {
         private cardService: CardService,
         private route: ActivatedRoute,
         private router: Router,
+        private el: ElementRef,
     ) { }
 
     ngOnInit(): void {
