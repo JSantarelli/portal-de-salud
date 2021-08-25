@@ -3,6 +3,9 @@ import { ModuleWithProviders } from '@angular/core';
 
 import { HomeComponent } from './home.component';
 
+// Punto de inicio
+import { MiInicioComponent } from './portal-paciente/portal-paciente-main/mi-inicio/mi-inicio.component';
+
 import { PortalPacienteComponent } from './portal-paciente/portal-paciente.component';
 import { PDPMenuComponent } from './componentes/portal-menu/portal-menu.component';
 import { MiHudsComponent } from './portal-paciente/portal-paciente-main/mi-huds/mi-huds.component';
@@ -35,6 +38,9 @@ import { DetalleSolicitudComponent } from './portal-paciente/portal-paciente-sid
 
 
 const appRoutes: Routes = [
+    {
+        path: 'miInicio', component: MiInicioComponent,
+    },
     {
         path: 'miHuds', component: MiHudsComponent,
         children: [
@@ -113,7 +119,7 @@ const appRoutes: Routes = [
     },
     { path: 'misDatos', component: MisDatosComponent },
 
-    { path: '', component: HomeComponent },
+    { path: '', component: MiInicioComponent },
 ];
 
 export const appRoutingProviders: any[] = [];

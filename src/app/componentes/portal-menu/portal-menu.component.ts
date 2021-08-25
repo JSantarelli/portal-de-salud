@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
     selector: 'pdp-menu',
     templateUrl: './portal-menu.component.html'
 })
+
 export class PDPMenuComponent implements OnInit {
     // Navegación lateral
     valorMain = 11;
@@ -26,6 +27,9 @@ export class PDPMenuComponent implements OnInit {
     width = 0;
     card$: Observable<Card>;
     cards$: Observable<Card[]>;
+
+    resizable = true;
+    expanded: Boolean = false;
 
     constructor(
         private el: ElementRef,
@@ -50,6 +54,7 @@ export class PDPMenuComponent implements OnInit {
             return true;
         } else {
             this.valorResultante = 11;
+            return this.width >= 980;
         }
     }
 
@@ -57,4 +62,8 @@ export class PDPMenuComponent implements OnInit {
         this.router.navigate([path]);
     }
 
+    // Resize
+    expandir() {
+        this.expanded = !this.expanded;
+    }
 }

@@ -1,17 +1,19 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { CardService } from '../../servicios/card.service';
 import { switchMap } from 'rxjs/operators';
 import { Card } from '../../modelos/card';
-
-// rxjs
-import { Observable } from 'rxjs';
 
 @Component({
     selector: 'pdp-titulo',
     templateUrl: './portal-titulo.component.html'
 })
 export class PDPTituloComponent implements OnInit {
+
+    searchTerm = new BehaviorSubject<string>('');
+
+    public searchInput = false;
     public width: number;
     card$: Observable<Card>;
     cards$: Observable<Card[]>;
@@ -30,6 +32,10 @@ export class PDPTituloComponent implements OnInit {
             switchMap((params: ParamMap) =>
                 this.cardService.getCard(params.get('id')))
         );
+    }
+
+    showSearch() {
+        this.searchInput = !this.searchInput;
     }
 
     isResponsive() {

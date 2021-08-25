@@ -1,19 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Huds } from '../modelos/huds';
-import { Prestacion } from '../modelos/prestacion';
-
+import { Card } from '../modelos/card';
 
 @Pipe({
     name: 'hudsFilter'
 })
 export class PrestacionPipe implements PipeTransform {
 
-    transform(hud: Huds[], searchTerm: string): any[] {
-        if (!hud || !searchTerm) {
-            return hud;
+    transform(cards: Card[], searchTerm: string): Card[] {
+        if (!cards || !searchTerm) {
+            return cards;
         }
 
-        return hud.filter(hud => hud.tituloPrincipal.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
+        return cards.filter(cards => cards.nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
 
     }
 }

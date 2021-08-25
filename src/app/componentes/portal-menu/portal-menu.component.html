@@ -1,26 +1,69 @@
 <plex-wrapper>
     <!-- Menu Lateral-->
-    <plex-grid id="menu-vertical" *mobile="false" class="d-flex align-self-start mr-2 flex-column" size="xs">
-        <ng-container *ngFor="let card of cards$ | async">
-            <plex-label icon="{{ card.icono }}" size="md" direction="column" class="mb-2 color-{{ card.semanticTag}}"
-                        titulo="" subtitulo="" [routerLink]="['/', card.path]" tooltip="{{ card.path }}" class="mb-2"
-                        tooltipPosition="right">
-            </plex-label>
-        </ng-container>
-    </plex-grid>
+    <!--<plex-grid id="menu-vertical" *mobile="false" class="d-flex align-self-start mr-2 flex-column" size="xs">-->
+
+    <section id="menu-vertical" #miniNav [class.expanded]="expanded" *mobile="false">
+
+        <nav class="plex-mininav-container">
+            <ul superiores>
+                <ng-container *ngFor="let card of cards$ | async">
+                    <li class="plex-mininav-item">
+                        <!--<plex-card size="xs" type="dark" selectable="true" mode="filled" aligned="start" noGap>-->
+                        <plex-label icon="{{ card.icono }}" size="md" direction="row" titulo="{{ card.nombre }}"
+                                    subtitulo="Breve descripción" [routerLink]="['/', card.path]" type="custom"
+                                    [color]="card.color" case="capitalize">
+                        </plex-label>
+                        <!-- acciones & notificaciones -->
+                        <!--<plex-badge *ngIf="card.outlet === 'true'" type="warning" size="sm">notificación
+                                <plex-button size="sm" label="3"></plex-button>
+                            </plex-badge>
+                        </plex-card>-->
+                    </li>
+                </ng-container>
+            </ul>
+            <ul inferiores>
+                <!--<plex-label icon="logout" size="md" direction="row" titulo="salir" subtitulo="Breve descripción"
+                            routerLink="" type="danger" case="capitalize">
+                </plex-label>-->
+            </ul>
+        </nav>
+
+        <!-- expand button -->
+        <span *ngIf="resizable === true" class="nav-resizable-btn-wrapper" [class.resizable]="resizable"
+              draggable="true">
+            <hr class="divisor">
+            <plex-button size="sm" (click)="expandir()" type="link"
+                         icon="{{expanded ? 'pico-izquierda' : 'pico-derecha'}}">
+            </plex-button>
+        </span>
+    </section>
+
+    <!--<ng-container *ngFor="let card of cards$ | async">
+            <plex-card size="xs" type="dark" selectable="true" mode="filled" aligned="start" noGap [ngClass]="expandirMininav() ? 'expanded'">
+                <plex-label icon="{{ card.icono }}" size="md" direction="row" titulo="{{ card.nombre }}"
+                            subtitulo="Breve descripción" [routerLink]="['/', card.path]" type="custom"
+                            [color]="card.color" case="capitalize">
+                </plex-label>
+                <plex-badge *ngIf="card.outlet === 'true'" type="warning" size="sm">notificación
+                    <plex-button size="sm" label="3"></plex-button>
+                </plex-badge>
+            </plex-card>
+        </ng-container>-->
+
+    <!--</plex-grid>-->
 
     <plex-grid class="mr-2 align-self-start">
         <!-- Listado -->
         <section>
-            <app-paciente-detalle></app-paciente-detalle>
+            <!--<app-paciente-detalle></app-paciente-detalle>-->
             <ng-content></ng-content>
         </section>
 
-        <!-- Menu mobile -->
-        <plex-grid *mobile cols="12" class="align-self-start mr-4" size="md">
+        <!-- Menu lateral mobile -->
+        <!--<plex-grid *mobile cols="12" class="align-self-start mr-4" size="md">
             <plex-button *ngFor="let card of cards$ | async" size="xs" icon="{{ card.icono }}" type="{{ card.type }}"
                          [routerLink]="['/', card.path]">
             </plex-button>
-        </plex-grid>
+        </plex-grid>-->
     </plex-grid>
 </plex-wrapper>

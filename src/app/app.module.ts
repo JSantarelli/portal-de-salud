@@ -24,6 +24,9 @@ import { AppComponent } from './app.component';
 import { PortalPacienteComponent } from './portal-paciente/portal-paciente.component';
 import { PortalPacienteMainComponent } from './portal-paciente/portal-paciente-main/portal-paciente-main.component';
 
+// Punto de inicio
+import { MiInicioComponent } from './portal-paciente/portal-paciente-main/mi-inicio/mi-inicio.component';
+
 // Listados
 import { MiHudsComponent } from './portal-paciente/portal-paciente-main/mi-huds/mi-huds.component';
 import { MisFamiliaresComponent } from './portal-paciente/portal-paciente-main/mis-familiares/mis-familiares.component';
@@ -105,7 +108,8 @@ import { PlexVisualizadorService } from '@andes/plex';
         PDPTituloComponent,
         PDPMenuComponent,
         PrestacionPipe,
-        MapsComponent
+        MapsComponent,
+        MiInicioComponent
     ],
     imports: [
         BrowserModule,

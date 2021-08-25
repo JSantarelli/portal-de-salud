@@ -4,7 +4,6 @@ import { EventEmitter, Output, Input } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { Plex } from '@andes/plex';
 import { BehaviorSubject, Observable } from 'rxjs';
-
 import { PrestacionService } from '../../servicios/prestacion.service';
 import { CardService } from '../../servicios/card.service';
 import { Card } from '../../modelos/card';
@@ -48,11 +47,11 @@ export class FiltrosHudsComponent implements OnInit {
     public modelo: any;
 
     updateMaxHora() {
-        this.tModel.minHora = moment().add(30, 'minutes').add(1, 'days');
+        //this.tModel.minHora = moment().add(30, 'minutes').add(1, 'days');
     }
 
     horaPlus() {
-        return moment(this.tModel.hora).add(30, 'minutes');
+        //return moment(this.tModel.hora).add(30, 'minutes');
     }
 
     onChange() {
@@ -93,8 +92,8 @@ export class FiltrosHudsComponent implements OnInit {
             horados: null,
             disabled: false,
             min: new Date(1970, 0, 1),
-            minHora: moment().add(30, 'minutes'),
-            maxHora: moment().add(180, 'minutes'),
+            //minHora: moment().add(30, 'minutes'),
+            //maxHora: moment().add(180, 'minutes'),
             fechaDecounce: new Date(1970, 0, 1),
         };
 

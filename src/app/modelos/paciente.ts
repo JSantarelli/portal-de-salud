@@ -28,4 +28,5 @@ export class Paciente {
     scan: string;
     reportarError: boolean;
     notaError: string;
+    tipo: string;
 }

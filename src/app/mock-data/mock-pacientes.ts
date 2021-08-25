@@ -31,6 +31,7 @@ export const PACIENTES: Paciente[] = [
         scan: 'null',
         reportarError: false,
         notaError: '',
+        tipo: 'paciente'
     },
     {
         id: 2,
@@ -62,6 +63,7 @@ export const PACIENTES: Paciente[] = [
         scan: 'null',
         reportarError: false,
         notaError: '',
+        tipo: 'paciente'
     },
     {
         id: 3,
@@ -93,6 +95,7 @@ export const PACIENTES: Paciente[] = [
         scan: 'null',
         reportarError: false,
         notaError: '',
+        tipo: 'paciente'
     },
     {
         id: 4,
@@ -101,7 +104,7 @@ export const PACIENTES: Paciente[] = [
         activo: true,
         estado: 'validado',
         nombre: 'Mariela Alejandra',
-        apellido: 'Valenzuela Della Gaspera',
+        apellido: 'Valenzuela Martinez Valenzuela',
         nombreCompleto: '',
         alias: '',
         contacto: 2993420134,
@@ -124,6 +127,7 @@ export const PACIENTES: Paciente[] = [
         scan: 'null',
         reportarError: false,
         notaError: '',
+        tipo: 'delegada'
     },
     {
         id: 5,
@@ -155,6 +159,7 @@ export const PACIENTES: Paciente[] = [
         scan: 'null',
         reportarError: false,
         notaError: '',
+        tipo: 'paciente'
     },
     {
         id: 6,
@@ -186,5 +191,6 @@ export const PACIENTES: Paciente[] = [
         scan: 'null',
         reportarError: false,
         notaError: '',
+        tipo: 'paciente'
     }
 ];

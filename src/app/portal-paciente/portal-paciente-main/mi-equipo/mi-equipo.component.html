@@ -8,10 +8,21 @@
                 <plex-button type="warning" label="evaluar profesional" tooltip="evaluar" class="ml-2" size="sm">
                 </plex-button>
             </plex-title>
-            <plex-grid type="auto" size="sm" colsSm="2" colsMd="3" colsLg="4" responsive>
+            <plex-grid type="full" size="md" colsSm="2" colsMd="3" colsLg="4" responsive>
                 <plex-card type="dark" selectable="true" mode="filled" *ngFor="let profesional of equipo$ | async"
                            (click)="selected(profesional)" [selected]="profesional.selected">
-
+                    <img class="img-fluid rounded-circle w-50 h-50 align-self-center" src="{{ profesional.foto }}"
+                         alt="">
+                    <plex-badge *ngFor=" let matricula of profesional.matriculas" type="info">MAT. NRO {{
+                        matricula.numero }}
+                    </plex-badge>
+                    <plex-label titulo="{{ profesional.nombre }} {{ profesional.apellido }}"
+                                subtitulo="{{ profesional.rol }}"></plex-label>
+                    <plex-button type="info" size="sm" icon="mail"></plex-button>
+                    <plex-button type="warning" size="sm" icon="star"></plex-button>
+                    <plex-button type="danger" size="sm" icon="account-off"></plex-button>
+                    <!-- TODO: fix plex-detail para que no renderee en el DOM grilla interna si no tiene info -->
+                    <!--
                     <plex-detail size="xs" direction="column">
                         <img src="{{ profesional.foto }}" alt="">
                         <plex-badge *ngFor=" let matricula of profesional.matriculas" type="info">MAT. NRO {{
@@ -23,11 +34,9 @@
                         <div subtitle>
                             {{ profesional.rol }}<br>
                             <p *ngFor="let esp of especialidad">{{ esp.nombre }}</p>
-                            <plex-button type="info" size="sm" icon="mail"></plex-button>
-                            <plex-button type="warning" size="sm" icon="star"></plex-button>
-                            <plex-button type="danger" size="sm" icon="account-off"></plex-button>
+
                         </div>
-                    </plex-detail>
+                    </plex-detail>-->
 
                 </plex-card>
             </plex-grid>

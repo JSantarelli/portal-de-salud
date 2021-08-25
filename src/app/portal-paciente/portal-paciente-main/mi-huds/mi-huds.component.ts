@@ -3,7 +3,7 @@ import { PrestacionService } from '../../../servicios/prestacion.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { EventEmitter, Output } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
-import { Plex } from '@andes/plex';
+//import { Plex } from '@andes/plex';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -23,7 +23,7 @@ export class MiHudsComponent implements OnInit {
     verHuds = false;
 
     public duracion = '1 hs. 34 min.';
-    public plex: Plex;
+    //public plex: Plex;
     public tModel: any;
     public optiones: any[];
     public options: any[];
@@ -46,15 +46,15 @@ export class MiHudsComponent implements OnInit {
     @Output() eventoSidebar = new EventEmitter<boolean>(); @Output() eventoFoco = new EventEmitter<string>();
 
     updateMaxHora() {
-        this.tModel.minHora = moment().add(30, 'minutes').add(1, 'days');
+        //this.tModel.minHora = moment().add(30, 'minutes').add(1, 'days');
     }
 
     horaPlus() {
-        return moment(this.tModel.hora).add(30, 'minutes');
+        //return moment(this.tModel.hora).add(30, 'minutes');
     }
 
     onChange() {
-        this.plex.info('success', 'Este cartel se demoro un segundo en aparecer después de escribir.');
+        //this.plex.info('success', 'Este cartel se demoro un segundo en aparecer después de escribir.');
     }
 
     constructor(
@@ -84,8 +84,8 @@ export class MiHudsComponent implements OnInit {
             horados: null,
             disabled: false,
             min: new Date(1970, 0, 1),
-            minHora: moment().add(30, 'minutes'),
-            maxHora: moment().add(180, 'minutes'),
+            //minHora: moment().add(30, 'minutes'),
+            //maxHora: moment().add(180, 'minutes'),
             fechaDecounce: new Date(1970, 0, 1),
         };
 
