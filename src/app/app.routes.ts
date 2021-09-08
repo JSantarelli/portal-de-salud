@@ -2,6 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
 import { HomeComponent } from './home.component';
+import { LoginComponent } from './portal-paciente/portal-login/portal-login.component';
 
 import { PortalPacienteComponent } from './portal-paciente/portal-paciente.component';
 import { MiHudsComponent } from './portal-paciente/portal-paciente-main/mi-huds/mi-huds.component';
@@ -24,7 +25,7 @@ import { DetalleConsultaComponent } from './portal-paciente/portal-paciente-side
 
 const appRoutes: Routes = [
     {
-        path: ' ', component: MiHudsComponent,
+        path: ' ', component: LoginComponent,
 
         children: [
             { path: ':id', component: DetalleHudsComponent, },
@@ -50,7 +51,7 @@ const appRoutes: Routes = [
             { path: ':id', component: DetalleConsultaComponent, },
         ]
     },
-    { path: '', component: HomeComponent },
+    { path: '', component: LoginComponent },
 ];
 export const appRoutingProviders: any[] = [];
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

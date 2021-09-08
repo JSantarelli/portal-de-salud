@@ -1,7 +1,8 @@
 import { Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
-import { HomeComponent } from './home.component';
+// Login
+import { LoginComponent } from './portal-paciente/portal-login/portal-login.component';
 
 // Punto de inicio
 import { MiInicioComponent } from './portal-paciente/portal-paciente-main/mi-inicio/mi-inicio.component';
@@ -119,7 +120,7 @@ const appRoutes: Routes = [
     },
     { path: 'misDatos', component: MisDatosComponent },
 
-    { path: '', component: MiInicioComponent },
+    { path: '', component: LoginComponent },
 ];
 
 export const appRoutingProviders: any[] = [];

@@ -16,8 +16,9 @@ import { AgendaService } from './servicios/agenda.service';
 //import { PacientePipe } from './pipes/pacientes.pipe'
 import { PrestacionPipe } from './pipes/prestaciones.pipe'
 
-// Components
-import { HomeComponent } from './home.component';
+// Login
+import { LoginComponent } from './portal-paciente/portal-login/portal-login.component';
+
 import { AppComponent } from './app.component';
 
 // Portal de pacientes
@@ -70,7 +71,6 @@ import { PlexVisualizadorService } from '@andes/plex';
 @NgModule({
     declarations: [
         AppComponent,
-        HomeComponent,
         PortalPacienteComponent,
         PortalPacienteMainComponent,
         MiHudsComponent,
@@ -109,7 +109,8 @@ import { PlexVisualizadorService } from '@andes/plex';
         PDPMenuComponent,
         PrestacionPipe,
         MapsComponent,
-        MiInicioComponent
+        MiInicioComponent,
+        LoginComponent
     ],
     imports: [
         BrowserModule,
