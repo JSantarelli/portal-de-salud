@@ -1,149 +1,85 @@
 <plex-layout [aspect]="9">
     <plex-layout-main type="invert">
-        <pdp-titulo></pdp-titulo>
+        <ng-container>
+            <pdp-titulo></pdp-titulo>
+        </ng-container>
         <pdp-menu>
             <!--<input placeholder="busque turno, informes, medicamentos" [(ngModel)]="searchTerm" />-->
             <plex-grid type="full" size="md">
-                <ng-container *ngFor="let semantic of cards$ | async | slice:2:5">
+                <ng-container *ngFor="let card of cards$ | async | slice:2:5">
                     <plex-card span="{{ isResponsive() ? '1' : '3' }}" size="{{ isResponsive() ? 'sm' : 'md' }}"
-                               mode="outlined" type="custom" selectable="true" [color]=semantic.color [selected]="true"
-                               (click)="semantic.selected = !semantic.selected"
-                               [routerLink]="[{ outlets: { listado: [semantic.path] } }]">
+                               mode="outlined" type="custom" selectable="true" [color]=card.color [selected]="true"
+                               (click)="card.selected = !card.selected" [routerLink]="[ '/' , card.path ]">
 
                         <plex-label direction="{{ isResponsive() ? 'column' : 'row' }}" align="start"
-                                    size="{{ isResponsive() ? 'md' : 'lg' }}" icon="{{ semantic.icono }}"
-                                    case="capitalize" titulo="{{ semantic.nombre }}" class="text-white"
-                                    subtitulo="{{ isResponsive() ? ' ' : 'Breve descripción' }}"
-                                    tooltip="{{ semantic.nombre }}" type="custom" [color]=semantic.color>
+                                    size="{{ isResponsive() ? 'md' : 'lg' }}" icon="{{ card.icono }}" case="capitalize"
+                                    titulo="{{ card.titulo }}" class="text-white"
+                                    [subtitulo]="isResponsive() ? ' ' : card.subtitulo" tooltip="{{ card.titulo }}"
+                                    type="custom" [color]=card.color>
                         </plex-label>
                         <!-- acciones & notificaciones -->
-                        <plex-badge *ngIf="semantic.outlet === 'true'" type="warning" size="sm">items
+                        <!--<plex-badge *ngIf="card.outlet === 'true'" type="warning" size="sm">items
                             <plex-button size="sm" label="3"></plex-button>
-                        </plex-badge>
-                        <plex-button *mobile type="info" size="sm" label="ver"></plex-button>
-                        <plex-button *mobile="false" type="info" size="sm" label="ver {{ semantic.nombre }}">
+                        </plex-badge>-->
+                        <plex-button *mobile="false" type="info" size="sm" label="ir a {{ card.titulo }}">
                         </plex-button>
                     </plex-card>
                 </ng-container>
 
-                <!-- Paciente -->
+                <!-- Titular cuenta -->
                 <ng-container *ngFor="let paciente of pacientes$ | async | slice:1:2">
-                    <plex-card *ngIf="paciente.tipo === 'paciente'" type="custom" color="#016890" mode="filled"
-                               size="md" span="{{ isResponsive() ? '2' : '5' }}">
+                    <plex-card type="custom" color="#016890" mode="filled" size="md"
+                               span="{{ isResponsive() ? '2' : '5' }}">
                         <plex-detail size="{{ isResponsive() ? 'sm' : 'md' }}"
-                                     direction="{{ isResponsive() ? 'column' : 'row' }}"
+                                     direction="{{ isResponsive() ? 'row' : 'row' }}"
                                      [ngClass]="isResponsive() ? 'no-margin' : ''">
                             <plex-badge size="success">titular</plex-badge>
-                            <plex-icon name="paciente"></plex-icon>
-                            <div title>{{ paciente.nombre }}<br>{{ paciente.apellido }}</div>
-                            <div subtitle>{{ paciente.documento }}<br>
-                                <plex-button size="sm" type="danger" (click)="openModal(0)"
-                                             label="{{ isResponsive() ? 'reportar error' : 'reportar error en mis datos' }}"
-                                             class="mt-4 mr-2">
+                            <img src="{{ paciente.foto }}">
+                            <!--<plex-icon name="paciente"></plex-icon>-->
+                            <div title>
+                                {{ paciente.nombre }} <br> {{ paciente.apellido }}
+                            </div>
+                            <div subtitle>
+                                {{ paciente.documento }}
+                                <br>
+                                <plex-button *mobile="false" class="mr-2" size="sm" type="danger"
+                                             label="{{ isResponsive() ? 'reportar error en mis datos' : 'reportar error' }}"
+                                             (click)="modal.show()">
                                 </plex-button>
-                                <plex-button size="sm" type="info" icon="information-variant"
-                                             tooltip="ver datos secundarios" (click)="ocultarDatos()">
+                                <plex-button *mobile="false" size="sm" type="info" icon="information-variant"
+                                             tooltip="ver datos secundarios"
+                                             (click)="datosSecundarios = !datosSecundarios">
                                 </plex-button>
-                                <plex-button size="sm" type="warning" class="ml-2" icon="pencil"
-                                             tooltip="editar mis datos" (click)="editarDatos()">
+                                <plex-button *mobile="false" class="ml-2" size="sm" type="warning" icon="pencil"
+                                             tooltip="Editar mis datos" (click)="goTo('mis-datos-personales')">
                                 </plex-button>
                             </div>
-                            <plex-label id="datosSecundarios"
-                                        [style.display]="datosSecundarios === true ? 'block' : 'none'"
-                                        *ngFor="let registro of registros" titulo="{{ registro.valor }}"
-                                        subtitulo="{{ registro.dato }} {{ registro.fecha }}"></plex-label>
                         </plex-detail>
                     </plex-card>
                 </ng-container>
+                <!-- Mas cards -->
+                <ng-container *ngFor="let card of cards$ | async | slice:5:7">
+                    <plex-card span="{{ isResponsive() ? '1' : '3' }}" size="{{ isResponsive() ? 'sm' : 'md' }}"
+                               mode="outlined" type="custom" selectable="true" [color]=card.color [selected]="true"
+                               (click)="card.selected = !card.selected" [routerLink]="[ '/' , card.path ]">
 
-                <!-- Equipos de salud -->
-                <!--<ng-container *ngFor="let paciente of pacientes$ | async | slice:4:5">
-                    <plex-card *ngIf="paciente.tipo === 'paciente'" type="custom" color="#652680" mode="filled"
-                               size="md" span="{{ isResponsive() ? 'auto' : '5' }}">
-                        <plex-detail size="{{ isResponsive() ? 'sm' : 'md' }}"
-                                     direction="{{ isResponsive() ? 'column' : 'row' }}"
-                                     [ngClass]="isResponsive() ? 'no-margin' : ''">
-                            <plex-badge size="success">equipo de salud</plex-badge>
-                            <plex-icon name="medico"></plex-icon>
-                            <div title>{{ paciente.nombre }}<br>{{ paciente.apellido }}</div>
-                            <div subtitle>{{ paciente.documento }}<br>
-                                <plex-button size="sm" type="danger" (click)="openModal(0)"
-                                             label="{{ isResponsive() ? 'reportar error' : 'reportar error en mis datos' }}"
-                                             class="mt-4 mr-2">
-                                </plex-button>
-                                <plex-button size="sm" type="info" icon="information-variant"
-                                             tooltip="ver datos secundarios" (click)="ocultarDatos()">
-                                </plex-button>
-                                <plex-button size="sm" type="warning" class="ml-2" icon="pencil"
-                                             tooltip="editar mis datos" (click)="editarDatos()">
-                                </plex-button>
-                            </div>
-                            <plex-label id="datosSecundarios"
-                                        [style.display]="datosSecundarios === true ? 'block' : 'none'"
-                                        *ngFor="let registro of registros" titulo="{{ registro.valor }}"
-                                        subtitulo="{{ registro.dato }} {{ registro.fecha }}"></plex-label>
-                        </plex-detail>
-                    </plex-card>
-                </ng-container>-->
-
-                <!-- Delegada -->
-                <!--<ng-container *ngFor="let paciente of pacientes$ | async | slice:3:4">
-                    <plex-card *ngIf="paciente.tipo === 'delegada'" type="custom" color="#ad3e7f" mode="filled"
-                               size="md" span="{{ isResponsive() ? 'auto' : '5' }}">
-                        <plex-detail size="{{ isResponsive() ? 'sm' : 'md' }}"
-                                     direction="{{ isResponsive() ? 'column' : 'row' }}"
-                                     [ngClass]="isResponsive() ? 'no-margin' : ''">
-                            <plex-badge size="success">cuenta de tu hija</plex-badge>
-                            <img src="./../../../../assets/svg/ninio-circulo.svg" alt="">
-                            <div title>{{ paciente.nombre }}<br>{{ paciente.apellido }}</div>
-                            <div subtitle>{{ paciente.documento }}<br>
-                                <plex-button size="sm" type="danger" (click)="openModal(0)"
-                                             label="{{ isResponsive() ? 'reportar error' : 'reportar error en mis datos' }}"
-                                             class="mt-4 mr-2">
-                                </plex-button>
-                                <plex-button size="sm" type="info" icon="information-variant"
-                                             tooltip="ver datos secundarios" (click)="ocultarDatos()">
-                                </plex-button>
-                                <plex-button size="sm" type="warning" class="ml-2" icon="pencil"
-                                             tooltip="editar mis datos" (click)="editarDatos()">
-                                </plex-button>
-                            </div>
-                            <plex-label id="datosSecundarios"
-                                        [style.display]="datosSecundarios === true ? 'block' : 'none'"
-                                        *ngFor="let registro of registros" titulo="{{ registro.valor }}"
-                                        subtitulo="{{ registro.dato }} {{ registro.fecha }}"></plex-label>
-                        </plex-detail>
-                    </plex-card>
-                </ng-container>-->
-
-                <ng-container *ngFor="let semantic of cards$ | async | slice:6:15">
-                    <plex-card span="{{ isResponsive() ? 'full' : '2' }}" size="{{ isResponsive() ? 'sm' : 'md' }}"
-                               mode="outlined" type="custom" selectable="true" [color]=semantic.color [selected]="true"
-                               (click)="semantic.selected = !semantic.selected"
-                               [routerLink]="[{ outlets: { listado: [semantic.path] } }]">
                         <plex-label direction="{{ isResponsive() ? 'column' : 'row' }}" align="start"
-                                    size="{{ isResponsive() ? 'md' : 'lg' }}" icon="{{ semantic.icono }}"
-                                    case="capitalize" titulo="{{ semantic.nombre }}" class="text-white"
-                                    subtitulo="{{ isResponsive() ? ' ' : 'Breve descripción' }}"
-                                    tooltip="{{ semantic.nombre }}" type="custom" [color]=semantic.color>
+                                    size="{{ isResponsive() ? 'md' : 'lg' }}" icon="{{ card.icono }}" case="capitalize"
+                                    titulo="{{ card.titulo }}" class="text-white"
+                                    [subtitulo]="isResponsive() ? ' ' : card.subtitulo" tooltip="{{ card.titulo }}"
+                                    type="custom" [color]=card.color>
                         </plex-label>
                         <!-- acciones & notificaciones -->
-                        <plex-badge *ngIf="semantic.outlet === 'true'" type="warning" size="sm">items
+                        <!--<plex-badge *ngIf="card.outlet === 'true'" type="warning" size="sm">items
                             <plex-button size="sm" label="3"></plex-button>
-                        </plex-badge>
-                        <plex-button *mobile type="info" size="sm" label="ver"></plex-button>
-                        <plex-button *mobile="false" type="info" size="sm" label="ver {{ semantic.nombre }}">
+                        </plex-badge>-->
+                        <plex-button *mobile="false" type="info" size="sm" label="ir a {{ card.titulo }}">
                         </plex-button>
                     </plex-card>
                 </ng-container>
+
             </plex-grid>
+
         </pdp-menu>
-
-
     </plex-layout-main>
-    <plex-layout-sidebar>
-        <plex-title titulo="Detalle registro">
-            <plex-button type="danger" icon="close" size="sm" (click)="gotTo()"></plex-button>
-        </plex-title>
-    </plex-layout-sidebar>
 </plex-layout>

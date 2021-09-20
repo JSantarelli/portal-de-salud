@@ -8,7 +8,7 @@ import { Observable, of } from 'rxjs';
 import { Paciente } from '../../modelos/paciente';
 import { EventEmitter, Output } from '@angular/core';
 import { PacienteService } from '../../servicios/paciente.service';
-//import { PlexModalComponent } from '@andes/plex/src/lib/modal/modal.component';
+import { PlexModalComponent } from '@andes/plex/src/lib/modal/modal.component';
 
 @Component({
     selector: 'app-paciente-detalle',
@@ -56,18 +56,18 @@ export class PacienteDetalleComponent implements OnInit {
     public prueba = '';
     public cambio = '';
 
-    //@ViewChildren('modal') modalRefs: QueryList<PlexModalComponent>;
+    @ViewChildren('modal') modalRefs: QueryList<PlexModalComponent>;
 
-    //openModal(index) {
-    //    this.modalRefs.find((x, i) => i === index).show();
-    //}
+    openModal(index) {
+        this.modalRefs.find((x, i) => i === index).show();
+    }
 
-    //closeModal(index, formulario?) {
-    //    this.modalRefs.find((x, i) => i === index).close();
-    //    if (formulario) {
-    //        formulario.reset();
-    //    }
-    //}
+    closeModal(index, formulario?) {
+        this.modalRefs.find((x, i) => i === index).close();
+        if (formulario) {
+            formulario.reset();
+        }
+    }
 
     motivoSelect() {
         return this.motivoSelected === null;

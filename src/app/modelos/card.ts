@@ -2,7 +2,8 @@ import { Prestacion } from "./prestacion";
 
 export class Card {
     id: number;
-    nombre: string;
+    titulo: string;
+    subtitulo: string;
     tipo: string;
     semanticTag: String;
     icono: string;

@@ -30,13 +30,14 @@
             <div info id="menuHelp">
                 <plex-grid size="md" type="full">
                     <ng-container *ngFor="let card of cards$ | async">
-                        <plex-label icon="{{ card.icono }}" size="md" class="mb-2" titulo="{{ card.nombre }}"
+                        <plex-label icon="{{ card.icono }}" size="md" class="mb-2" titulo="{{ card.titulo }}"
                                     subtitulo="Breve descripción" [routerLink]="['/', card.path]" [color]="card.color"
                                     case="capitalize" (click)="cerrarHelp()">
                         </plex-label>
                     </ng-container>
                 </plex-grid>
-                <plex-label size="block" class="ml-2" type="danger" icon="logout" titulo="cerrar sesión" routerLink="/">
+                <plex-label size="block" case="capitalize" class="ml-2" type="danger" icon="logout"
+                            titulo="cerrar sesión" routerLink="/">
                 </plex-label>
             </div>
         </plex-help>

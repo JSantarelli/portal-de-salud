@@ -27,6 +27,7 @@ import { PortalPacienteMainComponent } from './portal-paciente/portal-paciente-m
 
 // Punto de inicio
 import { MiInicioComponent } from './portal-paciente/portal-paciente-main/mi-inicio/mi-inicio.component';
+import { HomeComponent } from './home.component';
 
 // Listados
 import { MiHudsComponent } from './portal-paciente/portal-paciente-main/mi-huds/mi-huds.component';
@@ -110,7 +111,8 @@ import { PlexVisualizadorService } from '@andes/plex';
         PrestacionPipe,
         MapsComponent,
         MiInicioComponent,
-        LoginComponent
+        LoginComponent,
+        HomeComponent
     ],
     imports: [
         BrowserModule,

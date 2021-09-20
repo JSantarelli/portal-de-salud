@@ -22,7 +22,7 @@ export class PDPTituloComponent implements OnInit {
         private el: ElementRef,
         private cardService: CardService,
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
     ) { }
 
     ngOnInit() {

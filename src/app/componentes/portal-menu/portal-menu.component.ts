@@ -31,6 +31,9 @@ export class PDPMenuComponent implements OnInit {
     resizable = true;
     expanded: Boolean = false;
 
+    public currentUrl: string;
+    public detallePaciente: boolean;
+
     constructor(
         private el: ElementRef,
         private cardService: CardService,
@@ -45,6 +48,16 @@ export class PDPMenuComponent implements OnInit {
             switchMap((params: ParamMap) =>
                 this.cardService.getCard(params.get('id')))
         );
+
+        // ocultar paciente detalle según ruteo
+        this.currentUrl = this.router.url
+        if (this.currentUrl = 'miInicio') {
+            this.detallePaciente = false;
+        } else {
+            this.detallePaciente = true;
+        }
+        console.log(this.currentUrl);
+        console.log(this.detallePaciente);
     }
 
     isResponsive() {

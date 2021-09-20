@@ -9,7 +9,7 @@
                 <ng-container *ngFor="let card of cards$ | async">
                     <li class="plex-mininav-item">
                         <!--<plex-card size="xs" type="dark" selectable="true" mode="filled" aligned="start" noGap>-->
-                        <plex-label icon="{{ card.icono }}" size="md" direction="row" titulo="{{ card.nombre }}"
+                        <plex-label icon="{{ card.icono }}" size="md" direction="row" titulo="{{ card.titulo }}"
                                     subtitulo="Breve descripción" [routerLink]="['/', card.path]" type="custom"
                                     [color]="card.color" case="capitalize">
                         </plex-label>
@@ -40,7 +40,7 @@
 
     <!--<ng-container *ngFor="let card of cards$ | async">
             <plex-card size="xs" type="dark" selectable="true" mode="filled" aligned="start" noGap [ngClass]="expandirMininav() ? 'expanded'">
-                <plex-label icon="{{ card.icono }}" size="md" direction="row" titulo="{{ card.nombre }}"
+                <plex-label icon="{{ card.icono }}" size="md" direction="row" titulo="{{ card.titulo }}"
                             subtitulo="Breve descripción" [routerLink]="['/', card.path]" type="custom"
                             [color]="card.color" case="capitalize">
                 </plex-label>
@@ -55,7 +55,9 @@
     <plex-grid class="mr-2 align-self-start">
         <!-- Listado -->
         <section>
-            <!--<app-paciente-detalle></app-paciente-detalle>-->
+            <ng-container *ngIf="detallePaciente === 'false'">
+                <app-paciente-detalle *mobile="false"></app-paciente-detalle>
+            </ng-container>
             <ng-content></ng-content>
         </section>
 

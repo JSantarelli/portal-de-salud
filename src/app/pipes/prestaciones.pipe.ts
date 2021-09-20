@@ -11,7 +11,7 @@ export class PrestacionPipe implements PipeTransform {
             return cards;
         }
 
-        return cards.filter(cards => cards.nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
+        //return cards.filter(cards => cards.nombre.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
 
     }
 }
